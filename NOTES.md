@@ -1,0 +1,87 @@
+- **Users can add ulam to their collection of specialties**
+- **Users can edit an ulam of their own**
+- **Users can Delete an ulam of their own**
+- **The application displays the ulams of the user and the people the user follow in the feed**
+- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
+- Users can follow and unfollow each other
+- Search ulam using ingredients (available ingredients)
+- User profile displays specialties in list form, followers and people they follow that other users can also see
+- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
+- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
+- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
+- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
+- **A user can plan meals for up to 7 days**
+- **User can assign an ulam to cook on a particular mealtime and date following the current day**
+- **User can update or remove assgined meals before their mealtime**
+
+- **Authentication**
+  - The application allows creating an account using a verified email and also a guest user
+  - **The application allows using login with google or apple**
+  - **Users can login using their verified email and password**
+  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
+  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
+  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
+
+- Schemas
+  - Ulam
+    - id: db generated
+    - title: str
+    - ingredients: array
+    - steps: array
+    - owner: str (user id)
+    - likes: array
+      - count: int (length of likedBy)
+      - likedBy: array of user ids who liked it
+    - comments: array
+      - user id: str
+      - comment: str
+      - createdAt: date (timestamp)
+    - variations: collection of ulams (created by user or other users)
+    - number of cooks: int
+  - User
+    - id: db generated
+    - email: str
+    - password: str
+    - Followers: array of user ids: str
+    - Following: array of user ids: str
+    - Specialties: collection of ulam ids: str
+  - Cooking history
+    - id: db generated
+    - owner: str (user id)
+    - Date: date (timestamp)
+    - Mealtime: str (breakfast, lunch, dinner)
+    - Ulam: str (ulam id)
+    - Ulams cooked in the last 7 days (cooking history object property: get by filtering history)
+  - Meal plan
+    - id: db generated
+    - owner: str (user id)
+    - ulam: str (ulam id)
+    - date: date
+    - mealtime: str (breakfast, lunch, dinner)
+
+- Pages and actions
+  - /feed
+    - When profile image from the header is clicked, navigate to the users' profile
+    - When ulam card is clicked, navigate to that ulams profile
+    - When add ulam button is clicked, navigate to add ulam to specialties page
+    - When user clicked search bar, navigate to search ulam by ingredients page
+    - Search ulam placeholder changes everytime the user opens or refresh the application
+      - placeholders: `Ano kaya lulutuin kong ulam?`, `Ano kaya ulamin?`, `Ano kaya lulutuin?`, `Wala maisip na lutuin?`, `Wala maisip na ulammin?`, `Can't think of any ulam?`, `Let's find something you can cook.`, `Find recipes from your ingredients.`, `Tell us what ingredients you have.`
+  - /search
+    - When no ingredients is entered yet, display prompt in the main component where the ingredients and ulams will be displayed
+    - User can type ingredients in the input and the application displays options
+    - When add button is clicked, display the ingredient and matched ulams
+    - **Search ulam and search people**
+  - /ulam profile
+    - If user owns the ulam, To edit ulam page when edit ulam button is clicked
+    - Like ulam button
+    - Comment button
+    - Bookmark button
+    - Create variation button
+    - To cook ulam page when cook ulam button is clicked
+
+- Color theme
+  - Red
+  - Orange
+  - Pinterest
+
