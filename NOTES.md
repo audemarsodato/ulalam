@@ -62,6 +62,25 @@
 
 - Pages
   - Feed
+  - Add ulam 
+  - Search ulam
+  - Update / edits ulam
+  - Ulam profile details
+  - Create ulam variation
+  - User profile
+    - Followed people (Child page, seperate page but can only be accesed through the parent page)
+    - Followers
+  - Meal plan
+  - Cook ulam
+  - History of cooked ulam
+  - Sign up
+  - Setting up the account
+  - Onboarding
+  - Log in
+
+- Contents
+  - Feed
+    - 
   - Search ulam
   - Add ulam 
   - Update / edits ulam
