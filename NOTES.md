@@ -28,6 +28,7 @@
     - title: str
     - ingredients: array
     - steps: array
+    - photo_url: str
     - owner: str (user id)
     - likes: array
       - count: int (length of likedBy)
@@ -59,6 +60,24 @@
     - date: date
     - mealtime: str (breakfast, lunch, dinner)
 
+- Pages
+  - Feed
+  - Search ulam
+  - Add ulam 
+  - Update / edits ulam
+  - Create ulam variation
+  - User profile
+    - Followed people (Child page, seperate page but can only be accesed through the parent page)
+    - Followers
+  - Ulam profile details
+  - Meal plan
+  - Cook ulam
+  - History of cooked ulam
+  - Sign up
+  - Setting up the account
+  - Onboarding
+  - Log in
+
 - Pages and actions
   - /feed
     - When profile image from the header is clicked, navigate to the users' profile
@@ -67,6 +86,11 @@
     - When user clicked search bar, navigate to search ulam by ingredients page
     - Search ulam placeholder changes everytime the user opens or refresh the application
       - placeholders: `Ano kaya lulutuin kong ulam?`, `Ano kaya ulamin?`, `Ano kaya lulutuin?`, `Wala maisip na lutuin?`, `Wala maisip na ulammin?`, `Can't think of any ulam?`, `Let's find something you can cook.`, `Find recipes from your ingredients.`, `Tell us what ingredients you have.`
+  - /add-ulam
+    - Input text for ulam name
+    - TextArea for ingredients
+    - TextArea for instructions
+    - Ingredient input suggest existing ingredients from ulams but still able to add a new ingredient
   - /search
     - When no ingredients is entered yet, display prompt in the main component where the ingredients and ulams will be displayed
     - User can type ingredients in the input and the application displays options
