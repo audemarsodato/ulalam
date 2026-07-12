@@ -70,19 +70,32 @@
   - User profile
     - Followed people (Child page, seperate page but can only be accesed through the parent page)
     - Followers
+  - Bookmarks
   - Meal plan
   - Cook ulam
   - History of cooked ulam
   - Sign up
-  - Setting up the account
+  - Complete your profile
   - Onboarding
   - Log in
 
 - Contents
   - Feed
-    - 
-  - Search ulam
+    - Header with user profile pic and ulalam at the center in the same line as profile pic
+    - Greetings to the user, Good morning, Audemars
+    - Search bar that redirects to search page
+    - Previously cooked / You cooked and link to History (View full history)
+    - Your specialties
+    - Latest from people you follow
   - Add ulam 
+    - Header has a arrow left button to go back and a title Add ulam
+    - label Ulam name, then text input
+    - label Photo, then upload file box with label (restaurant icon) Add a photo
+    - label Ingredients, then text input and add button
+    - Then display added ingredients as chips with x button inside them
+    - lebel Instructions, then a textarea for instructions
+    - Then Add Ulam button
+  - Search ulam
   - Update / edits ulam
   - Create ulam variation
   - User profile
@@ -93,7 +106,7 @@
   - Cook ulam
   - History of cooked ulam
   - Sign up
-  - Setting up the account
+  - Complete your profile
   - Onboarding
   - Log in
 
@@ -122,6 +135,13 @@
     - Bookmark button
     - Create variation button
     - To cook ulam page when cook ulam button is clicked
+  - user profile
+    - change default profile picture
+    - change username
+  - complete your profile
+    - username
+    - profile picture (optional)
+    - skip / next
 
 - Color theme
   - Red
