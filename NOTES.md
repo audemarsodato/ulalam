@@ -67,9 +67,6 @@
   - Update / edits ulam
   - Ulam profile details
   - Create ulam variation
-  - User profile
-    - Followed people (Child page, seperate page but can only be accesed through the parent page)
-    - Followers
   - Bookmarks
   - Meal plan
   - Cook ulam
@@ -78,8 +75,11 @@
   - Complete your profile
   - Onboarding
   - Log in
+  - User profile
+    - Followed people (Child page, seperate page but can only be accesed through the parent page)
+    - Followers
 
-- Contents
+- Page Contents
   - Feed
     - Header with user profile pic and ulalam at the center in the same line as profile pic
     - Greetings to the user, Good morning, Audemars
@@ -96,11 +96,23 @@
     - lebel Instructions, then a textarea for instructions
     - Then Add Ulam button
   - Search ulam
+    - Header has an arrow left button to go back and a title search
+      - input search and search button
+      - options like radiobutton that user can choose to search, one for ulam and one for people
+      - Search result container
+      - Ulam card like like in people you follow for ulam search result
+      - People / user card that contains their profile pic, name ,,, similar to ulam card 
   - Update / edits ulam
   - Create ulam variation
   - User profile
-    - Followed people (Child page, seperate page but can only be accesed through the parent page)
-    - Followers
+    - Header has an arrow left button to go back and a title of profile
+    - Profile picture that can be changed
+    - The users username
+    - Following and count, clicking will redirect to following page
+    - Followers and count, clicking will redirect to followers people 
+    - Edit profile if own profile or follow button if not
+    - Specialties
+    - if own profile, show bookmarks and cooking history
   - Ulam profile details
   - Meal plan
   - Cook ulam
@@ -148,3 +160,8 @@
   - Orange
   - Pinterest
 
+Ulam
+        - Title
+        - Ingredients
+        - Instructions
+        - Picture
