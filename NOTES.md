@@ -28,16 +28,16 @@
     - title: str
     - ingredients: array
     - steps: array
-    - photo_url: str
-    - owner: str (user id)
-    - likes: array
-      - count: int (length of likedBy)
-      - likedBy: array of user ids who liked it
-    - comments: array
-      - user id: str
-      - comment: str
-      - createdAt: date (timestamp)
-    - variations: collection of ulams (created by user or other users)
+    - photoUrl: str
+    - owner: userId
+    - likedBy: array of user ids who liked it (count this to get the number of likes)
+    - comments: array (for scalability, use a seperate collection for comments)
+      - (id)
+      - (ulamId)
+      - userId
+      - comment
+      - createdAt
+    - varationOf: ulam_id or null (if original) (use this detail to find the variations of this ulam, Ulam.find({variationOf: currentUlam._id}))
     - number of cooks: int
   - User
     - id: db generated
@@ -95,15 +95,31 @@
     - Then display added ingredients as chips with x button inside them
     - lebel Instructions, then a textarea for instructions
     - Then Add Ulam button
+  - Update / edits ulam 
+    - Same content as the add ulam but make the title to edit ulam
+    - Add ulam to Save Changes, clicking will update the ulam
+    - Fields are prefilled for the editing ulam
   - Search ulam
     - Header has an arrow left button to go back and a title search
-      - input search and search button
-      - options like radiobutton that user can choose to search, one for ulam and one for people
-      - Search result container
-      - Ulam card like like in people you follow for ulam search result
-      - People / user card that contains their profile pic, name ,,, similar to ulam card 
-  - Update / edits ulam
+    - input search and search button
+    - options like radiobutton that user can choose to search, one for ulam and one for people
+    - Search result container
+    - Ulam card like like in people you follow for ulam search result
+    - People / user card that contains their profile pic, name ,,, similar to ulam card 
+  - Ulam profile details
+    - 
   - Create ulam variation
+    - Same content as the add ulam but make the title to Create Variation
+    - Add ulam to Publish Variation, clicking create a new ulam and with variationOf: originalUlamId
+    - Fields are prefilled with the parent ulams detailed
+    - ulam photo default to the parent ulams photo
+  - Meal plan
+  - Cook ulam
+  - History of cooked ulam
+  - Sign up
+  - Complete your profile
+  - Onboarding
+  - Log in
   - User profile
     - Header has an arrow left button to go back and a title of profile
     - Profile picture that can be changed
@@ -113,14 +129,6 @@
     - Edit profile if own profile or follow button if not
     - Specialties
     - if own profile, show bookmarks and cooking history
-  - Ulam profile details
-  - Meal plan
-  - Cook ulam
-  - History of cooked ulam
-  - Sign up
-  - Complete your profile
-  - Onboarding
-  - Log in
 
 - Pages and actions
   - /feed
