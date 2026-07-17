@@ -39,8 +39,16 @@ Show bookmarked recipes - Bookmarks
 
 nodemailer
   - send email with jwt token for email verification
+
 pagination
   - for displaying ulams of the user and following people in feed for browsing
+
+date-fns
+  - for formatting dates in cook history
+
+multer & cloudinary
+  - for processing and storing images in node js backend
+
 
 functional requirements
 - core behaviors and and actions of the system
