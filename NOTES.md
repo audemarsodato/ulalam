@@ -1,29 +1,3 @@
-## Functional Requiremens
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-
 ## Schemas
   - Ulam
     - id: db generated
@@ -184,10 +158,9 @@
         - Search input and search button, typing will actively search and display results
         - Search results using ulam cards
         - cancell button and add button
-  - Sign up
-    - App logo or name
+  - Create account
     - Welcome message
-    - Sign up header
+    - Create account header
     - Email input
     - password input
     - confirm password
@@ -209,7 +182,6 @@
     - Page 3: Cook with AI
     - Last page has only get started button
   - Log in
-    - App logo or name
     - Welcome back message
     - Login header
     - Email input
@@ -226,7 +198,8 @@
     - Followers and count, clicking will redirect to followers people 
     - Edit profile if own profile or follow button if not
     - Specialties section
-    - if own profile, show bookmarks and cooking history
+    - Published ulam section
+    - if own profile, show bookmarks and cooking history, and log out
 
 - Color theme
   - Red
