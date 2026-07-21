@@ -79,6 +79,7 @@
     - Header has an arrow left button to go back and a title search
     - input search and search button
     - options like radiobutton that user can choose to search, one for ulam and one for people
+    - if ulams, container for ingredients chips
     - Search result container
     - Ulam card like like in people you follow for ulam search result
     - People / user card that contains their profile pic, name ,,, similar to ulam card 

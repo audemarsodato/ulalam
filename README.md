@@ -10,5 +10,3 @@
 
 *Why build it?*
 - To help in searching what ulams can be cooked using the readily available ingredients and decide which of these ulams to cook.
-
-*For who?*

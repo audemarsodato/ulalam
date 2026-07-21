@@ -1,310 +1,63 @@
-# Ulalam
+## Features
 
-Ulalam is a recipe managemanent application that allows user decide what to cook by searching available ingredients and discover ulams, as well as publish ulam, showcase specialties, plan meals, and learn how to cook ulams. The goal is help user struggling to think and decide what to cook.
+- [ ] Recipe Management
+- [ ] Ingredient-Based Search
+- [ ] User Authentication
+- [ ] Meal Planner
+- [ ] Cooking
+- [ ] Specialties
+- [ ] Cooking History
+- [ ] Recipe Variations
+- [ ] Social Features
+- [ ] User Onboarding
 
-The core problem is the lack of financial abilities limiting the options of what to cook. This puts strain to people who cooks for the family. With limited resources, users struggle in thinking of what to cook and which to cook. Some may also struggle from remembering what they have cooked from the past days adding to the weight of their struggle to decide what to cook.
-ulalam can be use to search ulam with available ingredients and plan meals ahead to prevent user from the strugggle. Ulalam also remembers what the user have cooked for users to review and help in deciding in planning their meals. This prevents user from cooking the same ulam repeatedly.
+## Functional Requirements
 
-Ulalam helps:
-- Mothers who cooks for the family
-- Students trying to learn and discover ulams
-- Cooks in their family who finds themselves having hard time thinking of what to cook
-- Busy people who does not have much time to think what ulam to cook
-- Cooking enthusiast who likes to showcase their specialties
+### Recipe Management
+- [x] Users can create and publish ulams
+- [x] Users can edit an ulam of their own
+- [x] Users can delete an ulam of their own
+- [ ] Users can upload a photo when creating or editing an ulam
+- [ ] Users can view the details of an ulam
+### Ingredients based search
+- [x] Users can search ulams using available ingredients
+### Meal planner
+- [x] Users can plan meals for up to next 7 days
+- [x] Users can assign an ulam to a specific mealtime and date within the next 7 days
+- [x] Users can update or remove assigned meals before their scheduled mealtime
+- [ ] Users can rearrange planned meals using drag-and-drop.
+### Cooking 
+- [ ] Users can cook ulams.
+- [x] Users can cook an ulam one step at a time using next and previous navigation
+- [x] The application allows users to cook ulams with an interactive AI chat that guides them through each step
+### Specialties
+- [ ] Users earn a specialty after cooking the same ulam 8 or more times.
+### Cooking history
+- [ ] Users can view their cooking history
+- [x] The application records each cooking session, including the ulam, date, and mealtime (breakfast, lunch, dinner)
+- [x] The application derives recently cooked ulams from the user's cooking history to help avoid repeating meals within the last 7 days.
+### Recipe Variations
+- [ ] Users can create variations of ulams.
+- [x] Users cannot make a variation of an ulam that is already a variation
+### Social features
+- [ ] Users can bookmark ulams
+- [x] The application displays the latest ulams published by people the user follows in the feed
+- [ ] The application displays the user's recently cooked ulams
+- [x] Users can browse ulams in their feed
+- [x] Users can follow and unfollow each other
+- [x] User profiles display specialties, followers, and following 
+- [ ] Users can like ulams.
+- [ ] Users can comment on ulams.
+- [ ] Users can search for other users
+### User authentication
+- [x] The application allows users to create an account using a verified email
+- [x] The application allows users to sign in with Google or Apple
+- [x] Users can log in using their verified email and password
+- [ ] Users can continue using the application as a guest.
+- [x] The application allows guest users to browse the feed and search ulams only
+- [x] Guest users cannot like, comment, bookmark, cook, or create variations of ulams
+- [x] The application prompts guest users to create an account or log in before performing restricted actions
 
-## Goals
-- 
-
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- 
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
-
-
-
-## Functional requirements
-- **Users can add ulam to their collection of specialties**
-- **Users can edit an ulam of their own**
-- **Users can Delete an ulam of their own**
-- **The application displays the ulams of the user and the people the user follow in the feed**
-- Users can browse ulams, heart(like), added to bookmark, comment, cook, and create a variation of ulam in their feed
-- Users can follow and unfollow each other
-- Search ulam using ingredients (available ingredients)
-- User profile displays specialties in list form, followers and people they follow that other users can also see
-- **Users can make a variation of an ulam, bookmark an ulam, heart, comment, and cook ulam**
-- User can not make a variation of an ulam that is already a variation
-- **Users can cook an ulam and the application displays one step at a time and user can click next to move on**
-- **The application records each cooking session and remembers what is cooked (ulam) and when, including the date (Breakfast, lunch, dinner)**
-- The application remembers what ulam is cooked from the last 7 days to remind user to avoid cooking the same ulam repeatedly
-- **A user can plan meals for up to 7 days**
-- **User can assign an ulam to cook on a particular mealtime and date following the current day**
-- **User can update or remove assgined meals before their mealtime**
-
-- **Authentication**
-  - The application allows creating an account using a verified email and also a guest user
-  - **The application allows using login with google or apple**
-  - **Users can login using their verified email and password**
-  - **The application allows guest users to only browse ulam in the feed and search ulams without being able to heart, comment, bookmark, cook, and create variations of the ulam**
-  - **The application will prompt the guest user to create an account or login for them to be able to accomplish those actions**
-  - **The application allows users to cook ulam with interactive AI chat that guides and instruct them through each steps**
+### User onboarding
+- [ ] Users can complete their profile after creating an account
+- [ ] The application displays onboarding screens for first-time users.
