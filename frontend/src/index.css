@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playpen+Sans:wght@100..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Sriracha&display=swap');
+
+:root {
+        --primary: #E52E01;
+        --bg: #F4F5F7;
+        --text: #000;
+
+        --text-size: 16px;
+        --text-small: 14px;
+        --medium-header: 20px;
+}
+
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+
+body {
+        font-family: "Inter";
+        background-color: var(--bg);
+}
+
+.app {
+        padding: 32px;
+}
+
+/* HOME PAGE */
+.home-page header  {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.home-page header .profile-icon {
+        font-size: 50px;
+        
+        color: var(--primary);
+        font-weight: 900;
+}
+
+.home-page header p {
+        margin-right: 40%;
+        font-size: var(--text-size);
+}
+
+.home-page .greetings {
+        margin: 24px 0;
+}
+
+.home-page .greetings h2 {
+        font-size: var(--medium-header);
+        font-weight: 600;
+}
+
+.home-page .search {
+        margin-bottom: 32px;
+}
+
+.home-page .search a {
+        font-size: var(--text-size);
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 1em;
+        padding: 1em;
+
+        font-weight: 600;
+        color: var(--text);
+        opacity: 40%;
+        border-radius: 50px;
+        background-color: #fff;
+        text-decoration: none;
+}
+
+.home-page .you-cooked-section header a{
+        color: var(--text);
+        font-weight: 600;
+        opacity: 40%;
+}
+
+/* GENERAL HOME PAGE*/
+.home-page .section {
+        margin-bottom: 32px;
+}
+
+.home-page .section header {
+        margin-bottom: 24px;
+}
+
+.home-page .section-title { 
+        font-size: var(--medium-header);
+
+        font-weight: 600;
+}
+
+.home-page .ulam-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+}
+
+/* ULAM CARDS */
+.ulam-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.ulam-card h1 {
+        font-size: var(--text-size);
+}
+
+.ulam-card .image-container {
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        border-radius: 8px;
+}
+
+.ulam-card .image-container img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+}
+
+.ulam-card .details {
+        flex: 1;
+}
+
+.ulam-card .details h1 {
+        width: 100%;
+        margin-bottom: 8px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.ulam-card .details p {
+        width: 100%;
+
+        opacity: 40%;
+        font-weight: 500;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.ulam-card .arrow-forward {
+        opacity: 40%;
+}
+
+.specialty-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        flex-shrink: 0;
+
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.specialty-card .image-container {
+        width: 150px;
+        height: 100px;
+        overflow: hidden;
+
+        border-radius: 8px;
+}
+
+.specialty-card img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+}
+
+.specialty-card h1 {
+        margin-bottom: 8px;
+        font-size: var(--text-size);
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.specialty-card .details p {
+        font-size: var(--text-small);
+
+        font-weight: 600;
+        opacity: 60%;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.specialty-card .action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.specialty-card .times-cooked {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+}
+
+.specialty-card .cook-button a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+
+        text-decoration: none;
+        background-color: var(--primary);
+        border-radius: 50%;
+}
+
+.specialty-card .cook-button span {
+        font-size: 32px;
+        color: #fff;
+}
+
+/* SPECIALTIES SECTION */
+
+.specialties-section .ulam-container {
+        flex-direction: row;
+        overflow-x: auto; /*Adds a scroll if content exceeds specified width*/
+        overflow-y: hidden; /*Prevent vertical scrollbar*/
+        flex-wrap: nowrap; /*Prevent moving contents into another row*/
+
+        gap: 12px;
+  
+        /* Allow visible cards when scrolling horizontally */
+        /* Bypass padding of the app container */
+        margin-left: -32px;
+        margin-right: -32px;
+    
+        /* Moving the default placement to its original padding postion */
+        padding-left: 32px;
+        padding-right: 32px;
+}
+
+/* REMOVE SCROLLBAR VIEW */
+.specialties-section .ulam-container::-webkit-scrollbar {
+        display: none;
+}
+.specialties-section .ulam-container {
+        scrollbar-width: none;
+}

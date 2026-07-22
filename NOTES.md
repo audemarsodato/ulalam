@@ -56,14 +56,14 @@
     - Followers
 
 ## Page Contents
-  - Feed
+### Feed
     - Header with user profile pic and ulalam at the center in the same line as profile pic
     - Greetings to the user, Good morning, Audemars
     - Search bar that redirects to search page
     - Previously cooked / "You cooked" and link to History (View full history)
     - Your specialties, if empty, prompt user (Cook more ulams to earn specialties.)
     - Latest from people you follow
-  - Add ulam 
+### Add ulam 
     - Header has a arrow left button to go back and a title Add ulam
     - label Ulam name, then text input
     - label Photo, then upload file box with label (restaurant icon) Add a photo
@@ -71,11 +71,11 @@
     - Then display added ingredients as chips with x button inside them
     - lebel Instructions, then a textarea for instructions
     - Then Add Ulam button
-  - Update / edits ulam 
+### Update / edits ulam 
     - Same content as the add ulam but make the title to edit ulam
     - Add ulam to Save Changes, clicking will update the ulam
     - Fields are prefilled for the editing ulam
-  - Search ulam
+### Search ulam
     - Header has an arrow left button to go back and a title search
     - input search and search button
     - options like radiobutton that user can choose to search, one for ulam and one for people
@@ -83,7 +83,7 @@
     - Search result container
     - Ulam card like like in people you follow for ulam search result
     - People / user card that contains their profile pic, name ,,, similar to ulam card 
-  - Ulam profile details
+### Ulam profile details
     - Header with only back button at the left and bookmark button at the right and overflow menu that contains edit and delete ulam if own ulam
     - The ulams picture
     - The name of the ulam
@@ -95,12 +95,12 @@
     - Ulam cards of the ulams variations and a button for create variation
     - Comments at the bottom
     - A cook button at the bottom of the screen fixed position, clicking will display a modal that prompts the user to choose mode, cook or cook with AI
-  - Create ulam variation
+### Create ulam variation
     - Same content as the add ulam but make the title to Create Variation
     - Add ulam to Publish Variation, clicking create a new ulam and with variationOf: originalUlamId
     - Fields are prefilled with the parent ulams detailed
     - ulam photo default to the parent ulams photo
-  - Cook ulam
+### Cook ulam
     - Cook (Multi-step page)
       - Step 1: Introduction
         - Header with back button and a progress indicator at the middle
@@ -138,11 +138,11 @@
       - Line for Quick replies chips above the message input and send button
         - `Done`, `Next step`, `Repeat`
       - Input text for message input and send button using icon
-  - History of cooked ulam
+### History of cooked ulam
     - Header with go back button and a title of Cooking History
     - Display the users 9 recently cooked ulams using ulam cards and seperate them with the date (Today, Yesterday, Monday, Tuesday, ...)
     - message Load More at the bottom of the ulams, clicking will load and display more of the history (pagination)
-  - Meal plan
+### Meal plan
     - Header with back button and the title "Meal Planner"
     - Horizontal weekday navigation (Mon, Tue, Wed, Thu, Fri, Sat, Sun) with the date below each day
       - Clicking a day scrolls to that day's section
@@ -159,7 +159,7 @@
         - Search input and search button, typing will actively search and display results
         - Search results using ulam cards
         - cancell button and add button
-  - Create account
+### Create account
     - Welcome message
     - Create account header
     - Email input
@@ -169,12 +169,12 @@
     - Already have an account? Login
     - Continue with google button
     - Continue as guest
-  - Complete your profile
+### Complete your profile
     - Header complete your profile
     - Profile picture preview, also stands as a upload file button when clicked (optional)
     - Required username input
     - Continue button
-  - Onboarding (Sliding pages)
+### Onboarding (Sliding pages)
     - each page has their own image illustrations
     - a skip button at the top right corner
     - previous button at the bottom right and next button at the left side and progress indicator in the middle of them
@@ -182,7 +182,7 @@
     - Page 2: Plan your meals ahead
     - Page 3: Cook with AI
     - Last page has only get started button
-  - Log in
+### Log in
     - Welcome back message
     - Login header
     - Email input
@@ -191,7 +191,7 @@
     - Dont have an account? Signup
     - Continue with google button
     - Continue as guest
-  - User profile
+### User profile
     - Header has an arrow left button to go back and a title of profile
     - Profile picture that can be changed
     - The users username
