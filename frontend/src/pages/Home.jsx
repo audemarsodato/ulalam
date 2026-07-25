@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import UlamCardHistory from "../components/ulam_cards/UlamCardHistory"
 import UlamCard from "../components/ulam_cards/UlamCard"
 import SpecialtyCard from "../components/ulam_cards/SpecialtyCard"
@@ -25,7 +27,7 @@ export default function Home() {
                 <section className="home-page">
                         <header>
                                 <div>
-                                        <span class="material-symbols-outlined profile-icon">account_circle</span>
+                                        <span class="material-symbols-rounded profile-icon">account_circle</span>
                                 </div>
                                 <p>Ulalam</p>
                         </header>
@@ -36,7 +38,7 @@ export default function Home() {
 
                         <div className="search">
                                 <a href="#">
-                                        <span className="material-symbols-outlined">search</span>
+                                        <span className="material-symbols-rounded">search</span>
                                         Search
                                 </a>
                         </div>
@@ -71,6 +73,12 @@ export default function Home() {
                                         {ulamFromFollowers.map(ulam=> <UlamCard ulamName={ulam.ulamName} owner={ulam.owner} />)}
                                 </div>
                         </section>
+
+                        <div className="add-ulam-button">
+                                <Link to={'/ulams/new'}>
+                                        <span className="material-symbols-rounded">add_circle_outline</span>
+                                </Link>
+                        </div>
                 </section>
         )
 }

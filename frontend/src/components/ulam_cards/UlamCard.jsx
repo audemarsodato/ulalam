@@ -5,7 +5,7 @@ export default function UlamCard({ ulamName, owner }){
         return (
                 <div className="ulam-card">
                         <div className="image-container">
-                                <img src="" alt="" />
+                                <img src="" loading="lazy"/>
                         </div>
 
                         <div className="details">
@@ -14,7 +14,7 @@ export default function UlamCard({ ulamName, owner }){
                         </div>
 
                         <div className='arrow-forward'>
-                                <span className="material-symbols-outlined">arrow_forward_ios</span>                                
+                                <span className="material-symbols-rounded">arrow_forward_ios</span>                                
                         </div>
                 </div>
         )

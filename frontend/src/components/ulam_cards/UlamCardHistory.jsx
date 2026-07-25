@@ -5,7 +5,7 @@ export default function UlamCardHistory({ ulamName, date, mealtime }){
         return (
                 <div className="ulam-card history">
                         <div className="image-container">
-                                <img src={tinolaPic} alt="tinola" />
+                                <img src={tinolaPic} loading='lazy' />
                         </div>
 
                         <div className="details">
@@ -14,7 +14,7 @@ export default function UlamCardHistory({ ulamName, date, mealtime }){
                         </div>
 
                         <div className='arrow-forward'>
-                                <span className="material-symbols-outlined">arrow_forward_ios</span>
+                                <span className="material-symbols-rounded">arrow_forward_ios</span>
                         </div>
                 </div>
         )
