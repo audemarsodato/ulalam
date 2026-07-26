@@ -154,6 +154,7 @@ body {
 /* ULAM FORM */
 .ulam-form {
         position: relative;
+        margin-bottom: 48px;
 }
 
 .ulam-form .label {
@@ -172,6 +173,7 @@ body {
         width: 100%;
         padding: 1em;
 
+        font-weight: 600;
         border-radius: 16px;
         border: none;
 }
@@ -237,11 +239,11 @@ body {
 }
 
 .ulam-form .ingredients-form input {
+        flex: 1;  
         font-size: 16px;
-        flex: 1;
-
         padding: 1em;
 
+        font-weight: 600;
         border: none;
         border-radius: 16px;
 }
@@ -257,19 +259,25 @@ body {
 }
 
 .ulam-form .instructions textarea {
+        font-size: 16px;
+        padding: 1em;
         width: 100%;
 
+        font-family: 'Inter';
+        font-weight: 500;
         resize: vertical;
         border-radius: 16px;
         border: none;
 }
 
+.ulam-form .submit {
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+}
+
 .ulam-form button[type='submit'] {
-        /* position: fixed;
-        left: 32px;
-        right: 32px;
-        bottom: 32px; */
-        
         font-size: 16px;
         width: 100%;
         padding: 1em;
@@ -281,6 +289,8 @@ body {
         font-weight: 700;
 }
 
+/* INGREDIENT CHIP */
+.search-page .ingredients-container,
 .ulam-form .ingredients-container {
         display: flex;
         align-items: center;
@@ -291,7 +301,6 @@ body {
         padding-top: 12px;
 }
 
-/* INGREDIENT CHIP */
 .ingredient-chip {
         display: flex;
         align-items: center;
@@ -480,4 +489,75 @@ body {
 .page-headers .page-title h1 {
         text-align: center;
         font-size: 24px;
+}
+
+/* SEARCH PAGE */
+.search-page .search-form {
+        position: relative;
+}
+
+.search-page .search-form input {
+        font-size: 16px;
+        width: 100%;
+        padding: 16px;
+
+        border: none;
+        border-radius: 16px;
+        font-weight: 600;
+}
+
+.search-page .search-form input::placeholder {
+        font-weight: 700;
+        opacity: 40%;
+}
+
+.search-page .search-form button {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        
+        background-color: rgba(0,0,0,0);
+        border: none;
+
+        transform: translateY(-50%);
+}
+
+.search-page .search-form span {
+        font-size: 32px;
+
+        opacity: 40%;
+        font-weight: 600;
+}
+
+.search-page .mode-selection {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        gap: 8px;
+
+        margin: 12px 0 24px 0;
+}
+
+.search-page .mode-selection .option {
+        font-size: var(--text-size);
+        padding: 0.5em;
+        font-weight: 700;
+
+        border-radius: 8px;
+        color: var(--primary);
+        background-color: #fff;
+}
+
+.search-page .mode-selection .active {
+
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.search-page .empty-state-placeholder p {
+        font-size: var(--text-size);
+        text-align: center;
+        font-weight: 700;
+        opacity: 60%;
 }

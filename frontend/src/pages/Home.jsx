@@ -37,10 +37,10 @@ export default function Home() {
                         </div>
 
                         <div className="search">
-                                <a href="#">
+                                <Link to="/search">
                                         <span className="material-symbols-rounded">search</span>
                                         Search
-                                </a>
+                                </Link>
                         </div>
                         
                         <section className="you-cooked-section section">
