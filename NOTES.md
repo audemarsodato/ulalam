@@ -216,3 +216,7 @@ Ulam
 
   - Components
     - Modal that takes children as a prompt, You can reuse the modal since you can declare the content of the modal in the call
+
+
+IN CSS
+- Parent should be responsible with the layout of its children

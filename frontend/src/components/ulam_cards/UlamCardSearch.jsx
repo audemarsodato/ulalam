@@ -1,5 +1,5 @@
 
-export default function UlamCard({ ulamName, owner }){
+export default function UlamCardSearch({ ulamName, matchCount }){
 
         return (
                 <div className="ulam-card">
@@ -9,7 +9,7 @@ export default function UlamCard({ ulamName, owner }){
 
                         <div className="details">
                                 <h1>{ulamName}</h1>
-                                <p>By {owner}</p>
+                                <p>{matchCount} ingredients matched</p>
                         </div>
 
                         <div className='arrow-forward'>

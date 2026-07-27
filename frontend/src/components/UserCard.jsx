@@ -1,15 +1,15 @@
 
-export default function UlamCard({ ulamName, owner }){
+export default function UserCard({ userName, followerCount, followingCount, profileURL}){
 
         return (
-                <div className="ulam-card">
+                <div className="user-card">
                         <div className="image-container">
-                                <img src="" loading="lazy"/>
+                                <img src={profileURL} loading="lazy"/>
                         </div>
 
                         <div className="details">
-                                <h1>{ulamName}</h1>
-                                <p>By {owner}</p>
+                                <h1>{userName}</h1>
+                                <p>{followerCount} Followers - {followingCount} Followings</p>
                         </div>
 
                         <div className='arrow-forward'>

@@ -145,7 +145,7 @@ body {
         font-weight: 600;
 }
 
-.home-page .ulam-container {
+.ulam-container {
         display: flex;
         flex-direction: column;
         gap: 8px;
@@ -236,6 +236,7 @@ body {
         align-items: center;
         justify-content: space-between;
         gap: 8px;
+        margin-bottom: 12px;
 }
 
 .ulam-form .ingredients-form input {
@@ -297,8 +298,6 @@ body {
         justify-content: flex-start;
         flex-wrap: wrap;
         gap: 4px;
-
-        padding-top: 12px;
 }
 
 .ingredient-chip {
@@ -560,4 +559,79 @@ body {
         text-align: center;
         font-weight: 700;
         opacity: 60%;
+}
+
+.search-page .results {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.search-page .results h2 {
+        font-size: var(--text-size);
+        margin-bottom: 12px;
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.search-page .results.people {
+        gap: 8px;
+}
+
+/* USER CARD */
+.user-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.user-card h1 {
+        font-size: var(--text-size);
+}
+
+.user-card .image-container {
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        border-radius: 50%;
+}
+
+.user-card .image-container img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+}
+
+.user-card .details {
+        flex: 1;
+}
+
+.user-card .details h1 {
+        width: 100%;
+        margin-bottom: 8px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.user-card .details p {
+        width: 100%;
+
+        opacity: 40%;
+        font-weight: 500;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.user-card .arrow-forward {
+        opacity: 40%;
 }
