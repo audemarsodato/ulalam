@@ -8,6 +8,9 @@
         --text-size: 16px;
         --text-small: 14px;
         --medium-header: 20px;
+        --large-header: 24px;
+
+        --page-padding: 32px;
 }
 
 * {
@@ -22,7 +25,7 @@ body {
 }
 
 .app {
-        padding: 32px;
+        padding: var(--page-padding);
         max-width: 750px;
         margin: auto;
 }
@@ -291,6 +294,7 @@ body {
 }
 
 /* INGREDIENT CHIP */
+.ulam-profile-page .ingredients-container,
 .search-page .ingredients-container,
 .ulam-form .ingredients-container {
         display: flex;
@@ -367,17 +371,18 @@ body {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        font-weight: 600;
 }
 
 .ulam-card .details p {
         width: 100%;
 
         opacity: 40%;
-        font-weight: 500;
-
+        
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        font-weight: 500;
 }
 
 .ulam-card .arrow-forward {
@@ -634,4 +639,261 @@ body {
 
 .user-card .arrow-forward {
         opacity: 40%;
+}
+
+/* ULAM PROFILE */
+.ulam-profile-page .page-headers {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        z-index: 2;
+        width: 100%;
+        padding: 32px;
+        margin-bottom: 0;
+}
+
+.ulam-profile-page .page-headers .actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+}
+
+.ulam-profile-page .page-headers .actions span {
+        font-size: 40px;
+        padding: 0;
+
+        background-color: rgba(0,0,0,0);
+        /* color: #fff; */
+        opacity: 60%;
+}
+
+.ulam-profile-page .page-headers .actions button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+
+        background-color: #fff;
+        border: none;
+        border-radius: 50%;
+}
+
+.ulam-profile-page .section {
+        margin-top: 32px;
+}
+
+.ulam-profile-page .section h2 {
+        font-size: 20px;
+        margin-bottom: 12px;
+
+        font-weight: 500;
+}
+
+.ulam-profile-page .ulam-image {
+        width: 100vw;
+        height: 350px;
+        margin: 
+                calc(-1 * var(--page-padding))
+                calc(-1 * var(--page-padding))
+                0
+                calc(-1 * var(--page-padding));
+
+        overflow: hidden;
+}
+        
+.ulam-profile-page .ulam-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+}
+
+.ulam-profile-page .title.section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.ulam-profile-page .details .title {
+        font-size: var(--large-header);
+        margin-bottom: 12px;
+
+        color: var(--text);
+        font-weight: 600;
+}
+
+.ulam-profile-page .details .owner {
+        font-size: var(--text-size);
+
+        color: var(--text);
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.ulam-profile-page .like-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        cursor: pointer;
+}
+
+.ulam-profile-page .like-button span {
+        font-size: 40px;
+
+        color: var(--primary);
+}
+
+.ulam-profile-page .like-button p {
+        font-size: var(--text-size);
+
+        color: var(--text);
+        opacity: 60%;
+}
+
+.ulam-profile-page .statistics {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.ulam-profile-page .statistics .stat {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ulam-profile-page .statistics .stat .value {
+        font-weight: 500;
+}
+
+.ulam-profile-page .statistics .stat .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+}
+
+.ulam-profile-page .divider {
+        height: 40px;
+        width: 1px;
+        background-color: rgba(0,0,0,0.15);
+}
+
+.ulam-profile-page .steps-container li {
+        margin-left: 20px;
+        line-height: 1.5;
+}
+
+.ulam-profile-page .variations a {
+        font-size: var(--text-size);
+        display: block;
+        text-align: center;
+
+        margin-top: 12px;
+
+        font-weight: 600;
+        color: var(--primary);
+        opacity: 60%;
+}
+
+.ulam-profile-page .comments {
+        margin-bottom: 48px;
+}
+
+.ulam-profile-page .comments form {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+}
+
+.ulam-profile-page .comments input {
+        font-size: var(--text-size);
+        padding: 1em;
+        flex: 1;
+
+        border: none;
+        border-radius: 50px;
+}
+
+.ulam-profile-page .comments input::placeholder {
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.ulam-profile-page .comments button {
+        padding: 8px 16px;
+        
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+}
+
+.ulam-profile-page .comments button span {
+        color: var(--primary);
+}
+
+.ulam-profile-page .comments-container {
+        margin-top: 12px;
+        padding: 16px;
+ 
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.ulam-profile-page .comment {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ulam-profile-page .comment:not(:last-child){
+        margin-bottom: 16px;
+}
+
+.ulam-profile-page .comment .details {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+}
+
+.ulam-profile-page .comment .details h3 {
+        font-weight: 600;
+        font-size: var(--text-size);
+}
+
+.ulam-profile-page .comment .details p { 
+        font-size: var(--text-small);
+        font-weight: 500;
+        opacity: 60%;
+}
+
+.ulam-profile-page .cook-button {
+        position: fixed;
+        bottom: 16px;
+        left: 32px;
+        right: 32px;
+}
+
+.ulam-profile-page .cook-button button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+
+        font-weight: 600;
+        border: none;
+        background-color: var(--primary);
+        color: #fff;
+        border-radius: 8px;
 }

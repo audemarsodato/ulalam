@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Header from '../components/Header'
 import Ingredient from '../components/Ingredient'
-import UlamCardSearch from '../components/ulam_cards/UlamCardSearch'
+import UlamCardSearch from '../components/ulam-cards/UlamCardSearch'
 import UserCard from '../components/UserCard'
 
 export default function Search() {

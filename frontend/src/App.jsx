@@ -5,6 +5,7 @@ import CreateUlam from './pages/CreateUlam'
 import EditUlam from './pages/EditUlam'
 import CreateVariation from './pages/CreateVariation'
 import Search from './pages/Search'
+import UlamProfile from '../src/pages/UlamProfile'
 
 export default function App() {
 
@@ -14,11 +15,12 @@ export default function App() {
                                 <Routes>
                                         <Route path='/' element={<Home />}/>
 
-                                        <Route path='/ulams/new' element={<CreateUlam />}/>
-                                        <Route path='/ulams/ulamId/edit' element={<EditUlam />}/>
+                                        <Route path='/ulams/create' element={<CreateUlam />}/>
+                                        <Route path='/ulams/:ulamId/edit' element={<EditUlam />}/>
                                         {/* <Route path="/ulams/:ulamId/edit" element={<EditUlam />} /> */}
-                                        <Route path='/ulams/ulamId/variations/new' element={<CreateVariation />}/>
+                                        <Route path='/ulams/:ulamId/variations/new' element={<CreateVariation />}/>
                                         {/* /ulams/:ulamId/variations/new */}
+                                        <Route path='/ulams/:ulamId' element={<UlamProfile />}/>
 
                                         <Route path='/search' element={<Search />}/>
                                 </Routes>              

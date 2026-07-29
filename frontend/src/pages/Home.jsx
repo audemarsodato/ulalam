@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 
-import UlamCardHistory from "../components/ulam_cards/UlamCardHistory"
-import UlamCard from "../components/ulam_cards/UlamCard"
-import SpecialtyCard from "../components/ulam_cards/SpecialtyCard"
+import UlamCardHistory from "../components/ulam-cards/UlamCardHistory"
+import UlamCard from "../components/ulam-cards/UlamCard"
+import SpecialtyCard from "../components/ulam-cards/SpecialtyCard"
 
 export default function Home() {
         const cookedUlams = [
@@ -75,7 +75,7 @@ export default function Home() {
                         </section>
 
                         <div className="add-ulam-button">
-                                <Link to={'/ulams/new'}>
+                                <Link to={'/ulams/create'}>
                                         <span className="material-symbols-rounded">add_circle_outline</span>
                                 </Link>
                         </div>
