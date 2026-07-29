@@ -1,9 +1,11 @@
 import tinolaPic from '../../assets/tinola.jpg'
+import useUlamCard from './useUlamCard'
 
 export default function SpecialtyCard({ ulamName, owner, timesCooked }) {
+        const { openProfile } = useUlamCard(ulamName)
 
         return (
-                <div className="specialty-card">
+                <div className="specialty-card" onClick={openProfile}>
                         <div className="image-container">
                                 <img src={tinolaPic} loading='lazy'/>
                         </div>
@@ -13,7 +15,7 @@ export default function SpecialtyCard({ ulamName, owner, timesCooked }) {
                                 <p>By {owner}</p>
                         </div>
 
-                        <div className="action">
+                        <div className="action" onClick={event => event.stopPropagation()}>
                                 <div className="times-cooked">
                                         <span className="material-symbols-rounded">workspace_premium</span> 
                                         <p>{timesCooked}</p>

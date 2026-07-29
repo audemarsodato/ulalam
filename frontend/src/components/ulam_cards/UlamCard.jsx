@@ -1,8 +1,10 @@
+import useUlamCard from "./useUlamCard"
 
 export default function UlamCard({ ulamName, owner }){
+        const { openProfile } = useUlamCard(ulamName)
 
         return (
-                <div className="ulam-card">
+                <div className="ulam-card" onClick={openProfile}>
                         <div className="image-container">
                                 <img src="" loading="lazy"/>
                         </div>

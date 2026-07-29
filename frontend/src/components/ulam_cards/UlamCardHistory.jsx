@@ -1,9 +1,11 @@
 import tinolaPic from '../../assets/tinola.jpg'
+import useUlamCard from "./useUlamCard"
 
 export default function UlamCardHistory({ ulamName, date, mealtime }){
+        const { openProfile } = useUlamCard(ulamName)
 
         return (
-                <div className="ulam-card history">
+                <div className="ulam-card history" onClick={openProfile}>
                         <div className="image-container">
                                 <img src={tinolaPic} loading='lazy' />
                         </div>
