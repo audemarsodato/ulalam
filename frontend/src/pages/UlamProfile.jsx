@@ -5,9 +5,10 @@ import Stat from '../components/ulam-profile/Stat'
 import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
+import { useState } from "react"
 
 export default function UlamProfile() {
-        const user = 'Audemars Odato'
+        const user = 'Not Audemars Odato'
 
         const ulam = {
                 title: 'Sinigang na Bangus',
@@ -18,6 +19,8 @@ export default function UlamProfile() {
                 variationOf: null
         }
 
+        const [ showOptions, setShowOptions ] = useState(false)
+
         return (
                 <section className="ulam-profile-page">
                         <header className="page-headers">
@@ -26,9 +29,23 @@ export default function UlamProfile() {
                                 </div>
 
                                 <div className="actions">
-                                        <button className="bookmark-button"><span className="material-symbols-rounded">bookmark_add</span></button>
+                                        <button className="bookmark button">
+                                                <span className="material-symbols-rounded">bookmark_add</span>
+                                        </button>
+
                                         {user === ulam.owner &&
-                                                <button className="more-button"><span className="material-symbols-rounded">more_vert</span></button>
+                                                <div className="more">
+                                                        <button className="more-button" onClick={() => setShowOptions(current => !current)}>
+                                                                <span className="material-symbols-rounded">more_vert</span>
+                                                        </button>
+
+                                                        { showOptions &&
+                                                                <div className="menu-options">
+                                                                        <button className="edit button">EDIT</button>
+                                                                        <button className="delete button">DELETE</button>
+                                                                </div>
+                                                        }
+                                                </div>
                                         }
                                 </div>
                         </header>

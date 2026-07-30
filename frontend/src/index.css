@@ -4,6 +4,7 @@
         --primary: #E52E01;
         --bg: #F4F5F7;
         --text: #000;
+        --error: #ff0000;
 
         --text-size: 16px;
         --text-small: 14px;
@@ -683,6 +684,39 @@ body {
         border-radius: 50%;
 }
 
+.ulam-profile-page .more {
+        position: relative;
+}
+
+.ulam-profile-page .more .menu-options {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 8px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.15);
+}
+
+.ulam-profile-page .more .menu-options .button {
+        font-size: var(--text-size);
+        padding: 0.5em 1em;
+
+        border-radius: 0;
+        font-weight: 600;
+}
+
+.ulam-profile-page .more .menu-options .delete.button {
+        background-color: var(--error);
+        color: #fff;
+}
+
 .ulam-profile-page .section {
         margin-top: 32px;
 }
@@ -745,7 +779,7 @@ body {
 }
 
 .ulam-profile-page .like-button span {
-        font-size: 40px;
+        font-size: 48px;
 
         color: var(--primary);
 }
