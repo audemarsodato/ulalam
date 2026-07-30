@@ -5,7 +5,8 @@ import CreateUlam from './pages/CreateUlam'
 import EditUlam from './pages/EditUlam'
 import CreateVariation from './pages/CreateVariation'
 import Search from './pages/Search'
-import UlamProfile from '../src/pages/UlamProfile'
+import UlamProfile from './pages/UlamProfile'
+import CookUlam from './pages/cook-ulam/CookUlam'
 
 export default function App() {
 
@@ -23,6 +24,8 @@ export default function App() {
                                         <Route path='/ulams/:ulamId' element={<UlamProfile />}/>
 
                                         <Route path='/search' element={<Search />}/>
+
+                                        <Route path='/cook/:ulamId' element={<CookUlam />}/>
                                 </Routes>              
                         </BrowserRouter>
                 </div>

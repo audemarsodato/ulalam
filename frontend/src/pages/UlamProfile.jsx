@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 import Sinigang from '../assets/sinigang-bangus.jpg'
@@ -5,7 +6,6 @@ import Stat from '../components/ulam-profile/Stat'
 import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
-import { useState } from "react"
 
 export default function UlamProfile() {
         const user = 'Not Audemars Odato'
