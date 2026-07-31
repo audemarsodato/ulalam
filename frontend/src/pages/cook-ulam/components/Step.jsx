@@ -1,9 +1,10 @@
+import '../CookUlam.css'
 
 export default function Step({ step, instruction }) {
 
         return (
                 <section className="step">
-                        <div className="step-header">
+                        <div className="header">
                                 <h1>{step}</h1>
                         </div>
 

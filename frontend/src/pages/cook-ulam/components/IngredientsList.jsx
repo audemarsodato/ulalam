@@ -1,8 +1,9 @@
+import '../CookUlam.css'
 
 export default function IngredientsList({ ingredients }) {
 
         const displayIngredients = ingredients.map(ingredient => (
-                <label>
+                <label className='ingredient'>
                         <input type="checkbox"/>
                         {ingredient}
                 </label>
@@ -11,10 +12,11 @@ export default function IngredientsList({ ingredients }) {
         return (
                 <section className="ingredients-checklist">
                         <div className="header">
-                                <h1>INGREDIENTS</h1>
-                                <div className="ingredients-container">
-                                        { displayIngredients }
-                                </div>
+                                <h1>Ingredients</h1>
+                        </div>
+
+                        <div className="ingredients-container">
+                                { displayIngredients }
                         </div>
                 </section>
         )

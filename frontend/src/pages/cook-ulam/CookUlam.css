@@ -1,0 +1,146 @@
+
+/* .cook-ulam-page {
+        min-height: calc(100vh - (var(--page-padding) * 2));
+        display: flex;
+        flex-direction: column;
+} */
+
+.navigation-buttons {
+        position: fixed;
+        bottom: var(--page-padding);
+        left: var(--page-padding);
+        right: var(--page-padding);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.navigation-buttons button {
+        font-size: 16px;
+        padding: 1em;
+
+        border: none;
+        font-weight: 600;
+}
+
+.navigation-buttons .previous-button {
+        background-color: rgba(0, 0, 0, 0);
+        text-decoration: underline;
+}
+
+.navigation-buttons .next-button,
+.navigation-buttons .finish-button {
+        flex: 1;
+
+        border-radius: 8px;
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.ingredients-checklist {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 24px;
+
+        flex: 1;
+}
+
+.ingredients-checklist .header h1 {
+        font-size: var(--extra-large-header);
+
+        opacity: 60%;
+}
+
+.ingredients-checklist .ingredients-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ingredients-checklist .ingredients-container .ingredient {
+        font-size: 18px;
+        display: flex;
+        gap: 4px;
+}
+
+.step {
+        /* height: 500px; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+}
+
+.step .header h1 {
+        font-size: var(--extra-large-header);
+        
+        font-weight: 900;
+        opacity: 40%;
+        /* font-style: italic; */
+}
+
+.step .step-container h2 {
+        font-size: var(--extra-large-header);
+
+        opacity: 80%;
+        font-weight: 700;
+}
+
+.finish-page {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+}
+
+.finish-page .header {
+        display: flex;
+        gap: 12px;
+        flex-direction: column;
+}
+
+
+.finish-page .header h1 {
+        font-size: 32px;
+        opacity: 80%;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+}
+
+.finish-page .header p {
+        font-weight: 600;
+        color: var(--primary);
+}
+
+.finish-page .header .finish-icon {
+        font-size: var(--extra-large-header);
+
+        font-weight: 1000;
+        opacity: 40%;
+}
+
+.finish-page .header .mastery-message {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+}
+
+.finish-page .history h2 {
+        font-size: var(--medium-header);
+        margin-bottom: 12px;
+
+        opacity: 60%;
+}
+
+.finish-page .history .mastery-icon {
+        font-size: 24px;
+}

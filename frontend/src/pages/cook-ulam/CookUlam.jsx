@@ -1,5 +1,7 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
+import './CookUlam.css'
 
 import IngredientsList from './components/IngredientsList'
 import Finish from './components/Finish'
@@ -39,7 +41,7 @@ export default function CookUlam() {
                                 return <Step step={currentStepIndex} instruction={currentStep.instruction} />
                                 break
                         case 'finish':
-                                return <Finish />
+                                return <Finish ulamName={ulam.title} />
                                 break
                 }
         }
@@ -49,9 +51,14 @@ export default function CookUlam() {
                 setCurrentStepIndex(current => Math.min(steps.length - 1, current + 1))
         }
         
-        const moveToPrevious = () => [
+        const moveToPrevious = () => {
                 setCurrentStepIndex(current => Math.max(0, current - 1))
-        ]
+        }
+
+        const navigate = useNavigate()
+        const doneCooking = () => {
+                navigate('/')
+        }
 
         console.log('current step', currentStep)
         console.log('currentStepIndex', currentStepIndex)
@@ -69,15 +76,15 @@ export default function CookUlam() {
                                         <p>Step {currentStepIndex} of {steps.length - 1}</p>
                                 </div>
                         </header>
-
+                        
                         { displayCurrentStep() }
 
                         <footer className="navigation-buttons">
-                                <button className="previous-button" onClick={moveToPrevious}>previous</button>
+                                <button className="previous-button" onClick={moveToPrevious}>Previous</button>
                                 {currentStepIndex === steps.length - 1 ?
-                                        <button className="finish-button">FINISH</button>
+                                        <button className="finish-button" onClick={doneCooking}>Done</button>
                                         :
-                                        <button className="next-button" onClick={moveToNext}>next</button>
+                                        <button className="next-button" onClick={moveToNext}>Next</button>
                                 }
                         </footer>
                 </section>
