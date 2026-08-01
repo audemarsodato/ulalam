@@ -60,11 +60,6 @@ export default function CookUlam() {
                 navigate('/')
         }
 
-        console.log('current step', currentStep)
-        console.log('currentStepIndex', currentStepIndex)
-        console.log('steps.length', steps.length)
-        console.log('steps', steps)
-
         return (
                 <section className="cook-ulam-page">
                         <header className="page-headers">

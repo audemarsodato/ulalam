@@ -1,0 +1,2 @@
+## Note
+- Avoid global css styles and always check class names. I used .history class name for the container in cooking history page and also has the same class name for ulam card history. Styling the .history-page .history also changes the style in the ulam card. I changed the ulam cards history class name to .history-card and keep the class for the container.

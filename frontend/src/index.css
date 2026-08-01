@@ -82,9 +82,9 @@ body {
 }
 
 .home-page .you-cooked-section header a{
-        color: var(--text);
+        color: var(--primary);
         font-weight: 600;
-        opacity: 40%;
+        opacity: 60%;
 }
 
 .home-page .add-ulam-button {
@@ -148,6 +148,7 @@ body {
         font-size: var(--medium-header);
 
         font-weight: 600;
+        opacity: 80%;
 }
 
 .ulam-container {
