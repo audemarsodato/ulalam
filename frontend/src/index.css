@@ -30,6 +30,7 @@ body {
         padding: var(--page-padding);
         max-width: 750px;
         margin: auto;
+        margin-bottom: 64px;
 }
 
 /* HOME PAGE */

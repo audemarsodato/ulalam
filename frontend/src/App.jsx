@@ -10,6 +10,7 @@ import Search from './pages/Search'
 import UlamProfile from './pages/UlamProfile'
 import CookUlam from './pages/cook-ulam/CookUlam'
 import CookingHistory from './pages/cooking-history/CookingHistory'
+import MealPlanner from './pages/meal-planner/MealPlanner'
 
 export default function App() {
 
@@ -32,6 +33,8 @@ export default function App() {
 
                                         <Route path='/cook/:ulamId' element={<CookUlam />}/>
                                         <Route path='/cook/history' element={<CookingHistory />}/>
+
+                                        <Route path='/meal-planner' element={<MealPlanner />}/>
                                 </Routes>              
                         </BrowserRouter>
                 </div>

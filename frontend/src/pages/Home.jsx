@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import UlamCardHistory from "../components/ulam-cards/UlamCardHistory"
 import UlamCard from "../components/ulam-cards/UlamCard"
 import SpecialtyCard from "../components/ulam-cards/SpecialtyCard"
+import BottomNavigation from "../components/bottom-nav/BottomNavigation"
 
 export default function Home() {
         const cookedUlams = [
@@ -74,11 +75,12 @@ export default function Home() {
                                 </div>
                         </section>
 
-                        <div className="add-ulam-button">
+                        {/* <div className="add-ulam-button">
                                 <Link to={'/ulams/create'}>
                                         <span className="material-symbols-rounded">add_circle_outline</span>
                                 </Link>
-                        </div>
+                        </div> */}
+                        <BottomNavigation />
                 </section>
         )
 }

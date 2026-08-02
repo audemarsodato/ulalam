@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import Sinigang from '../assets/sinigang-bangus.jpg'
 import Stat from '../components/ulam-profile/Stat'
@@ -9,6 +9,7 @@ import UlamCard from '../components/ulam-cards/UlamCard'
 
 export default function UlamProfile() {
         const user = 'Not Audemars Odato'
+        const { ulamId } = useParams()
 
         const ulam = {
                 title: 'Sinigang na Bangus',
