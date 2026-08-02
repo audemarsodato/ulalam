@@ -88,7 +88,7 @@ body {
         opacity: 60%;
 }
 
-.home-page .add-ulam-button {
+/* .home-page .add-ulam-button {
         position: fixed;
         bottom: 48px;
         right: 48px;
@@ -108,7 +108,7 @@ body {
                 drop-shadow(0 0 12px rgba(0,0,0,0.15));
         font-variation-settings: 'FILL' 1;
         color: var(--primary);
-}
+} */
 
 .home-page .specialties-section .ulam-container {
         flex-direction: row;

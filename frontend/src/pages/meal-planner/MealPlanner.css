@@ -1,0 +1,89 @@
+
+.meal-planner-page {
+        --light-primary: rgba(255, 199, 199, 0.3);
+}
+
+.meal-planner-page .week-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+
+        margin-bottom: 24px;
+}
+
+
+.meal-planner-page .week-container .day-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+        
+        padding: 4px;
+        
+        background-color: #fff;
+        border-radius: 8px;
+        border: none;
+}
+
+.meal-planner-page .week-container .day-container .day-of-week {
+        font-size: var(--text-size);
+        
+        font-weight: 600;
+        /* opacity: 90%; */
+}
+
+.meal-planner-page .week-container .day-container .day-of-month {
+        font-size: 20px;
+
+        opacity: 80%;
+}
+
+.meal-planner-page .week-container .active {
+        /* background-color: var(--light-primary);
+        color: var(--primary);
+        border: 1px solid var(--primary); */
+
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.meal-planner-page .ulam-plans {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.meal-planner-page .ulam-plans .current-date {
+        font-size: var(--text-size);
+
+        opacity: 60%;
+        font-weight: 500;
+}
+
+.meal-planner-page .action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 24px;
+}
+
+.meal-planner-page .action button {
+        font-size: var(--text-size);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+
+        width: 100%;
+        padding: 1em;
+
+        border-radius: 4px;
+        border: 1px solid var(--primary);
+        background-color: var(--light-primary);
+        color: var(--primary);
+        font-weight: 600;
+}
