@@ -28,7 +28,7 @@ export default function BottomNavigation() {
                                         <p>History</p>
                                 </Link>
 
-                                <Link to={'/profile'} className="profile-button action">
+                                <Link to={'/users/audemarsodato'} className="profile-button action">
                                         <span class='material-symbols-rounded'>person</span>
                                         <p>Profile</p>
                                 </Link>
