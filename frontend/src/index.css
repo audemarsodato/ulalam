@@ -27,6 +27,8 @@ body {
 }
 
 .app {
+        position: relative;
+
         padding: var(--page-padding);
         max-width: 750px;
         margin: auto;
@@ -400,13 +402,18 @@ body {
 
 .ulam-card .details p {
         width: 100%;
+        display: flex;
+        align-items: center;
 
         opacity: 40%;
-        
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-weight: 500;
+}
+
+.ulam-card .details p span {
+        font-variation-settings: 'FILL' 1;
 }
 
 .ulam-card .arrow-forward {
@@ -763,7 +770,7 @@ body {
 }
 
 .ulam-profile-page .ulam-image {
-        width: 100vw;
+        width: calc(100% + var(--page-padding * 2));
         height: 350px;
         margin: 
                 calc(-1 * var(--page-padding))
@@ -952,11 +959,16 @@ body {
         bottom: 16px;
         left: 32px;
         right: 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 
 .ulam-profile-page .cook-button button {
         font-size: var(--text-size);
         width: 100%;
+        max-width: 750px;
         padding: 1em;
 
         font-weight: 600;

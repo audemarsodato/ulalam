@@ -37,26 +37,26 @@
     - mealtime: str (breakfast, lunch, dinner)
 
 ## Pages
-  - Feed
-  - Add ulam 
-  - Search ulam
-  - Update / edits ulam
-  - Ulam profile details
-  - Create ulam variation
+  - [x] Home 
+  - [x] Add ulam 
+  - [x] Search ulam
+  - [x] Update / edits ulam
+  - [x] Ulam profile details
+  - [x] Create ulam variation
   - Bookmarks
-  - Meal plan
-  - Cook ulam
-  - History of cooked ulam
+  - [x] Meal plan
+  - [x] Cook ulam
+  - [x] History of cooked ulam
   - Sign up
   - Complete your profile
   - Onboarding
   - Log in
-  - User profile
+  - [x] User profile
     - Followed people (Child page, seperate page but can only be accesed through the parent page)
     - Followers
 
 ## Page Contents
-### Feed
+### Home
     - Header with user profile pic and ulalam at the center in the same line as profile pic
     - Greetings to the user, Good morning, Audemars
     - Search bar that redirects to search page
