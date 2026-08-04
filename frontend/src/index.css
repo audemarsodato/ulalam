@@ -127,7 +127,8 @@ body {
         color: var(--primary);
 } */
 
-.home-page .specialties-section .ulam-container {
+.specialties.section .ulam-container,
+.specialties-section .ulam-container {
         flex-direction: row;
         overflow-x: auto; /*Adds a scroll if content exceeds specified width*/
         overflow-y: hidden; /*Prevent vertical scrollbar*/
@@ -146,10 +147,12 @@ body {
 }
 
 /* REMOVE SCROLLBAR VIEW */
-.home-page .specialties-section .ulam-container::-webkit-scrollbar {
+.specialties.section .ulam-container::-webkit-scrollbar,
+.specialties-section .ulam-container::-webkit-scrollbar {
         display: none;
 }
-.home-page .specialties-section .ulam-container {
+.specialties.section .ulam-container
+.specialties-section .ulam-container {
         scrollbar-width: none;
 }
 

@@ -1,6 +1,6 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCard({ ulamName, owner }){
+export default function UlamCard({ ulamName, owner, stats}){
         const { openProfile } = useUlamCard(ulamName)
 
         return (
@@ -11,7 +11,15 @@ export default function UlamCard({ ulamName, owner }){
 
                         <div className="details">
                                 <h1>{ulamName}</h1>
-                                <p>By {owner}</p>
+                                { owner &&
+                                        <p>By {owner}</p>
+                                }
+                                { stats &&
+                                        <p>
+                                                <span class='material-symbols-rounded'>bookmark</span>
+                                                 {stats.bookmarks}
+                                        </p>
+                                }
                         </div>
 
                         <div className='arrow-forward'>
