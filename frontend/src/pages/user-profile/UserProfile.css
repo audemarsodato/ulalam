@@ -122,7 +122,8 @@
         flex-direction: column;
 
         border-top: 1px solid rgba(0,0,0,0.2);
-        padding-top: 24px;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        /* padding-top: 24px; */
 }
 
 .user-profile-page .more-actions.section button {
@@ -140,4 +141,10 @@
 
         background-color: rgba(0,0,0,0);
         color: var(--error);
+}
+
+.modal .user-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 }

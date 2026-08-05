@@ -1,0 +1,40 @@
+
+.modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal__body {
+        padding: 16px;
+        max-width: 90%;
+
+        background-color: var(--bg);
+        border-radius: 8px;
+}
+
+.modal__body header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+}
+
+.modal__title h1 {
+        font-size: var(--medium-header);
+        opacity: 80%;
+}
+
+.modal__close button {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+}

@@ -196,7 +196,7 @@
     - Profile picture that can be changed
     - The users username
     - Following and count, clicking will redirect to following page
-    - Followers and count, clicking will redirect to followers people 
+    - Followers and count, clicking will redirect to followers people
     - Edit profile if own profile or follow button if not
     - Specialties section
     - Published ulam section
