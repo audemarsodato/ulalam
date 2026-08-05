@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 import './CookUlam.css'
 
@@ -8,6 +8,8 @@ import Finish from './components/Finish'
 import Step from './components/Step'
 
 export default function CookUlam() {
+        const { ulamId } = useParams()
+        console.log('ulamId:', ulamId)
         const [ currentStepIndex, setCurrentStepIndex ] = useState(0)
 
         const ulam = {

@@ -819,6 +819,11 @@ body {
         cursor: pointer;
 }
 
+.ulam-profile-page .like-button button {
+        border: none;
+        background-color: rgba(0,0,0,0);
+}
+
 .ulam-profile-page .like-button span {
         font-size: 48px;
 
@@ -826,7 +831,7 @@ body {
 }
 
 .ulam-profile-page .like-button p {
-        font-size: var(--text-size);
+        font-size: var(--text-small);
 
         color: var(--text);
         opacity: 60%;
@@ -976,4 +981,9 @@ body {
         background-color: var(--primary);
         color: #fff;
         border-radius: 8px;
+}
+
+/* UTILS */
+.filled-icon {
+        font-variation-settings: 'FILL' 1;
 }

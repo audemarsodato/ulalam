@@ -43,7 +43,6 @@
   - [x] Update / edits ulam
   - [x] Ulam profile details
   - [x] Create ulam variation
-  - Bookmarks
   - [x] Meal plan
   - [x] Cook ulam
   - [x] History of cooked ulam
@@ -52,8 +51,10 @@
   - Onboarding
   - Log in
   - [x] User profile
-    - Followed people (Child page, seperate page but can only be accesed through the parent page)
-    - Followers
+    - [x] modals (Child pages, seperate page but can only be accesed through the parent page)
+      - Bookmarks
+      - Followed people 
+      - Followers
 
 ## Page Contents
 ### Home

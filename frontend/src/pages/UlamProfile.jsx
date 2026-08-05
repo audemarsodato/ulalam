@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
+import { formatDistanceToNow } from 'date-fns'
 
 import Sinigang from '../assets/sinigang-bangus.jpg'
 import Stat from '../components/ulam-profile/Stat'
@@ -8,19 +9,38 @@ import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
 
 export default function UlamProfile() {
-        const user = 'Not Audemars Odato'
+        const user = 'Audemars Odato'
         const { ulamId } = useParams()
-
+        const [ liked, setLiked ] = useState(false)
+        // if owner
+        const [ showOptions, setShowOptions ] = useState(false)
+        
         const ulam = {
                 title: 'Sinigang na Bangus',
                 owner: 'Audemars Odato',
                 likedBy: ['Audemars Odato', 'Trisha Wyne', 'w', 'v'],
                 ingredients: ['Sibuyas', 'Kamatis', 'Luya', 'Bangus'],
                 instructions: ['Pakulo ng water and lagay sibuyas at kamatis', 'Lagay sinigang mix', 'Lagay na bangus'],
-                variationOf: null
+                variationOf: null,
+                comments: [
+                        {
+                                user: 'Audemars Odato',
+                                content: 'Very delicious!',
+                                createAt: '2026-08-05T11:45:42.123Z'
+                        },
+                        {
+                                user: 'Trisha Wyne Bobis',
+                                content: 'Dapat may sinigang mix',
+                                createAt: '2025-12-25T08:30:15.456Z'
+                        },
+                ]
         }
 
-        const [ showOptions, setShowOptions ] = useState(false)
+        const displayComments = ulam.comments.map(comment => (
+                <Comment user={comment.user} timestamp={formatDistanceToNow(new Date(comment.createAt)) + ' ago'} message={comment.content}/>
+        ))
+
+        console.log('ulamId:', ulamId)
 
         return (
                 <section className="ulam-profile-page">
@@ -42,8 +62,9 @@ export default function UlamProfile() {
 
                                                         { showOptions &&
                                                                 <div className="menu-options">
-                                                                        <button className="edit button">EDIT</button>
-                                                                        <button className="delete button">DELETE</button>
+                                                                        <Link to={`/ulams/${ulamId}/edit`} className="edit button">EDIT</Link>
+                                                                        {/* TODO: Add confirmation modal */}
+                                                                        <button className="delete button">DELETE</button> 
                                                                 </div>
                                                         }
                                                 </div>
@@ -62,7 +83,9 @@ export default function UlamProfile() {
                                 </div>
 
                                 <div className="like-button">
-                                        <span className="material-symbols-rounded">favorite</span>
+                                        <button onClick={() => setLiked(current => !current)}>
+                                                <span className={`material-symbols-rounded ${liked ? 'filled-icon' : ''}`}>favorite</span>
+                                        </button>
                                         <p>{ulam.likedBy.length} Likes</p>
                                 </div>
                         </section>
@@ -96,7 +119,7 @@ export default function UlamProfile() {
                                 <div className="variations-container">
                                         <UlamCard ulamName={'Sinigang na Bangus with Gabi'} owner={'Audemars Odato'} />
                                 </div>
-                                <Link to={'/ulams/:ulamId/variations/new'}>Create Variation</Link>
+                                <Link to={`/ulams/${ulamId}/variations/new`}>Create Variation</Link>
                         </section>
 
                         <section className="comments section">
@@ -106,8 +129,7 @@ export default function UlamProfile() {
                                         <button type="submit"><span className="material-symbols-rounded">send</span></button>
                                 </form>
                                 <div className="comments-container">
-                                        <Comment user={'Audemars Odato'} timestamp={'12 minutes ago'} message={'Very Delicious!'}/>
-                                        <Comment user={'Trisha Wyne Bobis'} timestamp={'1 hour ago'} message={'Dapat may sinigang mix.'}/>
+                                        { displayComments }
                                 </div>
                         </section>
 
