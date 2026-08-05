@@ -753,9 +753,12 @@ body {
         font-weight: 600;
 }
 
+.ulam-profile-page .more .menu-options .edit.button {
+        color: var(--text);
+}
+
 .ulam-profile-page .more .menu-options .delete.button {
-        background-color: var(--error);
-        color: #fff;
+        color: var(--error);
 }
 
 .ulam-profile-page .section {
@@ -959,6 +962,16 @@ body {
         opacity: 60%;
 }
 
+.ulam-profile-page .comment .message {
+        width: 100%;
+}
+
+.ulam-profile-page .comment .message p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
 .ulam-profile-page .cook-button {
         position: fixed;
         bottom: 16px;
@@ -970,12 +983,15 @@ body {
         justify-content: center;
 }
 
-.ulam-profile-page .cook-button button {
+.ulam-profile-page .cook-button a {
+        display: block;
         font-size: var(--text-size);
         width: 100%;
         max-width: 750px;
         padding: 1em;
 
+        text-align: center;
+        text-decoration: none;
         font-weight: 600;
         border: none;
         background-color: var(--primary);

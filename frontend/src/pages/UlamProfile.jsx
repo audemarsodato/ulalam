@@ -14,8 +14,10 @@ export default function UlamProfile() {
         const [ liked, setLiked ] = useState(false)
         // if owner
         const [ showOptions, setShowOptions ] = useState(false)
+
+        const [ commentInput, setCommentInput ] = useState('')
         
-        const ulam = {
+        const [ ulam, setUlam ] = useState({
                 title: 'Sinigang na Bangus',
                 owner: 'Audemars Odato',
                 likedBy: ['Audemars Odato', 'Trisha Wyne', 'w', 'v'],
@@ -26,18 +28,41 @@ export default function UlamProfile() {
                         {
                                 user: 'Audemars Odato',
                                 content: 'Very delicious!',
-                                createAt: '2026-08-05T11:45:42.123Z'
+                                createdAt: '2026-08-05T11:45:42.123Z'
                         },
                         {
                                 user: 'Trisha Wyne Bobis',
                                 content: 'Dapat may sinigang mix',
-                                createAt: '2025-12-25T08:30:15.456Z'
+                                createdAt: '2025-12-25T08:30:15.456Z'
                         },
                 ]
+        })
+
+        const addComment = () => {
+                if (!commentInput) return
+
+                setUlam(current => ({
+                                ...current, 
+                                comments: [
+                                        ...current.comments, 
+                                        {
+                                                user, 
+                                                content: commentInput, 
+                                                createdAt: new Date()
+                                        }
+                                ]
+                        }
+                ))
+                setCommentInput('')
         }
 
         const displayComments = ulam.comments.map(comment => (
-                <Comment user={comment.user} timestamp={formatDistanceToNow(new Date(comment.createAt)) + ' ago'} message={comment.content}/>
+                <Comment
+                        key={comment.createAt}
+                        user={comment.user} 
+                        timestamp={formatDistanceToNow(new Date(comment.createdAt), { includeSeconds: true }) + ' ago'} 
+                        message={comment.content}
+                />
         ))
 
         console.log('ulamId:', ulamId)
@@ -62,9 +87,9 @@ export default function UlamProfile() {
 
                                                         { showOptions &&
                                                                 <div className="menu-options">
-                                                                        <Link to={`/ulams/${ulamId}/edit`} className="edit button">EDIT</Link>
+                                                                        <Link to={`/ulams/${ulamId}/edit`} className="edit button">Edit</Link>
                                                                         {/* TODO: Add confirmation modal */}
-                                                                        <button className="delete button">DELETE</button> 
+                                                                        <button className="delete button">Delete</button> 
                                                                 </div>
                                                         }
                                                 </div>
@@ -125,8 +150,18 @@ export default function UlamProfile() {
                         <section className="comments section">
                                 <h2>Comments</h2>
                                 <form>
-                                        <input type="text" placeholder="Leave a comment" />
-                                        <button type="submit"><span className="material-symbols-rounded">send</span></button>
+                                        <input 
+                                                type="text" 
+                                                placeholder="Leave a comment" 
+                                                value={commentInput} 
+                                                onChange={(event) => setCommentInput(event.target.value)}
+                                        />
+                                        <button 
+                                                type="button" 
+                                                onClick={addComment}
+                                        >
+                                                <span className="material-symbols-rounded">send</span>
+                                        </button>
                                 </form>
                                 <div className="comments-container">
                                         { displayComments }
@@ -134,7 +169,7 @@ export default function UlamProfile() {
                         </section>
 
                         <div className="cook-button">
-                                <button type="submit">COOK</button>
+                                <Link to={`/cook/${ulamId}`}>COOK</Link>
                         </div>
                 </section>
         )
