@@ -16,6 +16,14 @@ export default function UserProfile() {
 
         const [ activeModal, setActiveModal ] = useState(null)
 
+        const bookmarks = [
+                { ulamName: 'Tinola', owner: 'Trisha Wyne Bobis'},
+                { ulamName: 'Sinigang na Bangus', owner: 'Apple Mae Odato'},
+                { ulamName: 'Adobong Chicken', owner: 'Nanay'}
+        ]
+
+        console.log(activeModal)
+
         return (
                 <section className="user-profile-page">
                         <Header pageTitle={'Profile'} />
@@ -94,11 +102,19 @@ export default function UserProfile() {
 
                         {isOwnProfile &&
                                 <section className="more-actions section">
-                                        <button className='more-actions__bookmark'>Bookmarks</button> {/* opens modal */}
-                                        <button>Cooking History</button>
+                                        <button onClick={() => setActiveModal('bookmarks')} className='more-actions__bookmark'>Bookmarks</button> {/* opens modal */}
+                                        <button >Cooking History</button>
                                         {/* <button className='danger-button'>Delete account</button> */}
                                         <button className='logout-button danger-button'>Log out</button>
                                 </section>
+                        }
+
+                        {activeModal === 'bookmarks' &&
+                                <Modal modalTitle={'Bookmarks'} onClose={() => setActiveModal(null)}>
+                                        <div className="ulam-container">
+                                                {bookmarks.map(ulam => <UlamCard ulamName={ulam.ulamName} owner={ulam.owner}/>)}
+                                        </div>
+                                </Modal>
                         }
 
                         {activeModal === 'followers' &&

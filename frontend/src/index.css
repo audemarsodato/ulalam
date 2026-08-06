@@ -107,28 +107,6 @@ body {
         opacity: 60%;
 }
 
-/* .home-page .add-ulam-button {
-        position: fixed;
-        bottom: 48px;
-        right: 48px;
-}
-
-.home-page .add-ulam-button a {
-        display: inline-block;
-        text-decoration: none;
-
-}
-
-.home-page .add-ulam-button span {
-        font-size: 80px;
-        
-        filter:
-                drop-shadow(27px 21px 50px rgba(0,0,0,0.2))
-                drop-shadow(0 0 12px rgba(0,0,0,0.15));
-        font-variation-settings: 'FILL' 1;
-        color: var(--primary);
-} */
-
 .specialties.section .ulam-container,
 .specialties-section .ulam-container {
         flex-direction: row;
@@ -160,11 +138,11 @@ body {
 
 /* GENERAL HOME PAGE*/
 .home-page .section {
-        margin-bottom: 32px;
+        margin-bottom: 24px;
 }
 
 .home-page .section header {
-        margin-bottom: 24px;
+        margin-bottom: 12px;
 }
 
 .home-page .section-title { 
@@ -763,6 +741,7 @@ body {
 }
 
 .ulam-profile-page .more .menu-options .edit.button {
+        text-decoration: none;
         color: var(--text);
 }
 
@@ -877,6 +856,19 @@ body {
         height: 40px;
         width: 1px;
         background-color: rgba(0,0,0,0.15);
+}
+
+.ulam-profile-page .steps-container {
+        padding: 16px;
+        
+        background-color: #fff;
+        border-radius: 8px;
+}
+
+.ulam-profile-page .steps-container ol {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 }
 
 .ulam-profile-page .steps-container li {

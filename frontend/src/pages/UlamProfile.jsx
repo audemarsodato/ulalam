@@ -14,7 +14,7 @@ export default function UlamProfile() {
         const [ liked, setLiked ] = useState(false)
         // if owner
         const [ showOptions, setShowOptions ] = useState(false)
-
+        const [ showCookButton, setShowCookButton ] = useState(true)
         const [ commentInput, setCommentInput ] = useState('')
         
         const [ ulam, setUlam ] = useState({
@@ -60,7 +60,7 @@ export default function UlamProfile() {
                 <Comment
                         key={comment.createAt}
                         user={comment.user} 
-                        timestamp={formatDistanceToNow(new Date(comment.createdAt), { includeSeconds: true }) + ' ago'} 
+                        timestamp={formatDistanceToNow(new Date(comment.createdAt), { includeSeconds: true, addSuffix: true}).replace('about', '')} 
                         message={comment.content}
                 />
         ))
@@ -155,6 +155,8 @@ export default function UlamProfile() {
                                                 placeholder="Leave a comment" 
                                                 value={commentInput} 
                                                 onChange={(event) => setCommentInput(event.target.value)}
+                                                onFocus={() => setShowCookButton(false)}
+                                                onBlur={() => setShowCookButton(true)}
                                         />
                                         <button 
                                                 type="button" 
@@ -168,9 +170,11 @@ export default function UlamProfile() {
                                 </div>
                         </section>
 
-                        <div className="cook-button">
-                                <Link to={`/cook/${ulamId}`}>COOK</Link>
-                        </div>
+                        {showCookButton &&
+                                <div className="cook-button">
+                                        <Link to={`/cook/${ulamId}`}>COOK</Link>
+                                </div>
+                        }
                 </section>
         )
 }
