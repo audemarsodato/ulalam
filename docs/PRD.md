@@ -11,8 +11,21 @@
 - [ ] Social Features
 - [ ] User Onboarding
 
-## Functional Requirements
+## Scope
+### In-scope
+- [ ] Ulam management
+- [ ] Social interactions
+- [ ] Cooking
+- [ ] History or cooking log
+### Out-scope
+- [ ] Whats in my fridge. Tracks your inventory and available ingredients
+  - [ ] I can restock and update the inventory and logs the update with date
+  - [ ] Inventory decreases when used and updates after ulam is cooked/ when im done cooking
+  - [ ] I can edit and make corrections when the actual inventory is not aligned with whats in the app
+  - [ ] Every changes is logged and has date and time of the update with proper log message
+- [ ] 
 
+## Functional Requirements
 ### Recipe Management
 - [x] Users can create and publish ulams
 - [x] Users can edit an ulam of their own

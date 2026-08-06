@@ -8,16 +8,16 @@ import UserCard from '../components/UserCard'
 export default function Search() {
         const [ mode, setMode ] = useState('ulam')
 
-        const [ ingredient, setIngredient ] = useState('')
+        const [ input, setInput ] = useState('')
         const [ ingredients, setIngredients ] = useState([])
 
         const addIngredient = (event) => {
                 event.preventDefault()
 
-                if (!ingredient) return
+                if (!input) return
 
-                setIngredients(current => [...current, ingredient])
-                setIngredient('')
+                setIngredients(current => [...current, input])
+                setInput('')
         }
 
         const removeIngredient = (target) => {
@@ -32,22 +32,37 @@ export default function Search() {
                 />
         )
 
+        const searchPeople = () => {
+                console.log('Search people')
+                console.log('input:', input)
+                setInput('')
+        }
+
         return (
                 <section className="search-page">
                         <Header pageTitle={'Search'}/>
 
-                        <form className="search-form" onSubmit={addIngredient}>
+                        <form className="search-form" >
                                 <input
                                         type="text"
                                         placeholder='Search'
-                                        value={ingredient}
-                                        onChange={(event) => setIngredient(event.target.value)}
+                                        value={input}
+                                        onChange={(event) => setInput(event.target.value)}
                                 />
-                                <button type='submit'>
-                                        <span className="material-symbols-rounded">
-                                                {mode === 'ulam' ? 'add_circle_outline' : 'search'}
-                                        </span>
-                                </button>
+                                {mode === 'ulam' &&
+                                        <button type='button' onClick={addIngredient}>
+                                                <span className="material-symbols-rounded">
+                                                        {mode === 'ulam' ? 'add_circle_outline' : 'search'}
+                                                </span>
+                                        </button>
+                                }
+                                {mode === 'people' &&
+                                        <button type='button' onClick={searchPeople}>
+                                                <span className="material-symbols-rounded">
+                                                        {mode === 'ulam' ? 'add_circle_outline' : 'search'}
+                                                </span>
+                                        </button>
+                                }
                         </form>
 
                         <div className="mode-selection">
