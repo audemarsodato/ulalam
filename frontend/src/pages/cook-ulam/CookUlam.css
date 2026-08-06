@@ -68,6 +68,10 @@
         gap: 4px;
 }
 
+.ingredients-checklist .ingredients-container .checkbox__input:checked ~ .checkbox__content {
+        text-decoration: line-through;
+}
+
 .step {
         /* height: 500px; */
 

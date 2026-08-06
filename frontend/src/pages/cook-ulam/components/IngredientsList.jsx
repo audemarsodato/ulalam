@@ -1,12 +1,11 @@
 import '../CookUlam.css'
 
+import CheckBox from '../../../components/checkbox/Checkbox'
+
 export default function IngredientsList({ ingredients }) {
 
         const displayIngredients = ingredients.map(ingredient => (
-                <label className='ingredient'>
-                        <input type="checkbox"/>
-                        {ingredient}
-                </label>
+                <CheckBox label={ingredient} className={'ingredient'}/>
         ))
 
         return (

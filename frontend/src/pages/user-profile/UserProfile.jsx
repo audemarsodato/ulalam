@@ -1,4 +1,5 @@
-import { act, useState } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import './UserProfile.css'
 
@@ -9,7 +10,8 @@ import Modal from "../../components/modal/Modal"
 import UserCard from '../../components/UserCard'
 
 export default function UserProfile() {
-        const currentUser = 'audemarsodato'
+        const navigate = useNavigate()
+        const currentUser = 'not audemarsodato'
         const usersProfile = 'audemarsodato'
         const isOwnProfile = currentUser === usersProfile
         const [ isFollowing, setIsFollowing ] = useState(false)
@@ -103,7 +105,7 @@ export default function UserProfile() {
                         {isOwnProfile &&
                                 <section className="more-actions section">
                                         <button onClick={() => setActiveModal('bookmarks')} className='more-actions__bookmark'>Bookmarks</button> {/* opens modal */}
-                                        <button >Cooking History</button>
+                                        <button onClick={() => navigate('/cook/history')}>Cooking History</button>
                                         {/* <button className='danger-button'>Delete account</button> */}
                                         <button className='logout-button danger-button'>Log out</button>
                                 </section>

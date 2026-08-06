@@ -23,7 +23,7 @@ export default function SpecialtyCard({ ulamName, owner, timesCooked, imageURL }
                                 </div>
 
                                 <div className="cook-button">
-                                        <Link to={'cook/838iueirer'}>
+                                        <Link to={'/cook/838iueirer'}>
                                                 <span className="material-symbols-rounded">restaurant</span>
                                         </Link>
                                 </div>
