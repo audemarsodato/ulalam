@@ -140,6 +140,9 @@ export default function UlamProfile() {
                         </section>
 
                         <section className="variations section">
+                                {/* If variation of is not null
+                                *   Show: Variation of
+                                 */}
                                 <h2>Variations</h2>
                                 <div className="variations-container">
                                         <UlamCard ulamName={'Sinigang na Bangus with Gabi'} owner={'Audemars Odato'} />
