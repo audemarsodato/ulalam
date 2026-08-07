@@ -5,20 +5,53 @@ import './MealPlanner.css'
 import Header from '../../components/Header'
 import Day from './components/Day'
 import UlamCardPlanner from '../../components/ulam-cards/UlamCardPlanner'
+import UlamCard from '../../components/ulam-cards/UlamCard'
+import Modal from '../../components/modal/Modal'
 
 export default function MealPlanner() {
+        const [ activeModal, setActiveModal ] = useState(null)
         const [ selectedDate, setSelectedDate ] = useState(new Date())
-
+        const [ selectedMealtime, setSelectedMealtime ] = useState('breakfast')
+        const [ mealplan, setMealplan ] = useState([])
         const today = new Date()
         const next7Days = []
-
         const numDaysAhead = 7
+        const mealtimes = ['breakfast', 'lunch', 'dinner']
+
         for (let i = 0; i < numDaysAhead; i++) {
                 const date = new Date(today)
                 date.setDate(date.getDate() + i)
 
                 next7Days.push(date)
         }
+
+        const bookmarks = [
+                { ulamName: 'Tinola', owner: 'Trisha Wyne Bobis'},
+                { ulamName: 'Sinigang na Bangus', owner: 'Apple Mae Odato'},
+                { ulamName: 'Adobong Chicken', owner: 'Nanay'}
+        ]
+
+
+        const addToPlan = ({ ulam, owner, date, mealtime }) => {
+                // TODO: create error message system, toast, popup etc
+                if (!selectedMealtime) return
+
+                // TODO: create capitalize utility function
+                setMealplan(current => [...current, {ulam, owner, date, mealtime: mealtime.charAt(0).toUpperCase() + mealtime.slice(1)}])
+                setActiveModal(null)
+        }
+
+        const displayBookmarks = bookmarks.map(ulam => 
+                <UlamCard 
+                        ulamName={ulam.ulamName} 
+                        owner={ulam.owner} 
+                        onClick={() => addToPlan({ulam, owner: 'audemarsodato', date: selectedDate, mealtime: selectedMealtime})} 
+                />
+        )
+
+        const displayUlamPlans = mealplan.filter(plan => plan.date.toDateString() === selectedDate.toDateString()).map(plan => (
+                <UlamCardPlanner ulamName={plan.ulam.ulamName} mealtime={plan.mealtime} onDelete={() => console.log('Ulam card planner delete')} />
+        ))
 
         return (
                 <section className="meal-planner-page">
@@ -29,12 +62,6 @@ export default function MealPlanner() {
                                         {next7Days.map(day => (
                                                 <Day key={day} isActive={selectedDate.toDateString() === day.toDateString()} onclick={() => setSelectedDate(day)} weekday={day.toLocaleDateString('en-US', { weekday: 'short'})} monthday={day.getDate()} />
                                         ))}
-                                        {/* <Day isActive={selectedDate === 'thu, 4'} onclick={() => setSelectedDate('thu, 4')} weekday={'Thu'} monthday={'4'} />
-                                        <Day isActive={selectedDate === 'fri, 5'} onclick={() => setSelectedDate('fri, 5')} weekday={'Fri'} monthday={'5'} />
-                                        <Day isActive={selectedDate === 'sat, 7'} onclick={() => setSelectedDate('sat, 7')} weekday={'Sat'} monthday={'7'} />
-                                        <Day isActive={selectedDate === 'sun, 8'} onclick={() => setSelectedDate('sun, 8')} weekday={'Sun'} monthday={'8'} />
-                                        <Day isActive={selectedDate === 'mon, 9'} onclick={() => setSelectedDate('mon, 9')} weekday={'Mon'} monthday={'9'} />
-                                        <Day isActive={selectedDate === 'tue, 10'} onclick={() => setSelectedDate('tue, 10')} weekday={'Tue'} monthday={'10'} /> */}
                                 </div>
                         </div>
 
@@ -46,19 +73,44 @@ export default function MealPlanner() {
                                 })}</h2>
 
                                 <div className="ulam-container">
-                                        {/* {ulams.filter(ulam => ulam.date === selectedDate).map(ulam => <UlamCard ulam={ulam />})} */}
-                                        <UlamCardPlanner ulamName={'Sinigang na Bangus'} mealtime={'Dinner'} />
-                                        <UlamCardPlanner ulamName={'Adobong Chicken'} mealtime={'Lunch'} />
+                                        { displayUlamPlans }
                                 </div>
 
                         </div>
                         
                         <div className="action">
-                                <button onClick={() => console.log('add')}>
+                                <button onClick={() => setActiveModal('add-ulam')}>
                                         <span class='material-symbols-rounded'>add</span>
                                         <span className='label'>Add meal</span>
                                 </button>
                         </div>
+
+                        {activeModal === 'add-ulam' &&
+                                <Modal modalTitle={'Add Ulam'} onClose={() => setActiveModal(null)}>
+                                        <section className="mealtime">
+                                                {mealtimes.map(mealtime => (
+                                                        <label className={`mealtime__option ${selectedMealtime === mealtime ? 'mealtime__option--active' : ''}`}>
+                                                                <input
+                                                                        type="radio" 
+                                                                        name="mealtime" 
+                                                                        value={mealtime} 
+                                                                        checked={selectedMealtime === mealtime}
+                                                                        onChange={() => setSelectedMealtime(mealtime)}
+                                                                        hidden
+                                                                />
+                                                                <span>{mealtime.charAt(0).toUpperCase() + mealtime.slice(1)}</span>
+                                                        </label>
+                                                ))}
+                                        </section>
+
+                                        <section className="bookmarks">
+                                                <h2 className="bookmarks__title">Your Bookmarks</h2>
+                                                <div className="ulam-container">
+                                                        { displayBookmarks }
+                                                </div>
+                                        </section>
+                                </Modal>
+                        }
                 </section>
         )
 }

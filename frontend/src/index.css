@@ -476,7 +476,12 @@ body {
         padding-right: 16px;
 }
 
-.planner-card .delete-button span {
+.planner-card .delete__button {
+        border: none;
+        background-color: rgba(0,0,0,0);
+}
+
+.planner-card .delete__button span {
         font-size: 32px;
 
         color: var(--error);

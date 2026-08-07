@@ -87,3 +87,27 @@
         color: var(--primary);
         font-weight: 600;
 }
+
+.meal-planner-page .modal .mealtime {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+
+        margin-bottom: 12px;
+}
+
+.meal-planner-page .modal .mealtime__option {
+        font-size: var(--text-size);
+        padding: 0.5em 1em;
+
+        background-color: #fff;
+        color: var(--primary);
+        border-radius: 8px;
+        font-weight: 500;
+}
+
+.meal-planner-page .modal .mealtime__option--active {
+        background-color: var(--primary);
+        color: #fff;
+}

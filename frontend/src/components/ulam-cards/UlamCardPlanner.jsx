@@ -1,6 +1,6 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCardPlanner({ ulamName, mealtime, date }) {
+export default function UlamCardPlanner({ ulamName, mealtime, date, onDelete }) {
         const { openProfile } = useUlamCard(ulamName)
        
         return (
@@ -19,8 +19,10 @@ export default function UlamCardPlanner({ ulamName, mealtime, date }) {
                                 </p>
                         </div>
 
-                        <div className='delete-button' onClick={event => event.stopPropagation()}>
-                                <span className="material-symbols-rounded">delete</span>
+                        <div className='delete' onClick={event => event.stopPropagation()}>
+                                <button className="delete__button" onClick={onDelete}>
+                                        <span className="material-symbols-rounded">delete</span>
+                                </button>
                         </div>
                 </div>
         )

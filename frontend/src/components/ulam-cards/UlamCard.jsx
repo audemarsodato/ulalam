@@ -1,10 +1,19 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCard({ ulamName, owner, stats, imageURL}){
+export default function UlamCard({ ulamName, owner, stats, imageURL, onClick }){
         const { openProfile } = useUlamCard(ulamName)
 
+        const handleClick = () => {
+                if (!onClick) {
+                        openProfile()
+                        return
+                }
+
+                onClick()
+        }
+
         return (
-                <div className="ulam-card" onClick={openProfile}>
+                <div className="ulam-card" onClick={handleClick}>
                         <div className="image-container">
                                 <img src={imageURL} loading="lazy"/>
                         </div>
