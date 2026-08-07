@@ -41,6 +41,20 @@ export default function MealPlanner() {
                 setActiveModal(null)
         }
 
+        const removeUlamFromPlan = (planToRemove) => {
+                setMealplan(current => current.filter(plan => plan !== planToRemove))
+        }
+
+        const displayDates = next7Days.map(day => (
+                <Day 
+                        key={day} 
+                        isActive={selectedDate.toDateString() === day.toDateString()} 
+                        onclick={() => setSelectedDate(day)} 
+                        weekday={day.toLocaleDateString('en-US', { weekday: 'short'})} 
+                        monthday={day.getDate()} 
+                />
+        ))
+
         const displayBookmarks = bookmarks.map(ulam => 
                 <UlamCard 
                         ulamName={ulam.ulamName} 
@@ -50,7 +64,11 @@ export default function MealPlanner() {
         )
 
         const displayUlamPlans = mealplan.filter(plan => plan.date.toDateString() === selectedDate.toDateString()).map(plan => (
-                <UlamCardPlanner ulamName={plan.ulam.ulamName} mealtime={plan.mealtime} onDelete={() => console.log('Ulam card planner delete')} />
+                <UlamCardPlanner 
+                        ulamName={plan.ulam.ulamName} 
+                        mealtime={plan.mealtime} 
+                        onDelete={() => removeUlamFromPlan(plan)} 
+                />
         ))
 
         return (
@@ -59,9 +77,7 @@ export default function MealPlanner() {
                         
                         <div className="week-calendar">
                                 <div className="week-container">
-                                        {next7Days.map(day => (
-                                                <Day key={day} isActive={selectedDate.toDateString() === day.toDateString()} onclick={() => setSelectedDate(day)} weekday={day.toLocaleDateString('en-US', { weekday: 'short'})} monthday={day.getDate()} />
-                                        ))}
+                                        {displayDates}
                                 </div>
                         </div>
 

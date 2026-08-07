@@ -111,3 +111,10 @@
         background-color: var(--primary);
         color: #fff;
 }
+
+.meal-planner-page .modal .bookmarks__title {
+        font-size: var(--text-size);
+        margin-bottom: 12px;
+        
+        opacity: 80%;
+}
