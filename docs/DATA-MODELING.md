@@ -5,10 +5,10 @@
 - imageURL: str
 - ingredients: arr
 - instructions: arr
-- owner: id
+- owner: id{user}
 - likedBy: arr[user: id]
 - bookmarkedBy: arr[user: id]
-- variationOf: id
+- variationOf: id[ulam] | null
 - numOfCooks: int
 
 ## User

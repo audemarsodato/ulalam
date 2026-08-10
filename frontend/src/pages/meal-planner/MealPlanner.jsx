@@ -97,7 +97,7 @@ export default function MealPlanner() {
                         <div className="action">
                                 <button onClick={() => setActiveModal('add-ulam')}>
                                         <span class='material-symbols-rounded'>add</span>
-                                        <span className='label'>Add meal</span>
+                                        <span className='label'>Add ulam</span>
                                 </button>
                         </div>
 
