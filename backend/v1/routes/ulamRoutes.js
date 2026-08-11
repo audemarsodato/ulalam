@@ -3,64 +3,55 @@ const router = express.Router()
 
 // TODO: use 201 status code to post methods to indicate succesfully created resource
 
+const {
+        createUlam,
+        getUlamsFromFollowing,
+        getEarnedSpecialties,
+        getUlams,
+        updateUlam,
+        deleteUlam,
+        likeUlam,
+        unlikeUlam,
+        bookmarkUlam,
+        unbookmarkUlam,
+        createComment,
+        getUlamComments
+} = require('../controllers/ulamControllers')
+
 // CREATE ulam
-router.post('/', (req, res) => {
-        res.status(200).json({msg: 'POST or create ulam'})
-})
+router.post('/', createUlam)
 
 // GET ulams from following
-router.get('/from-following', (req, res) => {
-        res.status(200).json({msg: 'get ulams from followings'})
-})
+router.get('/from-following', getUlamsFromFollowing)
 
 // GET earned specialty ulams
-router.get('/earned-specialties', (req, res) => {
-       res.status(200).json({msg: 'get earned specialties ulams'})
-})
+router.get('/earned-specialties', getEarnedSpecialties)
 
-// GET ulams by ingredients using query parameters
-router.get('/', (req, res) => {
-       res.status(200).json({msg: 'get ulams by ingredients or other query params'})
-})
+// GET ulams using query parameters
+router.get('/', getUlams)
 
 // UPDATE a user's ulam
-router.patch('/:ulamId', (req, res) => {
-       res.status(200).json({msg: 'update an ulams details'})
-})
+router.patch('/:ulamId', updateUlam)
 
 // DELETE a user's ulam
-router.delete('/:ulamId', (req, res) => {
-       res.status(200).json({msg: 'delete a users ulam'})
-})
+router.delete('/:ulamId', deleteUlam)
 
-// PATCH / LIKE an ulam
-router.patch('/:ulamId/like', (req, res) => {
-       res.status(200).json({msg: 'like an ulam'})
-})
+// LIKE an ulam
+router.patch('/:ulamId/like', likeUlam)
 
-// DELETE / UNLIKE an ulam
-router.delete('/:ulamId/like', (req, res) => {
-        res.status(200).json({msg: 'unlike an ulam'})
-})
+// UNLIKE an ulam
+router.delete('/:ulamId/like', unlikeUlam)
 
-// PATCH / BOOKMARK an ulam
-router.patch('/:ulamId/bookmark', (req, res) => {
-        res.status(200).json({msg: 'bookmark an ulam'})
-})
+// BOOKMARK an ulam
+router.patch('/:ulamId/bookmark', bookmarkUlam)
 
-// DELETE / UNBOOKMARK an ulam
-router.delete('/:ulamId/bookmark', (req, res) => {
-        res.status(200).json({msg: 'unbookmark an ulam'})
-})
+// UNBOOKMARK an ulam
+router.delete('/:ulamId/bookmark', unbookmarkUlam)
 
-// POST / COMMENT to an ulam
-router.post('/:ulamId/comments', (req, res) => {
-       res.status(200).json({msg: 'comment to an ulam'})
-})
+// CREATE comment on an ulam
+router.post('/:ulamId/comments', createComment)
 
 // GET comments of an ulam
-router.get('/:ulamId/comments', (req, res) => {
-       res.status(200).json({msg: 'get all comments of an ulam'})
-})
+router.get('/:ulamId/comments', getUlamComments)
 
 module.exports = router
