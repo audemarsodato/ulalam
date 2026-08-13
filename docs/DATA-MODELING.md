@@ -2,14 +2,14 @@
 
 ## Ulam
 - name: str
-- imageURL: str
+- image_URL: str
 - ingredients: arr
 - instructions: arr
-- owner: id{user}
-- likedBy: arr[user: id]
-- bookmarkedBy: arr[user: id]
-- variationOf: id[ulam] | null
-- numOfCooks: int
+- user_id: id{user}
+- liked_by: arr[user: id]
+- bookmarked_by: arr[user: id]
+- variation_of: id[ulam] | null
+- cooked_count: int
 
 ## User
 - username: str

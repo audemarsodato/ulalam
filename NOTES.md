@@ -5,7 +5,7 @@
     - ingredients: array
     - steps: array
     - photoUrl: str
-    - owner: userId
+    - owner(user_id): userId
     - likedBy: array of user ids who liked it (count this to get the number of likes)
     - comments: array (for scalability, use a seperate collection for comments)
       - (id)
