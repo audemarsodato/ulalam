@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+/*
+* required items are what needs to be pass when creating the document
+*/
+
 const ulamSchema = new Schema({
         name: {
                 type: String,
                 required: true
         },
-        image_URL: {
+        image_Url: {
                 type: String,
                 required: true
         },
@@ -23,14 +27,20 @@ const ulamSchema = new Schema({
                 ref: 'User',
                 required: true
         },
-        liked_by: [{
-                type: Schema.Types.ObjectId,
-                ref: 'User'
-        }],
-        bookmarked_by: [{
-                type: Schema.Types.ObjectId,
-                ref: 'User'
-        }],
+        liked_by: {
+                type: [{
+                        type: Schema.Types.ObjectId,
+                        ref: 'User'
+                }],
+                default: []
+        },
+        bookmarked_by: {
+                type: [{
+                        type: Schema.Types.ObjectId,
+                        ref: 'User'
+                }],
+                default: []
+        },
         variation_of: {
                 type: Schema.Types.ObjectId,
                 ref: 'Ulam',

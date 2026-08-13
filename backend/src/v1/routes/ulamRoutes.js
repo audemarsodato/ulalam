@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const upload = require('../../middlewares/multer')
+
 // TODO: use 201 status code to post methods to indicate succesfully created resource
 
 const {
@@ -16,10 +18,10 @@ const {
         unbookmarkUlam,
         createComment,
         getUlamComments
-} = require('../controllers/ulamControllers')
+} = require('../controllers/ulamController')
 
 // CREATE ulam
-router.post('/', createUlam)
+router.post('/', upload.single('imageFile'), createUlam)
 
 // GET ulams from following
 router.get('/from-following', getUlamsFromFollowing)
