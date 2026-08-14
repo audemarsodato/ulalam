@@ -18,7 +18,7 @@ const {
         unbookmarkUlam,
         createComment,
         getUlamComments
-} = require('../controllers/ulamController')
+} = require('../controllers/ulamsController')
 
 // CREATE ulam
 router.post('/', upload.single('imageFile'), createUlam)

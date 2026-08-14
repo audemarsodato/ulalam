@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const ulamRoutes = require('./ulamRoutes')
+const ulamsRoute = require('./ulamsRoute')
 
-router.use('/ulams', ulamRoutes)
+router.use('/ulams', ulamsRoute)
 
 router.use('/users', (req, res) => {
         res.send('user routes')

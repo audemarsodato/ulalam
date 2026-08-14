@@ -1,4 +1,4 @@
-const ulamServices = require('../../services/ulamService')
+const ulamsService = require('../../services/ulamsService')
 
 // CREATE ulam
 async function createUlam(req, res) {
@@ -8,9 +8,11 @@ async function createUlam(req, res) {
         const imageBuffer = req.file?.buffer // optional chaining returns undefined when req.file does not exists
         
         const missingFields = []
-
+        
+        if (!name?.trim()) missingFields.push('name')
         if (!ingredientsString) missingFields.push('ingredients')
         if (!instructionsString) missingFields.push('instructions')
+        if (!imageBuffer) missingFields.push('image')
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
@@ -25,10 +27,8 @@ async function createUlam(req, res) {
                 return res.status(400).json({error: {message: 'Ingredients and instructions must be valid JSON'}})
         }
 
-        if (!name?.trim()) missingFields.push('name')
         if (!Array.isArray(ingredients) || ingredients.length === 0) missingFields.push('ingredients') // checks if its an array first, 
         if (!Array.isArray(instructions) || instructions.length === 0) missingFields.push('instructions') // does not move to the next check if its not
-        if (!imageBuffer) missingFields.push('image')
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
@@ -41,33 +41,61 @@ async function createUlam(req, res) {
         }
 
         try {
-                const ulam = await ulamServices.createUlam(ulamData)
+                const ulam = await ulamsService.createUlam(ulamData)
 
                 res.status(201).json(ulam)
         }
         catch (error) {
+                console.error('Create ulam:', error)
                 return res.status(500).json({error: {message: 'Cannot create ulam'}})
         }
 }
 
 // GET ulams from following
 async function getUlamsFromFollowing(req, res) {
+        /*
+        * Requires user id for operation
+        */
         res.status(200).json({ msg: 'get ulams from followings' })
 }
 
 // GET earned specialty ulams
 async function getEarnedSpecialties(req, res) {
+        /*
+        * Requires user id for operation
+        */
         res.status(200).json({ msg: 'get earned specialties ulams' })
 }
 
 // GET ulams using query parameters
 async function getUlams(req, res) {
+        /*
+        * Needs to populate ulams
+        */
         res.status(200).json({ msg: 'get ulams by ingredients or other query params' })
 }
 
 // UPDATE a user's ulam
 async function updateUlam(req, res) {
-        res.status(200).json({ msg: 'update an ulams details' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+
+        if (!req.params) return res.status(400).json({error: {message: 'Cannot update ulam without ulamId params'}})
+
+        const { ulamId } = req.params
+        const { updates } = req.body ?? {} // nullish coalescing ??, use the value on the left, if its undefined or null use the value on the right
+
+        if (!ulamId) return res.status(400).json({error: {message: 'Cannot update ulam without ulamId'}})
+        if (!updates) return res.status(400).json({error: {message: 'Cannot update ulam without updates'}})
+
+        try {
+                const updatedUlam = await ulamsService.updateUlam({ulamId, userId, updates})
+
+                res.status(200).json(updatedUlam)
+        }
+        catch (error) {
+                console.error(error)
+                res.status(500).json({error: {message: 'Cannot update ulam'}})
+        }
 }
 
 // DELETE a user's ulam

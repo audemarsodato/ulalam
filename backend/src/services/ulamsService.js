@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Ulam = require('../models/ulamModel')
-const imageServices = require('./imageService')
+const imageServices = require('./imagesService')
 
 /* create ulam document to the database
 * input: ulam: name, ingredients, instructions, userid
@@ -32,6 +32,17 @@ async function createUlam({ name, ingredients, instructions, userId, imageBuffer
         }
 }
 
+async function updateUlam({ ulamId, userId, updates }) {
+        try {
+                // check if ulamId is valid objectId, throw error if not
+                return { ulamId, userId, updates }
+        }
+        catch (error) {
+
+        }
+}
+
 module.exports = {
-        createUlam
+        createUlam,
+        updateUlam
 }
