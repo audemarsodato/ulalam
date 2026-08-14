@@ -46,8 +46,8 @@ async function createUlam(req, res) {
                 res.status(201).json(ulam)
         }
         catch (error) {
-                console.error('Create ulam:', error)
-                return res.status(500).json({error: {message: 'Cannot create ulam'}})
+                // console.error('Create ulam:', error)
+                return res.status(500).json({error: {message: `Cannot create ulam: ${error.message}`}})
         }
 }
 
@@ -84,8 +84,7 @@ async function updateUlam(req, res) {
         const { ulamId } = req.params
         const { updates } = req.body ?? {} // nullish coalescing ??, use the value on the left, if its undefined or null use the value on the right
 
-        if (!ulamId) return res.status(400).json({error: {message: 'Cannot update ulam without ulamId'}})
-        if (!updates) return res.status(400).json({error: {message: 'Cannot update ulam without updates'}})
+        if (!updates || Object.keys(updates).length === 0) return res.status(400).json({error: {message: 'Cannot update ulam without updates'}})
 
         try {
                 const updatedUlam = await ulamsService.updateUlam({ulamId, userId, updates})
@@ -93,8 +92,8 @@ async function updateUlam(req, res) {
                 res.status(200).json(updatedUlam)
         }
         catch (error) {
-                console.error(error)
-                res.status(500).json({error: {message: 'Cannot update ulam'}})
+                // console.error(error)
+                res.status(500).json({error: {message: error.message}})
         }
 }
 

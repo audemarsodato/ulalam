@@ -34,11 +34,24 @@ async function createUlam({ name, ingredients, instructions, userId, imageBuffer
 
 async function updateUlam({ ulamId, userId, updates }) {
         try {
-                // check if ulamId is valid objectId, throw error if not
-                return { ulamId, userId, updates }
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+
+                const filters = {
+                        _id: ulamId,
+                        user_id: userId
+                }
+ 
+                const options = {
+                        returnDocument: 'after',
+                        runValidators: true
+                }
+                
+                const updatedUlam = await Ulam.findOneAndUpdate(filters, updates, options)
+
+                return updatedUlam
         }
         catch (error) {
-
+                throw error
         }
 }
 
