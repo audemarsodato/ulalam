@@ -91,7 +91,8 @@ async function updateUlam(req, res) {
         }
         catch (error) {
                 // console.error(error)
-                res.status(error.statusCode).json({error: {message: error.message}})
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
         }
 }
 
@@ -105,19 +106,40 @@ async function deleteUlam(req, res) {
                 res.status(200).json(deletedUlam)
         }
         catch (error) {
-                console.error(error)
-                res.status(error.statusCode).json({error: {message: error.message}}) // TODO: Structure the error so that you can send a 404 status code
+                // console.error(error)
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}}) // TODO: Structure the error so that you can send a 404 status code
         }
 }
 
 // PATCH / LIKE an ulam
 async function likeUlam(req, res) {
-        res.status(200).json({ msg: 'like an ulam' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const { ulamId } = req.params
+
+        try {
+               const likedUlam = await ulamsService.likeUlam({ulamId, userId})
+               res.status(200).json(likedUlam)
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
 
 // DELETE / UNLIKE an ulam
 async function unlikeUlam(req, res) {
-        res.status(200).json({ msg: 'unlike an ulam' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const { ulamId } = req.params
+
+        try {
+               const unlikedUlam = await ulamsService.unlikeUlam({ulamId, userId})
+               res.status(200).json(unlikedUlam)
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
 
 // PATCH / BOOKMARK an ulam

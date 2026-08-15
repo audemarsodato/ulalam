@@ -26,6 +26,8 @@ async function createUlam({ name, ingredients, instructions, userId, imageBuffer
                         user_id: new mongoose.Types.ObjectId(userId) // TODO: put objectication in authentication when attaching it to req
                 })
 
+                if (!ulam) throw new Error('Failed to create ulam')
+
                 return ulam
         }
         catch(error) {
@@ -73,8 +75,60 @@ async function deleteUlam({ ulamId, userId }) {
         }
 }
 
+async function likeUlam({ ulamId, userId }) {
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                
+                const filters = {
+                        _id: ulamId,
+                        user_id: userId
+                }
+        
+                const options = {
+                        returnDocument: 'after',
+                        runValidators: true
+                }
+                
+                const likedUlam = await Ulam.findOneAndUpdate(filters, {$addToSet: {liked_by: new mongoose.Types.ObjectId(userId)}}, options)
+
+                if (!likedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+
+                return likedUlam
+        }
+        catch (error) {
+               throw error
+        }
+}
+
+async function unlikeUlam({ ulamId, userId }) {
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                
+                        const filters = {
+                                _id: ulamId,
+                                user_id: userId
+                        }
+                
+                        const options = {
+                                returnDocument: 'after',
+                                runValidators: true
+                        }
+                        
+                        const unlikedUlam = await Ulam.findOneAndUpdate(filters, {$pull: {liked_by: new mongoose.Types.ObjectId(userId)}}, options)
+
+                        if (!unlikedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+
+                        return unlikedUlam
+        }
+        catch (error) {
+               throw error
+        }
+}
+
 module.exports = {
         createUlam,
         updateUlam,
         deleteUlam,
+        likeUlam,
+        unlikeUlam
 }
