@@ -37,7 +37,7 @@ async function createUlam({ name, ingredients, instructions, userId, imageBuffer
 
 async function updateUlam({ ulamId, userId, updates }) {
         try {
-                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
 
                 const filters = {
                         _id: ulamId,
@@ -62,7 +62,7 @@ async function updateUlam({ ulamId, userId, updates }) {
 
 async function deleteUlam({ ulamId, userId }) {
         try {
-                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
                 const deletedUlam = await Ulam.findOneAndDelete({_id: ulamId, user_id: userId})
 
@@ -77,7 +77,7 @@ async function deleteUlam({ ulamId, userId }) {
 
 async function likeUlam({ ulamId, userId }) {
         try {
-                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
                 const filters = {
                         _id: ulamId,
@@ -102,23 +102,73 @@ async function likeUlam({ ulamId, userId }) {
 
 async function unlikeUlam({ ulamId, userId }) {
         try {
-                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
-                        const filters = {
-                                _id: ulamId,
-                                user_id: userId
-                        }
+                const filters = {
+                        _id: ulamId,
+                        user_id: userId
+                }
+        
+                const options = {
+                        returnDocument: 'after',
+                        runValidators: true
+                }
                 
-                        const options = {
-                                returnDocument: 'after',
-                                runValidators: true
-                        }
-                        
-                        const unlikedUlam = await Ulam.findOneAndUpdate(filters, {$pull: {liked_by: new mongoose.Types.ObjectId(userId)}}, options)
+                const unlikedUlam = await Ulam.findOneAndUpdate(filters, {$pull: {liked_by: new mongoose.Types.ObjectId(userId)}}, options)
 
-                        if (!unlikedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!unlikedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
 
-                        return unlikedUlam
+                return unlikedUlam
+        }
+        catch (error) {
+               throw error
+        }
+}
+
+async function bookmarkUlam({ ulamId, userId }) {
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
+                
+                const filters = {
+                        _id: ulamId,
+                        user_id: userId
+                }
+        
+                const options = {
+                        returnDocument: 'after',
+                        runValidators: true
+                }
+                
+                const bookmarkedUlam = await Ulam.findOneAndUpdate(filters, {$addToSet: {bookmarked_by: new mongoose.Types.ObjectId(userId)}}, options)
+
+                if (!bookmarkedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+
+                return bookmarkedUlam
+        }
+        catch (error) {
+               throw error
+        }
+}
+
+async function unbookmarkUlam({ ulamId, userId }) {
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
+                
+                const filters = {
+                        _id: ulamId,
+                        user_id: userId
+                }
+        
+                const options = {
+                        returnDocument: 'after',
+                        runValidators: true
+                }
+                
+                const unbookmarkedUlam = await Ulam.findOneAndUpdate(filters, {$pull: {bookmarked_by: new mongoose.Types.ObjectId(userId)}}, options)
+
+                if (!unbookmarkedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+
+                return unbookmarkedUlam
         }
         catch (error) {
                throw error
@@ -130,5 +180,7 @@ module.exports = {
         updateUlam,
         deleteUlam,
         likeUlam,
-        unlikeUlam
+        unlikeUlam,
+        bookmarkUlam,
+        unbookmarkUlam
 }

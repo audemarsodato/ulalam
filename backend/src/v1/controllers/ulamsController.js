@@ -144,12 +144,32 @@ async function unlikeUlam(req, res) {
 
 // PATCH / BOOKMARK an ulam
 async function bookmarkUlam(req, res) {
-        res.status(200).json({ msg: 'bookmark an ulam' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const { ulamId } = req.params
+
+        try {
+               const bookmarkedUlam = await ulamsService.bookmarkUlam({ulamId, userId})
+               res.status(200).json(bookmarkedUlam)
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
 
 // DELETE / UNBOOKMARK an ulam
 async function unbookmarkUlam(req, res) {
-        res.status(200).json({ msg: 'unbookmark an ulam' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const { ulamId } = req.params
+
+        try {
+               const unbookmarkedUlam = await ulamsService.unbookmarkUlam({ulamId, userId})
+               res.status(200).json(unbookmarkedUlam)
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
 
 // POST / COMMENT to an ulam
