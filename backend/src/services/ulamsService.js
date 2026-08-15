@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const Ulam = require('../models/ulamModel')
 const imageServices = require('./imagesService')
+const AppError = require('../utils/AppError')
 
 /* create ulam document to the database
 * input: ulam: name, ingredients, instructions, userid
@@ -48,6 +49,8 @@ async function updateUlam({ ulamId, userId, updates }) {
                 
                 const updatedUlam = await Ulam.findOneAndUpdate(filters, updates, options)
 
+                if (!updatedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+
                 return updatedUlam
         }
         catch (error) {
@@ -55,7 +58,23 @@ async function updateUlam({ ulamId, userId, updates }) {
         }
 }
 
+async function deleteUlam({ ulamId, userId }) {
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new Error('Ulam id is not valid id')
+                
+                const deletedUlam = await Ulam.findOneAndDelete({_id: ulamId, user_id: userId})
+
+                if (!deletedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                
+                return deleteUlam
+        }
+        catch (error) {
+               throw error
+        }
+}
+
 module.exports = {
         createUlam,
-        updateUlam
+        updateUlam,
+        deleteUlam,
 }

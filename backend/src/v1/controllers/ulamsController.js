@@ -79,8 +79,6 @@ async function getUlams(req, res) {
 async function updateUlam(req, res) {
         const userId = '507f1f77bcf86cd799439011' // req.user._id 
 
-        if (!req.params) return res.status(400).json({error: {message: 'Cannot update ulam without ulamId params'}})
-
         const { ulamId } = req.params
         const { updates } = req.body ?? {} // nullish coalescing ??, use the value on the left, if its undefined or null use the value on the right
 
@@ -93,13 +91,23 @@ async function updateUlam(req, res) {
         }
         catch (error) {
                 // console.error(error)
-                res.status(500).json({error: {message: error.message}})
+                res.status(error.statusCode).json({error: {message: error.message}})
         }
 }
 
 // DELETE a user's ulam
 async function deleteUlam(req, res) {
-        res.status(200).json({ msg: 'delete a users ulam' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const { ulamId } = req.params
+
+        try {
+                const deletedUlam = await ulamsService.deleteUlam({ulamId, userId})
+                res.status(200).json(deletedUlam)
+        }
+        catch (error) {
+                console.error(error)
+                res.status(error.statusCode).json({error: {message: error.message}}) // TODO: Structure the error so that you can send a 404 status code
+        }
 }
 
 // PATCH / LIKE an ulam
