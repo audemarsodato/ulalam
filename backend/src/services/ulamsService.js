@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const Ulam = require('../models/ulamModel')
+const Comment = require('../models/commentsModel')
 const imageServices = require('./imagesService')
 const AppError = require('../utils/AppError')
 
@@ -173,6 +174,14 @@ async function unbookmarkUlam({ ulamId, userId }) {
         catch (error) {
                throw error
         }
+}
+
+async function commentToUlam({ ulamId, content, userId }) {
+        
+}
+
+async function getCommentsOfUlam({ ulamId }) {
+        
 }
 
 module.exports = {
