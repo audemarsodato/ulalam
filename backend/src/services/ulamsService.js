@@ -212,6 +212,21 @@ async function getCommentsOfUlam({ ulamId }) {
         }
 }
 
+async function getUlam({ ulamId }) {
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
+
+                const ulam = await Ulam.findById(ulamId)
+
+                if (!ulam) throw new AppError('Cannot find ulam', 404)
+
+                return ulam
+        }
+        catch (error) {
+               throw error
+        }
+}
+
 module.exports = {
         createUlam,
         updateUlam,
@@ -221,5 +236,6 @@ module.exports = {
         bookmarkUlam,
         unbookmarkUlam,
         commentToUlam,
-        getCommentsOfUlam
+        getCommentsOfUlam,
+        getUlam
 }

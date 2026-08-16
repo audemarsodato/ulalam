@@ -205,12 +205,17 @@ async function getUlamComments(req, res) {
         }
 }
 
-async function getAnUlam(req, res) {
+async function getUlam(req, res) {
+        const { ulamId } = req.params
+
         try {
-                
+                const ulam = await ulamsService.getUlam({ulamId})
+                const comments = await ulamsService.getCommentsOfUlam({ulamId})
+                res.status(200).json({...ulam.toObject(), comments})
         }
         catch (error) {
-               
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
         }
 }
 
@@ -227,5 +232,5 @@ module.exports = {
         unbookmarkUlam,
         createComment,
         getUlamComments,
-        getAnUlam
+        getUlam
 }
