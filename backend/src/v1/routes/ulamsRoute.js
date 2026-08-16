@@ -17,7 +17,8 @@ const {
         bookmarkUlam,
         unbookmarkUlam,
         createComment,
-        getUlamComments
+        getUlamComments,
+        getAnUlam
 } = require('../controllers/ulamsController')
 
 // CREATE ulam
@@ -31,6 +32,9 @@ router.get('/earned-specialties', getEarnedSpecialties)
 
 // GET ulams using query parameters
 router.get('/', getUlams)
+
+// GET a single ulam profile
+router.get('/:ulamId', getAnUlam)
 
 // UPDATE a user's ulam
 router.patch('/:ulamId', updateUlam)

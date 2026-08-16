@@ -177,11 +177,39 @@ async function unbookmarkUlam({ ulamId, userId }) {
 }
 
 async function commentToUlam({ ulamId, content, userId }) {
-        
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
+
+                const commentData = {
+                        ulam_id: new mongoose.Types.ObjectId(ulamId),
+                        user_id: new mongoose.Types.ObjectId(userId),
+                        content
+                }
+
+                const comment = await Comment.create(commentData)
+
+                if (!comment) throw new Error('Failed to comment to ulam')
+
+                return comment
+        }
+        catch (error) {
+               throw error
+        }
 }
 
 async function getCommentsOfUlam({ ulamId }) {
-        
+        try {
+                if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
+
+                const comments = await Comment.find({ulam_id: ulamId})
+
+                if (!comments) throw new AppError('Cannot find ulam', 404)
+
+                return comments
+        }
+        catch (error) {
+               throw error
+        }
 }
 
 module.exports = {
@@ -191,5 +219,7 @@ module.exports = {
         likeUlam,
         unlikeUlam,
         bookmarkUlam,
-        unbookmarkUlam
+        unbookmarkUlam,
+        commentToUlam,
+        getCommentsOfUlam
 }

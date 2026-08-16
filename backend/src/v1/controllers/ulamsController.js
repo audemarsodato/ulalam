@@ -174,12 +174,44 @@ async function unbookmarkUlam(req, res) {
 
 // POST / COMMENT to an ulam
 async function createComment(req, res) {
-        res.status(200).json({ msg: 'comment to an ulam' })
+        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const { ulamId } = req.params
+        const { content } = req.body ?? {}
+
+        if (!content) return res.status(400).json({error: {message: 'Missing content for comment'}})
+
+        try {
+                const createdComment = await ulamsService.commentToUlam({ulamId, content, userId})
+                res.status(200).json(createdComment)
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
+
 
 // GET comments of an ulam
 async function getUlamComments(req, res) {
-        res.status(200).json({ msg: 'get all comments of an ulam' })
+        const { ulamId } = req.params
+        
+        try {
+                const comments = await ulamsService.getCommentsOfUlam({ulamId}) 
+                res.status(200).json({comments})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
+async function getAnUlam(req, res) {
+        try {
+                
+        }
+        catch (error) {
+               
+        }
 }
 
 module.exports = {
@@ -194,5 +226,6 @@ module.exports = {
         bookmarkUlam,
         unbookmarkUlam,
         createComment,
-        getUlamComments
+        getUlamComments,
+        getAnUlam
 }
