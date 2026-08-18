@@ -2,12 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const ulamsRoute = require('./ulamsRoute')
+const usersRoute = require('./UsersRoute')
 
 router.use('/ulams', ulamsRoute)
 
-router.use('/users', (req, res) => {
-        res.send('user routes')
-})
+router.use('/users', usersRoute)
 
 router.use('/mealplans', (req, res) => {
         res.send('mealplan routes')

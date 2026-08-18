@@ -22,7 +22,7 @@ const {
 } = require('../controllers/ulamsController')
 
 // CREATE ulam
-router.post('/', upload.single('imageFile'), createUlam)
+router.post('/', upload.single('image-file'), createUlam)
 
 // GET ulams from following
 router.get('/from-following', getUlamsFromFollowing)

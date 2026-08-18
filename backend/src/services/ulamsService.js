@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Ulam = require('../models/ulamModel')
 const Comment = require('../models/commentsModel')
-const imageServices = require('./imagesService')
+const imagesService = require('./imagesService')
 const AppError = require('../utils/AppError')
 
 /* create ulam document to the database
@@ -17,7 +17,8 @@ const AppError = require('../utils/AppError')
 */
 async function createUlam({ name, ingredients, instructions, userId, imageBuffer }) {
         try {
-                const imageUrl = await imageServices.uploadImage(imageBuffer)
+                const imageUrl = await imagesService.uploadImage(imageBuffer)
+                // TODO: validate if image uploaded successfully
 
                 const ulam = await Ulam.create({
                         name,

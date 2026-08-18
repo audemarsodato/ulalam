@@ -72,7 +72,11 @@ async function getUlams(req, res) {
         /*
         * Needs to populate ulams
         */
-        res.status(200).json({ msg: 'get ulams by ingredients or other query params' })
+       const { ingredients: ingredientsQuery } = req.query
+       const ingredients = ingredientsQuery ? ingredientsQuery.split(',') : []
+       console.log(ingredientsQuery)
+       console.log(ingredients)
+        res.status(200).json({ msg: 'get ulams by ingredients or other query params', ingredients })
 }
 
 // UPDATE a user's ulam
@@ -210,7 +214,7 @@ async function getUlam(req, res) {
 
         try {
                 const ulam = await ulamsService.getUlam({ulamId})
-                const comments = await ulamsService.getCommentsOfUlam({ulamId})
+                const comments = await ulamsService.getCommentsOfUlam({ulamId}) // TODO: promise.all
                 res.status(200).json({...ulam.toObject(), comments})
         }
         catch (error) {
