@@ -17,8 +17,8 @@ async function signup(req, res) {
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
         try {
-                const user = await usersService.signup({username, email, password, profileImageBuffer})
-                res.status(200).json({message: 'signup', user})
+                const { token, user } = await usersService.signup({username, email, password, profileImageBuffer})
+                res.status(200).json({message: 'signup', user, token}) // TODO return the jwt token only, or together with username
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
@@ -27,7 +27,24 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-        res.status(200).json({message: 'login'})
+        const { email, password } = req.body
+
+        const missingFields = [] // TODO: make a validation function for checking all request input
+        if (!email?.trim()) missingFields.push('email')
+        if (!password?.trim()) missingFields.push('password')
+        
+        if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
+        
+
+        try {
+                const { token, user } = await usersService.login({email, password})
+
+                res.status(200).json({message: 'login user' ,user, token})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})              
+        }
 }
 
 module.exports = {

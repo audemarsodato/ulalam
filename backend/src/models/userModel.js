@@ -48,15 +48,15 @@ const userSchema = new Schema({
 })
 
 userSchema.statics.validateSignup = async function({ username, email, password }) {
+        if (!validator.isEmail(email)) throw new AppError('Invalid email', 400)
+                
         const [ emailInUse, usernameTaken ] = await Promise.all([
                 this.findOne({email}),
                 this.findOne({username})
         ])
-        if (emailInUse) throw new AppError('Email already in use', 400)
-                
-        if (usernameTaken) throw new AppError('Username already taken', 400)
-        
-        if (!validator.isEmail(email)) throw new AppError('Invalid email', 400)
+
+        if (emailInUse) throw new AppError('Email already in use', 400)       
+        if (usernameTaken) throw new AppError('Username already taken', 400) // TODO add limit to 50 char or etc
         if (!validator.isStrongPassword(password)) throw new AppError('Weak password', 400)
 }
 
@@ -76,11 +76,21 @@ userSchema.statics.signup = async function({ username, email, password, profileI
 
         const user = await this.create(userData)
 
+        if (!user) throw new AppError('Failed to signup user')
+
         return user
 }
 
 userSchema.statics.login = async function({ email, password }) {
+        const user = await this.findOne({email}) // this.find({email}) returns an array
 
+        if (!user) throw new AppError('Incorrect email', 400)
+
+        const isMatch = await bcrypt.compare(password, user.password_hash)
+
+        if (!isMatch) throw new AppError('Incorrect password', 400)
+
+        return user
 }
 
 const User = mongoose.model('User', userSchema)

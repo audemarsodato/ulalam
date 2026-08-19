@@ -72,10 +72,10 @@ async function getUlams(req, res) {
         /*
         * Needs to populate ulams
         */
-       const { ingredients: ingredientsQuery } = req.query
-       const ingredients = ingredientsQuery ? ingredientsQuery.split(',') : []
-       console.log(ingredientsQuery)
-       console.log(ingredients)
+        const { ingredients: ingredientsQuery } = req.query
+        const ingredients = ingredientsQuery ? ingredientsQuery.split(',') : []
+        console.log(ingredientsQuery)
+        console.log(ingredients)
         res.status(200).json({ msg: 'get ulams by ingredients or other query params', ingredients })
 }
 
