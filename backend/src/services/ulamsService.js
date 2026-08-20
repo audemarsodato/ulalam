@@ -17,14 +17,15 @@ const User = require('../models/userModel')
 * output: document created in the ulams collection
 */
 async function createUlam({ name, ingredients, instructions, userId, imageBuffer }) {
+        const lowercasedIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
         try {
                 const imageUrl = await imagesService.uploadImage(imageBuffer)
                 // TODO: validate if image uploaded successfully
 
                 const ulam = await Ulam.create({
                         name,
-                        image_Url: imageUrl,
-                        ingredients,
+                        image_url: imageUrl,
+                        ingredients: lowercasedIngredients,
                         instructions,
                         user_id: new mongoose.Types.ObjectId(userId) // TODO: put objectication in authentication when attaching it to req
                 })
@@ -229,8 +230,25 @@ async function getUlam(ulamId) {
         }
 }
 
-async function getUlams() {
-        // query params
+async function getUlamsByIngredients(ingredients) {
+        const cleanIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
+        const matchedUlams = await Ulam.find({ingredients: {$in: cleanIngredients}}).select('name ingredients image_url')
+
+        if (matchedUlams.length === 0) throw new AppError('No matched ulams found using the ingredients', 400)
+
+        const ulams = []
+
+        for (const ulam of matchedUlams) {
+                let matchCount = 0
+                for (const ingredient of ulam.ingredients) {
+                        const caseInsensitiveIngredient = ingredient.trim().toLowerCase()
+                        if (cleanIngredients.includes(caseInsensitiveIngredient)) matchCount++
+                }
+
+                if (matchCount > 0) ulams.push({name: ulam.name, image_url: ulam.image_url, matchCount})
+        }
+
+        return ulams
 }
 
 /*
@@ -238,7 +256,8 @@ async function getUlams() {
 * .lean() skips the process of transforming the document into an mongoose document
 *       making it lightweight and faster since there is no methods attached
 *       thus making the object read only without the methods from mongoose document
-* $in filters and takes documents that matches the vales inside the array
+* $in filters and takes documents that matches any of the vales inside the array
+* note: $all filters ulams that matched all of the values inside the array
 */
 async function getUlamsFromFollowings(userId) {
         const user = await User.findById(userId).select('followings').lean()
@@ -274,5 +293,6 @@ module.exports = {
         getCommentsOfUlam,
         getUlam,
         getUlamsFromFollowings,
-        getEarnedSpecialties
+        getEarnedSpecialties,
+        getUlamsByIngredients
 }

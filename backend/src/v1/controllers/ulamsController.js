@@ -1,4 +1,5 @@
 const ulamsService = require('../../services/ulamsService')
+const AppError = require('../../utils/AppError')
 
 // CREATE ulam
 async function createUlam(req, res) {
@@ -80,12 +81,20 @@ async function getEarnedSpecialties(req, res) {
 
 // GET ulams using query parameters
 async function getUlams(req, res) {
-        /*
-        * Needs to populate ulams
-        */
         const { ingredients: ingredientsQuery } = req.query
-        const ingredients = ingredientsQuery ? ingredientsQuery.split(',') : []
-        res.status(200).json({ msg: 'get ulams by ingredients or other query params', ingredients })
+
+        try {
+                const ingredients = ingredientsQuery ? ingredientsQuery.split(',') : []
+
+                if (ingredients.length === 0) throw new AppError('No ingredients query params', 400)
+
+                const matchedUlams = await ulamsService.getUlamsByIngredients(ingredients)
+                res.status(200).json({matchedUlams})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})               
+        }
 }
 
 // UPDATE a user's ulam
