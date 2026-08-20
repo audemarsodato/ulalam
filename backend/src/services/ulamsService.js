@@ -242,11 +242,25 @@ async function getUlams() {
 */
 async function getUlamsFromFollowings(userId) {
         const user = await User.findById(userId).select('followings').lean()
-        if (!user) throw new AppError('Failed to find user', 400)
+
+        if (!user) throw new AppError('Failed to find user', 400) // TODO redundant since user once logged in is already created and every request is authenticated already by the middleware
+
         const ulams = await Ulam.find({user_id: {$in: user.followings}})
 
         return ulams
 }
+
+async function getEarnedSpecialties(userId) {
+        const user = await User.findById(userId).select('earned_specialties').lean()
+
+        if (!user) throw new AppError('Failed to find user', 400)
+
+        const ulams = await Ulam.find({_id: {$in: user.earned_specialties}})
+
+        return ulams
+}
+
+
 
 module.exports = {
         createUlam,
@@ -259,5 +273,6 @@ module.exports = {
         commentToUlam,
         getCommentsOfUlam,
         getUlam,
-        getUlamsFromFollowings
+        getUlamsFromFollowings,
+        getEarnedSpecialties
 }

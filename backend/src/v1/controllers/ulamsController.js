@@ -56,7 +56,7 @@ async function getUlamsFromFollowing(req, res) {
         const userId = '6a8571a973ef1b63b2466e2a' // my user id
         try {
                 const ulams = await ulamsService.getUlamsFromFollowings(userId)
-                res.status(200).json({ulams})
+                res.status(200).json({fromFollowings: ulams})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
@@ -66,10 +66,16 @@ async function getUlamsFromFollowing(req, res) {
 
 // GET earned specialty ulams
 async function getEarnedSpecialties(req, res) {
-        /*
-        * Requires user id for operation
-        */
-        res.status(200).json({msg: 'get earned specialties ulams'})
+        const userId = '6a8571a973ef1b63b2466e2a' // my user id
+        
+        try {
+                const ulams = await ulamsService.getEarnedSpecialties(userId)
+                res.status(200).json({specialties: ulams})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
 
 // GET ulams using query parameters
