@@ -44,6 +44,13 @@ const userSchema = new Schema({
                         ref: 'Ulam'
                 }],
                 default: []
+        },
+        published_ulams: {
+                type: [{
+                        type: Schema.Types.ObjectId,
+                        ref: 'Ulam'
+                }],
+                default: []
         }
 })
 

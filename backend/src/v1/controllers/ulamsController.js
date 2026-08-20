@@ -53,10 +53,15 @@ async function createUlam(req, res) {
 
 // GET ulams from following
 async function getUlamsFromFollowing(req, res) {
-        /*
-        * Requires user id for operation
-        */
-        res.status(200).json({ msg: 'get ulams from followings' })
+        const userId = '6a8571a973ef1b63b2466e2a' // my user id
+        try {
+                const ulams = await ulamsService.getUlamsFromFollowings(userId)
+                res.status(200).json({ulams})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
 }
 
 // GET earned specialty ulams
@@ -64,7 +69,7 @@ async function getEarnedSpecialties(req, res) {
         /*
         * Requires user id for operation
         */
-        res.status(200).json({ msg: 'get earned specialties ulams' })
+        res.status(200).json({msg: 'get earned specialties ulams'})
 }
 
 // GET ulams using query parameters
@@ -74,8 +79,6 @@ async function getUlams(req, res) {
         */
         const { ingredients: ingredientsQuery } = req.query
         const ingredients = ingredientsQuery ? ingredientsQuery.split(',') : []
-        console.log(ingredientsQuery)
-        console.log(ingredients)
         res.status(200).json({ msg: 'get ulams by ingredients or other query params', ingredients })
 }
 
@@ -200,7 +203,7 @@ async function getUlamComments(req, res) {
         const { ulamId } = req.params
         
         try {
-                const comments = await ulamsService.getCommentsOfUlam({ulamId}) 
+                const comments = await ulamsService.getCommentsOfUlam(ulamId) 
                 res.status(200).json({comments})
         }
         catch (error) {
@@ -213,7 +216,7 @@ async function getUlam(req, res) {
         const { ulamId } = req.params
 
         try {
-                const ulam = await ulamsService.getUlam({ulamId})
+                const ulam = await ulamsService.getUlam(ulamId)
                 const comments = await ulamsService.getCommentsOfUlam({ulamId}) // TODO: promise.all
                 res.status(200).json({...ulam.toObject(), comments})
         }

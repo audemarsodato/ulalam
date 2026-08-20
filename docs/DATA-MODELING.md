@@ -18,6 +18,7 @@
 - followers: arr[user: id]
 - followings: arr[user: id]
 - earnedSpecialties: arr[ulam: id] (timesCooked is derived from cookinglog counting how many times the ulam appeared in the history)
+- published_ulams: arr[ulam: id]
 
 ## Cooking Log
 - ulam: id

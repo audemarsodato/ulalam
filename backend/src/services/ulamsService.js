@@ -4,6 +4,7 @@ const Ulam = require('../models/ulamModel')
 const Comment = require('../models/commentsModel')
 const imagesService = require('./imagesService')
 const AppError = require('../utils/AppError')
+const User = require('../models/userModel')
 
 /* create ulam document to the database
 * input: ulam: name, ingredients, instructions, userid
@@ -198,7 +199,7 @@ async function commentToUlam({ ulamId, content, userId }) {
         }
 }
 
-async function getCommentsOfUlam({ ulamId }) {
+async function getCommentsOfUlam(ulamId) {
         try {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
 
@@ -213,7 +214,7 @@ async function getCommentsOfUlam({ ulamId }) {
         }
 }
 
-async function getUlam({ ulamId }) {
+async function getUlam(ulamId) {
         try {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
 
@@ -228,6 +229,25 @@ async function getUlam({ ulamId }) {
         }
 }
 
+async function getUlams() {
+        // query params
+}
+
+/*
+* .select('followings') returns the field 'followings' and _id only
+* .lean() skips the process of transforming the document into an mongoose document
+*       making it lightweight and faster since there is no methods attached
+*       thus making the object read only without the methods from mongoose document
+* $in filters and takes documents that matches the vales inside the array
+*/
+async function getUlamsFromFollowings(userId) {
+        const user = await User.findById(userId).select('followings').lean()
+        if (!user) throw new AppError('Failed to find user', 400)
+        const ulams = await Ulam.find({user_id: {$in: user.followings}})
+
+        return ulams
+}
+
 module.exports = {
         createUlam,
         updateUlam,
@@ -238,5 +258,6 @@ module.exports = {
         unbookmarkUlam,
         commentToUlam,
         getCommentsOfUlam,
-        getUlam
+        getUlam,
+        getUlamsFromFollowings
 }
