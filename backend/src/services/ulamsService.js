@@ -245,7 +245,7 @@ async function getUlamsByIngredients(ingredients) {
                         if (cleanIngredients.includes(caseInsensitiveIngredient)) matchCount++
                 }
 
-                if (matchCount > 0) ulams.push({name: ulam.name, image_url: ulam.image_url, matchCount})
+                if (matchCount > 0) ulams.push({_id: ulam._id, name: ulam.name, image_url: ulam.image_url, matchCount})
         }
 
         return ulams

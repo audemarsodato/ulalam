@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 const requireAuth = require('../../middlewares/requireAuth')
-const ulamsRoute = require('./ulamsRoute')
 const authRoute = require('./authRoute')
+const ulamsRoute = require('./ulamsRoute')
+const cookingLogsRoute = require('./cookingLogsRoute')
 
 router.use('/auth', authRoute)
 
@@ -15,8 +16,6 @@ router.use('/mealplans', (req, res) => {
         res.send('mealplan routes')
 })
 
-router.use('/cooking-logs', (req, res) => {
-        res.send('history routes')
-})
+router.use('/cooking-logs', cookingLogsRoute)
 
 module.exports = router

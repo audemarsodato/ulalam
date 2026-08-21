@@ -4,7 +4,7 @@ const AppError = require('../../utils/AppError')
 // CREATE ulam
 async function createUlam(req, res) {
         // syntactic validation e.g. Missing fields
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { name, ingredients: ingredientsString, instructions: instructionsString } = req.body
         const imageBuffer = req.file?.buffer // optional chaining returns undefined when req.file does not exists
         
@@ -47,14 +47,14 @@ async function createUlam(req, res) {
                 res.status(201).json(ulam)
         }
         catch (error) {
-                // console.error('Create ulam:', error)
                 return res.status(500).json({error: {message: `Cannot create ulam: ${error.message}`}})
         }
 }
 
 // GET ulams from following
 async function getUlamsFromFollowing(req, res) {
-        const userId = '6a8571a973ef1b63b2466e2a' // my user id
+        const userId = req.user_id
+
         try {
                 const ulams = await ulamsService.getUlamsFromFollowings(userId)
                 res.status(200).json({fromFollowings: ulams})
@@ -67,8 +67,8 @@ async function getUlamsFromFollowing(req, res) {
 
 // GET earned specialty ulams
 async function getEarnedSpecialties(req, res) {
-        const userId = '6a8571a973ef1b63b2466e2a' // my user id
-        
+        const userId = req.user_id
+
         try {
                 const ulams = await ulamsService.getEarnedSpecialties(userId)
                 res.status(200).json({specialties: ulams})
@@ -99,7 +99,7 @@ async function getUlams(req, res) {
 
 // UPDATE a user's ulam
 async function updateUlam(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
 
         const { ulamId } = req.params
         const { updates } = req.body ?? {} // nullish coalescing ??, use the value on the left, if its undefined or null use the value on the right
@@ -112,7 +112,6 @@ async function updateUlam(req, res) {
                 res.status(200).json(updatedUlam)
         }
         catch (error) {
-                // console.error(error)
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
         }
@@ -120,7 +119,7 @@ async function updateUlam(req, res) {
 
 // DELETE a user's ulam
 async function deleteUlam(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { ulamId } = req.params
 
         try {
@@ -128,7 +127,6 @@ async function deleteUlam(req, res) {
                 res.status(200).json(deletedUlam)
         }
         catch (error) {
-                // console.error(error)
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}}) // TODO: Structure the error so that you can send a 404 status code
         }
@@ -136,7 +134,7 @@ async function deleteUlam(req, res) {
 
 // PATCH / LIKE an ulam
 async function likeUlam(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { ulamId } = req.params
 
         try {
@@ -151,7 +149,7 @@ async function likeUlam(req, res) {
 
 // DELETE / UNLIKE an ulam
 async function unlikeUlam(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { ulamId } = req.params
 
         try {
@@ -166,7 +164,7 @@ async function unlikeUlam(req, res) {
 
 // PATCH / BOOKMARK an ulam
 async function bookmarkUlam(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { ulamId } = req.params
 
         try {
@@ -181,7 +179,7 @@ async function bookmarkUlam(req, res) {
 
 // DELETE / UNBOOKMARK an ulam
 async function unbookmarkUlam(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { ulamId } = req.params
 
         try {
@@ -196,7 +194,7 @@ async function unbookmarkUlam(req, res) {
 
 // POST / COMMENT to an ulam
 async function createComment(req, res) {
-        const userId = '507f1f77bcf86cd799439011' // req.user._id 
+        const userId = req.user_id
         const { ulamId } = req.params
         const { content } = req.body ?? {}
 
