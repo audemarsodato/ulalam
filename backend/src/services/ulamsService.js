@@ -238,7 +238,7 @@ async function getUlamsByIngredients(ingredients) {
 
         const ulams = []
 
-        for (const ulam of matchedUlams) {
+        for (const ulam of matchedUlams) { // TODO refactor to a util function
                 let matchCount = 0
                 for (const ingredient of ulam.ingredients) {
                         const caseInsensitiveIngredient = ingredient.trim().toLowerCase()
@@ -282,8 +282,6 @@ async function getEarnedSpecialties(userId) {
         return ulams
 }
 
-
-// TODO put the get earned-specialties, published ulams, and from followings to the user routes since it correlate to users that owns them while the services will be about ulams since its ulams youre getting
 async function getPublishedUlams(userId) {
         if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
 

@@ -6,14 +6,18 @@ const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
 
 async function getUser(userId) {
+        if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
+        
         const user = await User.findById(userId).select('-password_hash')
 
+        if (!user) throw new Error('Failed to get user')
+        
+        const followers = await User.find({_id: {$in: user.followers}}).select('username profile_image_url followings followers')
+        const followings = await User.find({_id: {$in: user.followings}}).select('username profile_image_url followings followers')
         // get users that follows the current user from the followers
         // get users that the user follows from the followings
 
-        if (!user) throw new Error('Failed to get user')
-
-        return user
+        return {...user.toObject(), followers, followings}
 }
 
 async function updateCurrentUser({ userId, updates }) {

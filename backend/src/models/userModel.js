@@ -44,14 +44,14 @@ const userSchema = new Schema({
                         ref: 'Ulam'
                 }],
                 default: []
-        },
-        published_ulams: {
-                type: [{
-                        type: Schema.Types.ObjectId,
-                        ref: 'Ulam'
-                }],
-                default: []
         }
+        // published_ulams: { // Redundant, since an ulams user_id already stores the publisher and can be queried using so
+        //         type: [{
+        //                 type: Schema.Types.ObjectId,
+        //                 ref: 'Ulam'
+        //         }],
+        //         default: []
+        // }
 })
 
 userSchema.statics.validateSignup = async function({ username, email, password }) {

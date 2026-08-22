@@ -29,11 +29,12 @@ async function updateCurrentUser(req, res) {
 }
 
 async function getUser(req, res) {
-        const { userId } = re.params
+        const { userId } = req.params
 
         // same as getCurrentUser
         try {
-                res.status(200).json({message: 'getUser'})
+                const user = await userService.getUser(userId)
+                res.status(200).json({message: 'getUser', user})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
