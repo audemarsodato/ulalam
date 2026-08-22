@@ -271,6 +271,8 @@ async function getUlamsFromFollowings(userId) {
 
 // TODO count cookedTimes and return it together
 async function getEarnedSpecialties(userId) {
+        if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
+
         const user = await User.findById(userId).select('earned_specialties').lean()
 
         if (!user) throw new AppError('Failed to find user', 400)
@@ -283,7 +285,11 @@ async function getEarnedSpecialties(userId) {
 
 // TODO put the get earned-specialties, published ulams, and from followings to the user routes since it correlate to users that owns them while the services will be about ulams since its ulams youre getting
 async function getPublishedUlams(userId) {
-        
+        if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
+
+        const ulams = await Ulam.find({user_id: userId})
+
+        return ulams
 }
 
 module.exports = {

@@ -1,4 +1,5 @@
 const userService = require('../../services/userService')
+const ulamsService = require('../../services/ulamsService')
 
 async function getCurrentUser(req, res) {
         const userId = req.user_id
@@ -66,13 +67,44 @@ async function unfollowUser(req, res) {
 }
 
 async function getPublishedUlams(req, res) {
+        const { userId } = req.params
+
         try {
-                res.status(200).json({message: 'getPublishedUlams'})
+                const publishedUlams = await ulamsService.getPublishedUlams(userId)
+                res.status(200).json({publishedUlams})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
+
+async function getUlamsFromFollowings(req, res) {
+        const userId = req.user_id
+
+        try {
+                const ulams = await ulamsService.getUlamsFromFollowings(userId)
+                res.status(200).json({fromFollowings: ulams})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
+// GET earned specialty ulams
+async function getEarnedSpecialties(req, res) {
+        const { userId } = req.params
+
+        try {
+                const ulams = await ulamsService.getEarnedSpecialties(userId)
+                res.status(200).json({specialties: ulams})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 
 module.exports = {
         getCurrentUser,
@@ -80,5 +112,7 @@ module.exports = {
         getUser,
         followUser,
         unfollowUser,
-        getPublishedUlams
+        getPublishedUlams,
+        getUlamsFromFollowings,
+        getEarnedSpecialties
 }

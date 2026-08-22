@@ -24,12 +24,6 @@ const {
 // CREATE ulam
 router.post('/', upload.single('image-file'), createUlam)
 
-// GET ulams from following
-router.get('/from-following', getUlamsFromFollowing)
-
-// GET earned specialty ulams
-router.get('/earned-specialties', getEarnedSpecialties)
-
 // GET ulams using query parameters
 router.get('/', getUlams)
 

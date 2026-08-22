@@ -51,35 +51,6 @@ async function createUlam(req, res) {
         }
 }
 
-// GET ulams from following
-async function getUlamsFromFollowing(req, res) {
-        const userId = req.user_id
-
-        try {
-                const ulams = await ulamsService.getUlamsFromFollowings(userId)
-                res.status(200).json({fromFollowings: ulams})
-        }
-        catch (error) {
-                const statusCode = error.statusCode ?? 500
-                res.status(statusCode).json({error: {message: error.message}})
-        }
-}
-
-// note: for fetching in home page (use the user route instead)
-// GET earned specialty ulams
-async function getEarnedSpecialties(req, res) {
-        const userId = req.user_id
-
-        try {
-                const ulams = await ulamsService.getEarnedSpecialties(userId)
-                res.status(200).json({specialties: ulams})
-        }
-        catch (error) {
-                const statusCode = error.statusCode ?? 500
-                res.status(statusCode).json({error: {message: error.message}})
-        }
-}
-
 // GET ulams using query parameters
 async function getUlams(req, res) {
         const { ingredients: ingredientsQuery } = req.query
@@ -214,7 +185,7 @@ async function createComment(req, res) {
 
 // GET comments of an ulam
 async function getUlamComments(req, res) {
-        const { ulamId } = req.params
+        const { ulamId } = req.params // TODO all id coming from params must be validated
         
         try {
                 const comments = await ulamsService.getCommentsOfUlam(ulamId) 
@@ -242,8 +213,6 @@ async function getUlam(req, res) {
 
 module.exports = {
         createUlam,
-        getUlamsFromFollowing,
-        getEarnedSpecialties,
         getUlams,
         updateUlam,
         deleteUlam,

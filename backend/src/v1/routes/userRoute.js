@@ -7,7 +7,9 @@ const {
         getUser,
         followUser,
         unfollowUser,
-        getPublishedUlams
+        getPublishedUlams,
+        getUlamsFromFollowings,
+        getEarnedSpecialties
 } = require('../controllers/userController')
 
 // GET current users details except password hash
@@ -20,6 +22,12 @@ router.get('/:userId', getUser)
 router.post('/:userId/following', followUser)
 
 router.delete('/:userId/following', unfollowUser)
+
+// get the user's ulams from followings
+router.get('/me/ulams/from-following', getUlamsFromFollowings)
+
+// get users earned specialties
+router.get('/:userId/ulams/earned-specialties', getEarnedSpecialties)
 
 router.get('/:userId/ulams', getPublishedUlams)
 

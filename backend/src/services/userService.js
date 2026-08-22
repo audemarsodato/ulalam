@@ -8,6 +8,9 @@ const AppError = require('../utils/AppError')
 async function getUser(userId) {
         const user = await User.findById(userId).select('-password_hash')
 
+        // get users that follows the current user from the followers
+        // get users that the user follows from the followings
+
         if (!user) throw new Error('Failed to get user')
 
         return user
