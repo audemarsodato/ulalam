@@ -5,10 +5,13 @@ const requireAuth = require('../../middlewares/requireAuth')
 const authRoute = require('./authRoute')
 const ulamsRoute = require('./ulamsRoute')
 const cookingLogsRoute = require('./cookingLogsRoute')
+const userRoute = require('./userRoute')
 
 router.use('/auth', authRoute)
 
 router.use(requireAuth)
+
+router.use('/users', userRoute)
 
 router.use('/ulams', ulamsRoute)
 

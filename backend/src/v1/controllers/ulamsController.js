@@ -65,6 +65,7 @@ async function getUlamsFromFollowing(req, res) {
         }
 }
 
+// note: for fetching in home page (use the user route instead)
 // GET earned specialty ulams
 async function getEarnedSpecialties(req, res) {
         const userId = req.user_id

@@ -21,15 +21,17 @@
 - out-scope:
   - delete a users' own comment from an ulam
 
-### users
+### auth
 - ```POST /api/v1/users/signup```, sign up or create an account for a user
 - ```POST /api/v1/users/login```, log user in
+
+### users
+- ```PATCH /api/v1/users/me```, update the current user's account details (get userId from authentication)
 - ```GET /api/v1/users/:userId```, get a users profile details, get a single user
 - ```GET /api/v1/users?username={username}```, get all users with matching username, search users using a username
-- ```PATCH /api/v1/users/:userId/follow```, follow a user, this adds the usersId to the current user's followings
+- ```POST /api/v1/users/:userId/follow```, follow a user, this adds the usersId to the current user's followings
 - ```DELETE /api/v1/users/:userId/follow```, unfollow a user, remove a user from the current users followings (updates 2 user documents, the follower and followed, logic in services)
-- ```PATCH /api/v1/users/me```, update the current user's account details (get userId from authentication)
-- ```GET /api/v1/users/:userId/ulams```, get a certain user's ulams
+- ```GET /api/v1/users/:userId/ulams```, get a certain user's published ulams
 
 ### mealplans
 - ```POST /api/v1/mealplans```, creat a mealplan

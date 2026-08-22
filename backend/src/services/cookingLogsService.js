@@ -5,12 +5,13 @@ const AppError = require('../utils/AppError')
 
 const mealtimes = ['breakfast', 'lunch', 'dinner']
 
+// TODO mealtime must derive from mealtime timezones and not inputed
 async function recordSession({ ulamId, userId, mealtime }) {
         if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
 
         if (!mealtimes.includes(mealtime.trim().toLowerCase())) throw new AppError('Invalid mealtime', 400)
         
-        const cookingLog = await CookingLog.create({ulam_id: ulamId, user_id: userId, mealtime})
+        const cookingLog = await CookingLog.create({ulam_id: ulamId, user_id: userId, mealtime: mealtime.trim().toLowerCase()})
 
         if (!cookingLog) throw new AppError('Failed to record session to logs')
 

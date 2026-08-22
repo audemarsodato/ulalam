@@ -269,6 +269,7 @@ async function getUlamsFromFollowings(userId) {
         return ulams
 }
 
+// TODO count cookedTimes and return it together
 async function getEarnedSpecialties(userId) {
         const user = await User.findById(userId).select('earned_specialties').lean()
 
@@ -280,6 +281,10 @@ async function getEarnedSpecialties(userId) {
 }
 
 
+// TODO put the get earned-specialties, published ulams, and from followings to the user routes since it correlate to users that owns them while the services will be about ulams since its ulams youre getting
+async function getPublishedUlams(userId) {
+        
+}
 
 module.exports = {
         createUlam,
@@ -294,5 +299,6 @@ module.exports = {
         getUlam,
         getUlamsFromFollowings,
         getEarnedSpecialties,
-        getUlamsByIngredients
+        getUlamsByIngredients,
+        getPublishedUlams
 }

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/userModel')
@@ -34,6 +35,9 @@ function authenticate(authorization) {
         try {
                 const token = authorization.split(' ')[1]
                 const { _id } = jwt.verify(token, process.env.JWT_SECRET)
+
+                // if (!mongoose.Types.ObjectId.isValid(_id)) throw new AppError('Invalid id from token', 400)
+
                 return _id
         }
         catch (error) {
