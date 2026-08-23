@@ -6,7 +6,7 @@ async function getCurrentUser(req, res) {
 
         try {
                 const user = await userService.getUser(userId)
-                res.status(200).json({message: 'getCurrentUser', user})
+                res.status(200).json(user)
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
@@ -31,10 +31,9 @@ async function updateCurrentUser(req, res) {
 async function getUser(req, res) {
         const { userId } = req.params
 
-        // same as getCurrentUser
         try {
                 const user = await userService.getUser(userId)
-                res.status(200).json({message: 'getUser', user})
+                res.status(200).json(user)
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})

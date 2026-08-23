@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const User = require('../models/userModel')
 const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
+const ulamsService = require('./ulamsService')
 
 async function getUser(userId) {
         if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
@@ -11,13 +12,13 @@ async function getUser(userId) {
         const user = await User.findById(userId).select('-password_hash')
 
         if (!user) throw new Error('Failed to get user')
-        
+
         const followers = await User.find({_id: {$in: user.followers}}).select('username profile_image_url followings followers')
         const followings = await User.find({_id: {$in: user.followings}}).select('username profile_image_url followings followers')
-        // get users that follows the current user from the followers
-        // get users that the user follows from the followings
+        const published_ulams = await Ulam.find({user_id: userId})
+        const earned_specialties = await Ulam.find({_id: {$in: user.earned_specialties}})
 
-        return {...user.toObject(), followers, followings}
+        return {...user.toObject(), published_ulams, followers, followings, earned_specialties}
 }
 
 async function updateCurrentUser({ userId, updates }) {

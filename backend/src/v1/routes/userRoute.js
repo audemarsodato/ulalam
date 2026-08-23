@@ -31,4 +31,7 @@ router.get('/:userId/ulams/earned-specialties', getEarnedSpecialties)
 
 router.get('/:userId/ulams', getPublishedUlams)
 
+// router.post('/me/ulams/earned-specialties/:ulamId', addToSpecialties)
+// whats the design for determining earned specialties?
+
 module.exports = router

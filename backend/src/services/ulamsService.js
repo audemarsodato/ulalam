@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const Ulam = require('../models/ulamModel')
 const Comment = require('../models/commentsModel')
+const CookingLog = require('../models/cookingLogModel')
 const imagesService = require('./imagesService')
 const AppError = require('../utils/AppError')
 const User = require('../models/userModel')
@@ -277,9 +278,13 @@ async function getEarnedSpecialties(userId) {
 
         if (!user) throw new AppError('Failed to find user', 400)
 
-        const ulams = await Ulam.find({_id: {$in: user.earned_specialties}})
+        // const ulams = await Ulam.find({_id: {$in: user.earned_specialties}}) // gets only the ulams but not count it
+        const ulamsWithCount = await CookingLog.aggregate([
+                {$match: {ulam_id: {$in: user.earned_specialties}}},
+                {$group: {_id: '$ulam_id', timesCooked: {$sum: 1}}}
+        ])
 
-        return ulams
+        return ulamsWithCount
 }
 
 async function getPublishedUlams(userId) {
