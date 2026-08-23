@@ -3,17 +3,16 @@ const cookingLogsService = require('../../services/cookingLogsService')
 // POST record to log
 async function recordSession(req, res) {
         const userId = req.user_id
-        const { ulamId, mealtime } = req.body ?? {}
+        const { ulamId } = req.body ?? {}
 
         const missingFields = []
 
         if (!ulamId) missingFields.push('ulamId')
-        if (!mealtime) missingFields.push('mealtime')
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
         try {
-                const cookingLog = await cookingLogsService.recordSession({ulamId, userId, mealtime})
+                const cookingLog = await cookingLogsService.recordSession({ulamId, userId})
                 res.status(200).json(cookingLog)
         }
         catch (error) {
