@@ -24,7 +24,6 @@
   - [ ] I can edit and make corrections when the actual inventory is not aligned with whats in the app
   - [ ] Every changes is logged and has date and time of the update with proper log message
   - [ ] The app recommends ulam based on whats in my fridge as available ingredients
-- [ ] 
 
 ## Functional Requirements
 ### Recipe Management
