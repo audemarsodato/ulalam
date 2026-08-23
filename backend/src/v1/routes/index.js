@@ -6,6 +6,7 @@ const authRoute = require('./authRoute')
 const ulamsRoute = require('./ulamsRoute')
 const cookingLogsRoute = require('./cookingLogsRoute')
 const userRoute = require('./userRoute')
+const mealplanRoute = require('./mealplanRoute')
 
 router.use('/auth', authRoute)
 
@@ -15,9 +16,7 @@ router.use('/users', userRoute)
 
 router.use('/ulams', ulamsRoute)
 
-router.use('/mealplans', (req, res) => {
-        res.send('mealplan routes')
-})
+router.use('/mealplans', mealplanRoute)
 
 router.use('/cooking-logs', cookingLogsRoute)
 

@@ -7,6 +7,7 @@ import Day from './components/Day'
 import UlamCardPlanner from '../../components/ulam-cards/UlamCardPlanner'
 import UlamCard from '../../components/ulam-cards/UlamCard'
 import Modal from '../../components/modal/Modal'
+import { useEffect } from 'react'
 
 export default function MealPlanner() {
         const [ activeModal, setActiveModal ] = useState(null)
@@ -44,6 +45,10 @@ export default function MealPlanner() {
         const removeUlamFromPlan = (planToRemove) => {
                 setMealplan(current => current.filter(plan => plan !== planToRemove))
         }
+
+        useEffect(() => {
+                console.log(selectedDate);
+        }, [selectedDate])
 
         const displayDates = next7Days.map(day => (
                 <Day 
