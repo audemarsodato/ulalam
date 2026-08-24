@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const CookingLog = require('../models/cookingLogModel')
 const User = require('../models/userModel')
+const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
 const { masteryThreshold } = require('../config/config')
 
@@ -45,12 +46,12 @@ async function recordSession({ ulamId, userId }) {
         if (!cookingLog) throw new AppError('Failed to record session to logs')
         const timesCooked = await CookingLog.countDocuments({ulam_id: ulamId, user_id: userId})
         
+        const options = {
+                returnDocument: 'after',
+                runValidators: true
+        }
         let isAddedToSpecialties = false
         if (timesCooked >= masteryThreshold) {
-                const options = {
-                        returnDocument: 'after',
-                        runValidators: true
-                }
 
                 const user = await User.findOneAndUpdate(
                         {_id: userId}, 
@@ -62,9 +63,13 @@ async function recordSession({ ulamId, userId }) {
                 isAddedToSpecialties = user.earned_specialties.includes(ulamId)
         }
 
-        const isNewlyAdded = timesCooked === masteryThreshold
+        const isNewlyAdded = timesCooked === masteryThreshold && isAddedToSpecialties
 
-        // TODO update ulams' cooked count
+        // TODO add to OUTSCOPE to check the sync and accuracy for the cooked count from cooking log
+        // const cookedCount = await CookingLog.countDocuments({ulam_id: ulamId}) 
+        const ulam = await Ulam.findByIdAndUpdate(ulamId, {$inc: {cooked_count: 1}}, options) // is this good now though? 
+
+        if (!ulam) throw new AppError('Failed to update ulam cooked count')
 
         return {...cookingLog.toObject(), times_cooked: timesCooked, isNewlyAdded}
 }
