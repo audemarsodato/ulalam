@@ -8,7 +8,6 @@ async function uploadImage(imageBuffer) {
                         {folder: 'ulalam'},
                         (error, result) => {
                                 if (error) {
-                                        console.log('Cannot upload image.')
                                         reject(error)
                                         return
                                 }
@@ -18,6 +17,8 @@ async function uploadImage(imageBuffer) {
 
                 streamifier.createReadStream(imageBuffer).pipe(uploadStream)
         })
+
+        if (!result?.secure_url) throw new Error('Image upload succeeded but no URL was returned')
 
         return result.secure_url
 }

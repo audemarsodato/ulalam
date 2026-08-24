@@ -21,14 +21,13 @@ async function createUlam({ name, ingredients, instructions, userId, imageBuffer
         const lowercasedIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
         try {
                 const imageUrl = await imagesService.uploadImage(imageBuffer)
-                // TODO: validate if image uploaded successfully
 
                 const ulam = await Ulam.create({
                         name,
                         image_url: imageUrl,
                         ingredients: lowercasedIngredients,
                         instructions,
-                        user_id: new mongoose.Types.ObjectId(userId) // TODO: put objectication in authentication when attaching it to req
+                        user_id: new mongoose.Types.ObjectId(userId)
                 })
 
                 if (!ulam) throw new Error('Failed to create ulam')
@@ -231,15 +230,10 @@ async function getUlam(ulamId) {
         }
 }
 
-async function getUlamsByIngredients(ingredients) {
-        const cleanIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
-        const matchedUlams = await Ulam.find({ingredients: {$in: cleanIngredients}}).select('name ingredients image_url')
-
-        if (matchedUlams.length === 0) throw new AppError('No matched ulams found using the ingredients', 400)
-
+function countMatchedIngredients(matchedUlams, cleanIngredients) {
         const ulams = []
 
-        for (const ulam of matchedUlams) { // TODO refactor to a util function
+        for (const ulam of matchedUlams) {
                 let matchCount = 0
                 for (const ingredient of ulam.ingredients) {
                         const caseInsensitiveIngredient = ingredient.trim().toLowerCase()
@@ -248,6 +242,16 @@ async function getUlamsByIngredients(ingredients) {
 
                 if (matchCount > 0) ulams.push({_id: ulam._id, name: ulam.name, image_url: ulam.image_url, matchCount})
         }
+
+        return ulams
+}
+
+async function getUlamsByIngredients(ingredients) {
+        const cleanIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
+        const matchedUlams = await Ulam.find({ingredients: {$in: cleanIngredients}}).select('name ingredients image_url')
+        if (matchedUlams.length === 0) throw new AppError('No matched ulams found using the ingredients', 400)
+
+        const ulams = countMatchedIngredients(matchedUlams, cleanIngredients)
 
         return ulams
 }
@@ -263,7 +267,7 @@ async function getUlamsByIngredients(ingredients) {
 async function getUlamsFromFollowings(userId) {
         const user = await User.findById(userId).select('followings').lean()
 
-        if (!user) throw new AppError('Failed to find user', 400) // TODO redundant since user once logged in is already created and every request is authenticated already by the middleware
+        // if (!user) throw new AppError('Failed to find user', 400) // TODO redundant since user once logged in is already created and every request is authenticated already by the middleware
 
         const ulams = await Ulam.find({user_id: {$in: user.followings}})
 

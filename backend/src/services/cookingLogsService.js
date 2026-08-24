@@ -65,7 +65,6 @@ async function recordSession({ ulamId, userId }) {
 
         const isNewlyAdded = timesCooked === masteryThreshold && isAddedToSpecialties
 
-        // TODO add to OUTSCOPE to check the sync and accuracy for the cooked count from cooking log
         // const cookedCount = await CookingLog.countDocuments({ulam_id: ulamId}) 
         const ulam = await Ulam.findByIdAndUpdate(ulamId, {$inc: {cooked_count: 1}}, options) // is this good now though? 
 

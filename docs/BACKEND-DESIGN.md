@@ -68,3 +68,4 @@ unfollow - DELETE /api/v1/users/:userId/follow
 ### Scope
 - Implement pagination
 - Add api rate limiter
+- Add check in record session service in cooking logs to verify if the ulams cooked count is syncronized with cooking logs 
