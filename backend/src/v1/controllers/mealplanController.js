@@ -14,7 +14,7 @@ async function addMealplan(req, res) {
 
         try {
                 const mealplan = await mealplanService.addMealplan({ulamId, userId, mealtime, dateString: date})
-                res.status(200).json(mealplan)
+                res.status(201).json(mealplan)
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

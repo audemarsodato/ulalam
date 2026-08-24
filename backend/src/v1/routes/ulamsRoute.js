@@ -3,12 +3,9 @@ const router = express.Router()
 
 const upload = require('../../middlewares/multer')
 
-// TODO: use 201 status code to post methods to indicate succesfully created resource
 
 const {
         createUlam,
-        getUlamsFromFollowing,
-        getEarnedSpecialties,
         getUlams,
         updateUlam,
         deleteUlam,

@@ -34,7 +34,6 @@ async function login(req, res) {
         if (!password?.trim()) missingFields.push('password')
         
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
-        
 
         try {
                 const { token, user } = await authService.login({email, password})

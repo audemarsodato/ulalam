@@ -46,7 +46,7 @@ async function followUser(req, res) {
 
         try {
                 const { currentUser, targetUser } = await userService.followUser({currentUserId, targetUserId})
-                res.status(200).json({currentUser, targetUser})
+                res.status(201).json({currentUser, targetUser})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})

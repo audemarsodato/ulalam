@@ -174,7 +174,7 @@ async function createComment(req, res) {
 
         try {
                 const createdComment = await ulamsService.commentToUlam({ulamId, content, userId})
-                res.status(200).json(createdComment)
+                res.status(201).json(createdComment)
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
