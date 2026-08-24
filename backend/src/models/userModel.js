@@ -9,7 +9,9 @@ const userSchema = new Schema({
         username: {
                 type: String,
                 required: true,
-                unique: true
+                unique: true,
+                minLength: 3,
+                maxLength: 30
         },
         email: {
                 type: String,
@@ -56,6 +58,8 @@ const userSchema = new Schema({
 
 userSchema.statics.validateSignup = async function({ username, email, password }) {
         if (!validator.isEmail(email)) throw new AppError('Invalid email', 400)
+
+        if (username.length < 3 || username.length > 30) throw new AppError('Username must be 3 to 30 characters long', 400)
                 
         const [ emailInUse, usernameTaken ] = await Promise.all([
                 this.findOne({email}),
@@ -63,7 +67,7 @@ userSchema.statics.validateSignup = async function({ username, email, password }
         ])
 
         if (emailInUse) throw new AppError('Email already in use', 400)       
-        if (usernameTaken) throw new AppError('Username already taken', 400) // TODO add limit to 50 char or etc
+        if (usernameTaken) throw new AppError('Username already taken', 400)
         if (!validator.isStrongPassword(password)) throw new AppError('Weak password', 400)
 }
 
