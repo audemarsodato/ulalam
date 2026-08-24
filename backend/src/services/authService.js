@@ -18,17 +18,21 @@ async function signup({ username, email, password, profileImageBuffer }) {
         }
 
         const user = await User.signup({username, email, password, profileImageUrl})
+        const {password_hash, ...safeUser} = user.toObject()
 
         const token = createToken(user._id)
 
-        return {token, user}
+        return {token, user: safeUser}
 }
 
 async function login({ email, password }) {
         const user = await User.login({email, password})
+
+        const {password_hash, ...safeUser} = user.toObject()        
+
         const token = createToken(user._id)
 
-        return {token, user}
+        return {token, user: safeUser}
 }
 
 function authenticate(authorization) {

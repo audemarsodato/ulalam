@@ -69,3 +69,4 @@ unfollow - DELETE /api/v1/users/:userId/follow
 - Implement pagination
 - Add api rate limiter
 - Add check in record session service in cooking logs to verify if the ulams cooked count is syncronized with cooking logs 
+- Create a secure endpoint for chage email and change password with proper authorization in auth service

@@ -22,7 +22,7 @@ async function getUser(userId) {
 }
 
 async function updateCurrentUser({ userId, updates }) {
-        if (updates.email || updates.password_hash) throw new AppError('Unauthorized action: Cannot change an email or password', 400) // TODO create a secure endpoint for chage email and change password with proper authorixation
+        if (updates.email || updates.password_hash) throw new AppError('Unauthorized action: Cannot change an email or password', 400) 
 
         const options = {
                 returnDocument: 'after',

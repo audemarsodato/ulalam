@@ -18,7 +18,7 @@ async function signup(req, res) {
 
         try {
                 const { token, user } = await authService.signup({username, email, password, profileImageBuffer})
-                res.status(201).json({message: 'signup', user, token}) // TODO return the jwt token only, or together with username
+                res.status(201).json({user, token})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

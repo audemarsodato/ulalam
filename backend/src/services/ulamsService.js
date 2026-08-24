@@ -274,7 +274,6 @@ async function getUlamsFromFollowings(userId) {
         return ulams
 }
 
-// TODO count cookedTimes and return it together
 async function getEarnedSpecialties(userId) {
         if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
 
