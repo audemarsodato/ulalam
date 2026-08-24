@@ -1,13 +1,12 @@
 const cookingLogsService = require('../../services/cookingLogsService')
+const { checkMissingFields } = require('../../utils/utils')
 
 // POST record to log
 async function recordSession(req, res) {
         const userId = req.user_id
         const { ulamId } = req.body ?? {}
 
-        const missingFields = []
-
-        if (!ulamId) missingFields.push('ulamId')
+        const missingFields = checkMissingFields({ulamId})
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 

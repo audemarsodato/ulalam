@@ -1,4 +1,5 @@
 const authService = require('../../services/authService')
+const { checkMissingFields } = require('../../utils/utils')
 
 async function signup(req, res) {
         const {
@@ -8,11 +9,7 @@ async function signup(req, res) {
         } = req.body
         const profileImageBuffer = req.file?.buffer
 
-        const missingFields = []
-
-        if (!email) missingFields.push('email')
-        if (!password) missingFields.push('password')
-        if (!username) missingFields.push('username')
+        const missingFields = checkMissingFields({email, password, username})
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
@@ -29,9 +26,7 @@ async function signup(req, res) {
 async function login(req, res) {
         const { email, password } = req.body
 
-        const missingFields = [] // TODO: make a validation function for checking all request input
-        if (!email?.trim()) missingFields.push('email')
-        if (!password?.trim()) missingFields.push('password')
+        const missingFields = checkMissingFields({email, password})
         
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 

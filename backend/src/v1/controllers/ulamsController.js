@@ -1,5 +1,6 @@
 const ulamsService = require('../../services/ulamsService')
 const AppError = require('../../utils/AppError')
+const { checkMissingFields } = require('../../utils/utils')
 
 // CREATE ulam
 async function createUlam(req, res) {
@@ -8,13 +9,8 @@ async function createUlam(req, res) {
         const { name, ingredients: ingredientsString, instructions: instructionsString } = req.body
         const imageBuffer = req.file?.buffer // optional chaining returns undefined when req.file does not exists
         
-        const missingFields = []
+        const missingFields = checkMissingFields({name, instructionsString, ingredientsString, image: imageBuffer})
         
-        if (!name?.trim()) missingFields.push('name')
-        if (!ingredientsString) missingFields.push('ingredients')
-        if (!instructionsString) missingFields.push('instructions')
-        if (!imageBuffer) missingFields.push('image')
-
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
         let ingredients

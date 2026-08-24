@@ -1,14 +1,11 @@
 const mealplanService = require('../../services/mealplanService')
+const { checkMissingFields } = require('../../utils/utils')
 
 async function addMealplan(req, res) {
         const userId = req.user_id
         const { ulamId, mealtime, date } = req.body
 
-        const missingFields = []
-
-        if (!ulamId) missingFields.push('ulamId')
-        if (!mealtime) missingFields.push('mealtime')
-        if (!date) missingFields.push('date')
+        const missingFields = checkMissingFields({ulamId, mealtime, date})
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
