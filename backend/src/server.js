@@ -14,7 +14,6 @@ app.use('/api/v1', v1Routes)
 
 app.use(handle404)
 
-// TODO create file in config
 mongoose.connect(process.env.MONGODB_URI)
         .then(() => {
                 console.log('Connected to db')

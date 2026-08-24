@@ -96,7 +96,7 @@ async function deleteUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
-                res.status(statusCode).json({error: {message: error.message}}) // TODO: Structure the error so that you can send a 404 status code
+                res.status(statusCode).json({error: {message: error.message}})
         }
 }
 
@@ -197,8 +197,10 @@ async function getUlam(req, res) {
         const { ulamId } = req.params
 
         try {
-                const ulam = await ulamsService.getUlam(ulamId)
-                const comments = await ulamsService.getCommentsOfUlam({ulamId}) // TODO: promise.all
+                const [ ulam, comments ] = await Promise.all([
+                        await ulamsService.getUlam(ulamId),
+                        await ulamsService.getCommentsOfUlam({ulamId})
+                ])
                 res.status(200).json({...ulam.toObject(), comments})
         }
         catch (error) {
