@@ -284,8 +284,43 @@ async function getEarnedSpecialties(userId) {
 
         // const ulams = await Ulam.find({_id: {$in: user.earned_specialties}}) // gets only the ulams but not count it
         const ulamsWithCount = await CookingLog.aggregate([
-                {$match: {ulam_id: {$in: user.earned_specialties}}},
-                {$group: {_id: '$ulam_id', timesCooked: {$sum: 1}}}
+                {
+                        $match: { // equivalent to find() filter
+                                ulam_id: {$in: user.earned_specialties},
+                                user_id: user._id
+                        }
+                },
+                {
+                        $group: {
+                                _id: '$ulam_id', timesCooked: {$sum: 1}
+                        }
+                },
+                {
+                        $lookup: {
+                                from: 'ulams',
+                                localField: '_id',
+                                foreignField: '_id',
+                                as: 'ulam'
+                        }
+                },
+                {
+                        $unwind: '$ulam'
+                },
+                {
+                        $project: {
+                                _id: '$ulam._id',
+                                name: '$ulam.name',
+                                image_url: '$ulam.image_url',
+                                ingredients: '$ulam.ingredients',
+                                instructions: '$ulam.instructions',
+                                user_id: '$ulam.user_id',
+                                liked_by: '$ulam.liked_by',
+                                bookmarked_by: '$ulam.bookmarked_by',
+                                variation_of: '$ulam.variation_of',
+                                cooked_count: '$ulam.cooked_count',
+                                timesCooked: 1
+                        }
+                }
         ])
 
         return ulamsWithCount
