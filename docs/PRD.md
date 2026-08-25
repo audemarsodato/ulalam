@@ -74,3 +74,37 @@
 ### User onboarding
 - [ ] Users can complete their profile after creating an account
 - [ ] The application displays onboarding screens for first-time users.
+
+## Email Verification
+- Use one click email verification email
+- Add email_verified in user schema 
+- Add a middleware that checks if the user is has verified email in every request
+- Tokens to be 1. sufficiently long, 2. randomly generated, 3. single use, and 4. time limited
+- Using the raw token when verificating in url but Hash token when storing it in db
+
+###  User Flow
+1. User fills up details and signs up
+2. Redirects to email verification page that tells or promps the user that verification email has been sent to their email
+3. User clicks the link in the email
+4. Redirects to the home page or further simple account setup
+   - API returns the jwt and stored by the client using localstorage or cache
+
+### Flow
+1. User fills up details and clicks signup to submit
+2. Backend Creates user in the db but email_verified is default to false
+3. Backend signup return success
+4. Backend generates verification token using crypto.randomBytes(32).toString('hex')
+5. Backend stores the hashed token along with the user's id and email, with expiresAt property
+6. Backend sends the token to the user's email address inside of a link using nodemailer
+7. User redirects to email verification page that tells user "We've sent a verification link to your email."
+8. User opens and clicks link 
+9. Link leads to the /verify-email page route that sends the token received from the email into the backend using the POST /auth/verify-email API endpoint with token stored in the body
+10. Backend endpoint receives the token
+11. Backend hash the received token and use it to query the stored email verification token
+12. Check if its expired then throw error of verification token has expired with 400 status code then delete it
+    1.  Frontend asks the user if to resend email verification when expired token, if yes then request /auth/resend-verfication email
+13. Backend deletes the verification email from the DB
+14. Backend creates jwt token using the userId as payload
+15. Backend endpoint returns the jwt
+16. Frontend receves the jwt
+17. User redirects from /verify-email page to homepage

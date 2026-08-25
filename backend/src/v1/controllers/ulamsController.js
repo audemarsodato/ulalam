@@ -178,10 +178,9 @@ async function createComment(req, res) {
         }
 }
 
-
 // GET comments of an ulam
 async function getUlamComments(req, res) {
-        const { ulamId } = req.params // TODO all id coming from params must be validated
+        const { ulamId } = req.params
         
         try {
                 const comments = await ulamsService.getCommentsOfUlam(ulamId) 

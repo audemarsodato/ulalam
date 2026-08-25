@@ -12,6 +12,8 @@ function createToken(_id) {
 async function signup({ username, email, password, profileImageBuffer }) {
         await User.validateSignup({username, email, password})
 
+        // verify email
+
         let profileImageUrl = null
         if (profileImageBuffer) {
                 profileImageUrl = await imagesService.uploadImage(profileImageBuffer)
