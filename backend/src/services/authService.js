@@ -9,8 +9,8 @@ const EmailVerification = require('../models/emailVerificationModel')
 const { expirationMinutes } = require('../config/config')
 const emailService = require('../services/emailService')
 
-function createToken(_id, emailVerified) {
-        return jwt.sign({_id, emailVerified}, process.env.JWT_SECRET)
+function createToken(_id, email_verified) {
+        return jwt.sign({_id, email_verified}, process.env.JWT_SECRET)
 }
 
 function generateVerificationToken() {
@@ -107,7 +107,9 @@ async function login({ email, password }) {
 function authenticate(authorization) {
         try {
                 const token = authorization.split(' ')[1]
-                const { _id } = jwt.verify(token, process.env.JWT_SECRET)
+                const { _id, email_verified } = jwt.verify(token, process.env.JWT_SECRET)
+
+                if (!email_verified) throw new AppError('Email not yet verified', 400)
 
                 // if (!mongoose.Types.ObjectId.isValid(_id)) throw new AppError('Invalid id from token', 400)
 
