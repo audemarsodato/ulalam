@@ -23,8 +23,23 @@ async function signup(req, res) {
         }
 }
 
+async function verifyEmail(req, res) {
+        const { token: verificationToken } = req.body ?? {}
+
+        if (!verificationToken) return res.status(400).json({error: {message: 'Verification token is required'}})
+
+        try {
+                const { user, token } = await authService.verifyEmail(verificationToken)
+                res.status(200).json({...user, token})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 async function login(req, res) {
-        const { email, password } = req.body
+        const { email, password } = req.body ?? {}
 
         const missingFields = checkMissingFields({email, password})
         
@@ -32,8 +47,7 @@ async function login(req, res) {
 
         try {
                 const { token, user } = await authService.login({email, password})
-
-                res.status(200).json({message: 'login user' ,user, token})
+                res.status(200).json({...user, token})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
@@ -43,5 +57,6 @@ async function login(req, res) {
 
 module.exports = {
         signup, 
-        login
+        login,
+        verifyEmail
 }

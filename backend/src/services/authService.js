@@ -9,8 +9,8 @@ const EmailVerification = require('../models/emailVerificationModel')
 const { expirationMinutes } = require('../config/config')
 const emailService = require('../services/emailService')
 
-function createToken(_id) {
-        return jwt.sign({_id}, process.env.JWT_SECRET)
+function createToken(_id, emailVerified) {
+        return jwt.sign({_id, emailVerified}, process.env.JWT_SECRET)
 }
 
 function generateVerificationToken() {
@@ -30,7 +30,7 @@ async function sendVerificationEmail(user) {
                 expires_at: tokenExpiration
         })
 
-        await emailService.sendVerificationEmail({user, token: verificationToken, verificationLink: 'ulalam.com'})
+        await emailService.sendVerificationEmail({user, token: verificationToken, frontendUrl: process.env.FRONTEND_URL}) // TODO add prompt if email is not sent, email address of the user may be spelled wrong check you email address
 }
 
 async function signup({ username, email, password, profileImageBuffer }) {
@@ -44,7 +44,7 @@ async function signup({ username, email, password, profileImageBuffer }) {
 
                 const {password_hash, ...safeUser} = userExists.toObject()
 
-                await sendVerificationEmail(userExists)
+                await sendVerificationEmail(userExists) // TODO check if email is sent succesfully
 
                 return {user: safeUser}
         }
@@ -61,15 +61,41 @@ async function signup({ username, email, password, profileImageBuffer }) {
         const user = await User.signup({username, email, password, profileImageUrl})
         const {password_hash, ...safeUser} = user.toObject()
 
-        await sendVerificationEmail(user)
+        await sendVerificationEmail(user) // TODO check if email is sent succesfully
 
-        // const token = createToken(user._id)
+        return {user: safeUser}// TODO if user is not yet verified, frontend redirects to the verify email page
+}
 
-        return {user: safeUser}
+// hash the received token
+// use hashed token to get the stored email verification
+// check if token expired
+// create jwt that contains userId and email_verified
+// send user details and token to frontend
+async function verifyEmail(verificationToken) {
+        const hashedToken = crypto.createHash('sha256').update(verificationToken).digest('hex')
+        const emailVerification = await EmailVerification.findOne({token_hash: hashedToken})
+        if (!emailVerification) throw new AppError('Invalid verification token', 400)
+        const user = await User.findById(emailVerification.user_id)
+        if (!user) throw new AppError('Failed to find user')
+
+        
+        if (emailVerification.expires_at < new Date()) throw new AppError('Verification token has expired', 400)
+        
+        const userVerified = await User.findByIdAndUpdate(user._id, {email_verified: true}, {returnDocument: 'after', runValidators: true})
+
+        await EmailVerification.findByIdAndDelete(emailVerification._id)
+
+        const token = createToken(user._id, userVerified.email_verified)
+
+        const {password_hash, ...safeUser} = userVerified.toObject()
+
+        return {user: safeUser, token}
 }
 
 async function login({ email, password }) {
         const user = await User.login({email, password})
+
+        if (!user.email_verified) throw new AppError('Email not yet verified', 400)
 
         const {password_hash, ...safeUser} = user.toObject()        
 
@@ -95,5 +121,6 @@ function authenticate(authorization) {
 module.exports = {
         signup,
         login,
-        authenticate
+        authenticate,
+        verifyEmail
 }
