@@ -91,11 +91,11 @@
 
 ### Flow
 1. User fills up details and clicks signup to submit
-2. Backend Creates user in the db but email_verified is default to false
-3. Backend signup return success
-4. Backend generates verification token using crypto.randomBytes(32).toString('hex')
-5. Backend stores the hashed token along with the user's id and email, with expiresAt property
-6. Backend sends the token to the user's email address inside of a link using nodemailer
+2. Backend signup service Creates user in the db but email_verified is default to false
+3. Backend generates verification token using crypto.randomBytes(32).toString('hex')
+4. Backend stores the hashed token along with the user's id and email, with expiresAt property
+5. Backend sends the token to the user's email address inside of a link using nodemailer
+6. Backend signup return success
 7. User redirects to email verification page that tells user "We've sent a verification link to your email."
 8. User opens and clicks link 
 9. Link leads to the /verify-email page route that sends the token received from the email into the backend using the POST /auth/verify-email API endpoint with token stored in the body
@@ -104,7 +104,8 @@
 12. Check if its expired then throw error of verification token has expired with 400 status code then delete it
     1.  Frontend asks the user if to resend email verification when expired token, if yes then request /auth/resend-verfication email
 13. Backend deletes the verification email from the DB
-14. Backend creates jwt token using the userId as payload
+14. Backend creates jwt token using the userId and the email_verified as payload
 15. Backend endpoint returns the jwt
 16. Frontend receves the jwt
 17. User redirects from /verify-email page to homepage
+18. require auth needs to check if email is verified
