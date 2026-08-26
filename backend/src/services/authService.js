@@ -7,6 +7,7 @@ const imagesService = require('./imagesService')
 const AppError = require('../utils/AppError')
 const EmailVerification = require('../models/emailVerificationModel')
 const { expirationMinutes } = require('../config/config')
+const emailService = require('../services/emailService')
 
 function createToken(_id) {
         return jwt.sign({_id}, process.env.JWT_SECRET)
@@ -29,7 +30,7 @@ async function sendVerificationEmail(user) {
                 expires_at: tokenExpiration
         })
 
-        // send email
+        await emailService.sendVerificationEmail({user, token: verificationToken, verificationLink: 'ulalam.com'})
 }
 
 async function signup({ username, email, password, profileImageBuffer }) {
