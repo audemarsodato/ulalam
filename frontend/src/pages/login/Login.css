@@ -1,0 +1,132 @@
+
+.login-page__header {
+        display: flex;
+        flex-direction: column;
+        margin-top: 48px;
+        gap: 24px;
+        margin-bottom: 24px;
+}
+
+.login__title {
+        font-size: var(--extra-large-header);
+}
+
+.login__h2 {
+        /* font-size: var(--large-header); */
+        font-size: 32px;
+}
+
+.login__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        margin-bottom: 40px;
+}
+
+.login__form .label {
+        display: block;
+        margin-bottom: 6px;
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.login__form .input {
+        width: 100%;
+        padding: 16px;
+        font-size: var(--text-size);
+        font-weight: 600;
+
+        border: 2px solid #0003;
+        border-radius: 16px;
+        color: var(--text);
+        background-color: #fff;
+}
+
+.login__form .input:focus {
+        border-color: var(--primary);
+        outline: none;
+}
+
+.login__login-button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+        margin-top: 12px;
+
+        font-weight: 700;
+        border: none;
+        border-radius: 50px;
+        color: #fff;
+        background-color: var(--primary);
+}
+
+.login__actions-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+}
+
+.login__actions-divider hr {
+        flex: auto;
+}
+
+.login__other-options-label {
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.login__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.login__login-prompt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+}
+
+.login__signup-label {
+        opacity: 60%;
+}
+
+.login__signup-button {
+        font-weight: 600;
+        color: var(--primary);
+}
+
+.login__other-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+}
+
+.login__other-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 96px;
+        height: 64px;
+
+        border-radius: 16px;
+        background-color: #fff;
+        border: 2px solid #0003;
+}
+
+.login__other-option img {
+        width: 32px;
+        height: 32px;
+}
+
+.login__other-option p {
+        font-size: 18px;
+        font-weight: 600;
+        opacity: 60%;
+}

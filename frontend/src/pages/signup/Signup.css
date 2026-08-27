@@ -2,7 +2,8 @@
 .signup-page__header {
         display: flex;
         flex-direction: column;
-        gap: 48px;
+        margin-top: 48px;
+        gap: 24px;
         margin-bottom: 24px;
 }
 
