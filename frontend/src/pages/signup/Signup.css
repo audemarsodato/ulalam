@@ -1,0 +1,131 @@
+
+.signup-page__header {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        margin-bottom: 24px;
+}
+
+.signup__title {
+        font-size: var(--extra-large-header);
+}
+
+.signup__h2 {
+        /* font-size: var(--large-header); */
+        font-size: 32px;
+}
+
+.signup__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        margin-bottom: 40px;
+}
+
+.signup__form .label {
+        display: block;
+        margin-bottom: 6px;
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.signup__form .input {
+        width: 100%;
+        padding: 16px;
+        font-size: var(--text-size);
+        font-weight: 600;
+
+        border: 2px solid #0003;
+        border-radius: 16px;
+        color: var(--text);
+        background-color: #fff;
+}
+
+.signup__form .input:focus {
+        border-color: var(--primary);
+        outline: none;
+}
+
+.signup__signup-button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+        margin-top: 12px;
+
+        font-weight: 700;
+        border: none;
+        border-radius: 50px;
+        color: #fff;
+        background-color: var(--primary);
+}
+
+.signup__actions-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+}
+
+.signup__actions-divider hr {
+        flex: auto;
+}
+
+.signup__other-options-label {
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.signup__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.signup__login-prompt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+}
+
+.signup__login-label {
+        opacity: 60%;
+}
+
+.signup__login-button {
+        font-weight: 600;
+        color: var(--primary);
+}
+
+.signup__other-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+}
+
+.signup__other-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 96px;
+        height: 64px;
+
+        border-radius: 16px;
+        background-color: #fff;
+        border: 2px solid #0003;
+}
+
+.signup__other-option img {
+        width: 32px;
+        height: 32px;
+}
+
+.signup__other-option p {
+        font-size: 18px;
+        font-weight: 600;
+        opacity: 60%;
+}

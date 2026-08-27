@@ -66,11 +66,6 @@ async function signup({ username, email, password, profileImageBuffer }) {
         return {user: safeUser}// TODO if user is not yet verified, frontend redirects to the verify email page
 }
 
-// hash the received token
-// use hashed token to get the stored email verification
-// check if token expired
-// create jwt that contains userId and email_verified
-// send user details and token to frontend
 async function verifyEmail(verificationToken) {
         const hashedToken = crypto.createHash('sha256').update(verificationToken).digest('hex')
         const emailVerification = await EmailVerification.findOne({token_hash: hashedToken})
