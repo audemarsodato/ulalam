@@ -28,7 +28,7 @@ export default function Signup() {
                                         <input type="password" name="confirm-password" id="confirm-password" className="signup__confirm-password input" />
                                 </div>
 
-                                <button type="button" className='signup__signup-button'>Sign Up</button>
+                                <button type="submit" className='signup__signup-button'>Sign Up</button>
                         </form>
 
                         <section className="signup__actions">

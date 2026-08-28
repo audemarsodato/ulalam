@@ -24,7 +24,7 @@ export default function Login() {
                                         <input type="password" name="password" id="password" className="login__password input" />
                                 </div>
 
-                                <button type="button" className='login__login-button'>Log In</button>
+                                <button type="submit" className='login__login-button'>Log In</button>
                         </form>
 
                         <section className="login__actions">
