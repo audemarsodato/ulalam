@@ -109,3 +109,6 @@
 16. Frontend receves the jwt
 17. User redirects from /verify-email page to homepage
 18. require auth needs to check if email is verified
+
+/email-sent
+/verify-email

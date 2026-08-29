@@ -1,0 +1,20 @@
+
+.complete-profile__profile-form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.complete-profile__profile-picture {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+}
+
+.profile-picture__image {
+        width: 130px;
+        height: 130px;
+
+        outline: var(--primary);
+}

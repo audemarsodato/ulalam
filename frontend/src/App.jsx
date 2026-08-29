@@ -14,6 +14,7 @@ import MealPlanner from './pages/meal-planner/MealPlanner'
 import UserProfile from './pages/user-profile/UserProfile'
 import Signup from './pages/signup/Signup'
 import Login from './pages/login/Login'
+import CompleteProfilePage from './pages/complete-profile-page/CompleteProfilePage'
 
 export default function App() {
 
@@ -25,6 +26,11 @@ export default function App() {
                                 <Routes>
                                         <Route path='/signup' element={<Signup />}/>
                                         <Route path='/login' element={<Login />}/>
+
+                                        <Route path='/profile-setup' element={<CompleteProfilePage />}/>
+                                        {/* <Route path='/email-sent' element={<EmailSentPage />}/>
+                                        <Route path='/verify-email' element={<VerifyEmailPage />}/>  */}
+                                        {/* ?token=efyi843rnu */}
 
                                         <Route path='/' element={<Home />}/>
 
