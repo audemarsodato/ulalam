@@ -24,14 +24,16 @@ export default function CompleteProfilePage() {
                         </header>
 
                         <section className="complete-profile__profile-form">
-                                <div className="complete-profile__profile-picture">
-                                        <div className="complete-profile__profile-picture-container">
-                                                <img className="profile-picture__image" src={profileImageSrc ? profileImageSrc : defaultProfileImage} alt="default profile picture" />
+                                <section className="complete-profile__profile-picture-section">
+                                        <div className="complete-profile__profile-image">
+                                                <div className="complete-profile__profile-picture-container">
+                                                        <img className="profile-picture__image" src={profileImageSrc ? profileImageSrc : defaultProfileImage} alt="default profile picture" />
+                                                </div>
+                                                <label htmlFor='profile-picture__input' className='change-profile-image__label'>
+                                                        <span className="material-symbols-rounded">edit</span> 
+                                                        {/* Change Profile */}
+                                                </label>
                                         </div>
-                                        <label htmlFor='profile-picture__input' className='change-profile-image__button'>
-                                                {/* <span className="material-symbols-rounded">edit</span>  */}
-                                                Change Profile
-                                        </label>
                                         <input 
                                                 type="file" 
                                                 id='profile-picture__input' 
@@ -40,20 +42,23 @@ export default function CompleteProfilePage() {
                                                 loading='lazy'
                                                 hidden
                                         />
-                                </div>
+                                </section>
 
-                                <form>
-                                        <label htmlFor="username-input">Username <span>*</span></label>
+                                <form className='complete-profile__form'>
+                                        <label className='complete-profile__username-label' htmlFor="username-input">Username <span>*</span></label>
                                         <input 
                                                 type="text" 
                                                 id='username-input' 
                                                 onChange={(event => setUsername(event.target.value))} 
                                                 value={username}
+                                                className='complete-profile__username-input'
+                                                required
+                                                // placeholder='Taga Saing'
                                         />
                                 </form>
 
-                                <section className="continue">
-                                        <button className="continue__button">Continue</button>
+                                <section className="complete-profile__continue">
+                                        <button className="complete-profile__continue-button">Continue</button>
                                 </section>
                         </section>
                 </section>

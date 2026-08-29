@@ -5,16 +5,105 @@
         gap: 24px;
 }
 
-.complete-profile__profile-picture {
+.complete-profile__profile-picture-section {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        gap: 12px;
+}
+
+.complete-profile__profile-picture-container {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.complete-profile__profile-image {
+        position: relative;
 }
 
 .profile-picture__image {
-        width: 130px;
-        height: 130px;
+        width: 150px;
+        height: 150px;
 
-        outline: var(--primary);
+        object-fit: cover;
+        object-position: center;
+}
+
+.change-profile-image__label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        padding: 8px;
+
+        background-color: #fff;
+        border-radius: 50%;
+        border: 2px solid #0003;
+        /* Change profile label styles */
+        /* font-size: var(--text-size);
+
+        font-weight: 500;
+        opacity: 80%; */
+        /* text-decoration: underline; */
+}
+
+.change-profile-image__label span {
+        font-size: 32px;
+
+        opacity: 60%;
+}
+
+.complete-profile__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.complete-profile__username-label {
+        font-size: var(--text-size);
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.complete-profile__username-input {
+        font-size: var(--text-size);
+        padding: 16px;
+
+        border: 2px solid #0003;
+        border-radius: 16px;
+        background-color: #fff;
+        font-weight: 600;
+        opacity: 80%;
+}
+
+.complete-profile__continue {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        padding: 32px;
+}
+
+.complete-profile__continue-button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+
+        font-weight: 700;
+        background-color: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 50px;
 }
