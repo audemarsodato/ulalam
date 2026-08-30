@@ -4,7 +4,8 @@
         --primary: #E52E01;
         --bg: #F4F5F7;
         --text: #000;
-        --error: #ff0000;
+        --error: #f61414;
+        --error-bg: #ff9a9a6b;
 
         --text-size: 16px;
         --text-small: 14px;

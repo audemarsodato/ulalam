@@ -1,0 +1,20 @@
+
+.auth-error-card {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        font-size: 16px;
+        gap: 8px;
+        padding: 1em;
+        margin-bottom: 12px;
+
+        background-color: var(--error-bg);
+        color: var(--error);
+        border: 2px solid var(--error);
+        border-radius: 8px;
+}
+
+.error-card__message {
+        font-weight: 600;
+}
