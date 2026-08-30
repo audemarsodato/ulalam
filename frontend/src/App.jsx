@@ -15,6 +15,7 @@ import UserProfile from './pages/user-profile/UserProfile'
 import Signup from './pages/signup/Signup'
 import Login from './pages/login/Login'
 import CompleteProfilePage from './pages/complete-profile-page/CompleteProfilePage'
+import EmailSentPage from './pages/email-sent/EmailSentPage'
 
 export default function App() {
 
@@ -28,8 +29,8 @@ export default function App() {
                                         <Route path='/login' element={<Login />}/>
 
                                         <Route path='/profile-setup' element={<CompleteProfilePage />}/>
-                                        {/* <Route path='/email-sent' element={<EmailSentPage />}/>
-                                        <Route path='/verify-email' element={<VerifyEmailPage />}/>  */}
+                                        <Route path='/email-sent/:email' element={<EmailSentPage />}/>
+                                        {/* <Route path='/verify-email' element={<VerifyEmailPage />}/>  */}
                                         {/* ?token=efyi843rnu */}
 
                                         <Route path='/' element={<Home />}/>
