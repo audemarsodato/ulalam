@@ -55,8 +55,24 @@ async function login(req, res) {
         }
 }
 
+async function sendEmailVerification(req, res) {
+        const { user } = req.body ?? {}
+
+        if (!user) return res.status(400).json({error: {message: 'Requires user for resending email verification'}})
+        
+        try {
+                const emailInfo = await authService.sendEmailVerification(user)
+                res.status(200).json({emailInfo})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 module.exports = {
         signup, 
         login,
-        verifyEmail
+        verifyEmail,
+        sendEmailVerification
 }
