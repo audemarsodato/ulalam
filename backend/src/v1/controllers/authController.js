@@ -14,8 +14,8 @@ async function signup(req, res) {
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
         try {
-                const { token, user } = await authService.signup({username, email, password, profileImageBuffer})
-                res.status(201).json({user, token})
+                const { user } = await authService.signup({username, email, password, profileImageBuffer})
+                res.status(201).json({user})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
@@ -61,7 +61,7 @@ async function sendEmailVerification(req, res) {
         if (!user) return res.status(400).json({error: {message: 'Requires user for resending email verification'}})
         
         try {
-                const emailInfo = await authService.sendEmailVerification(user)
+                const emailInfo = await authService.sendVerificationEmail(user)
                 res.status(200).json({emailInfo})
         }
         catch (error) {

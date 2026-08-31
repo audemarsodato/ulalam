@@ -119,5 +119,6 @@ module.exports = {
         signup,
         login,
         authenticate,
-        verifyEmail
+        verifyEmail,
+        sendVerificationEmail
 }

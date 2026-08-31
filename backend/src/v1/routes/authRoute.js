@@ -12,7 +12,7 @@ const {
 
 router.post('/signup', upload.single('profile-image'), signup)
 router.post('/verify-email', verifyEmail)
-router.post('/email-verification', sendEmailVerification)
+router.post('/verification-email', sendEmailVerification)
 router.post('/login', login)
 
 module.exports = router

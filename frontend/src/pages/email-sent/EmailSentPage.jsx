@@ -3,8 +3,10 @@ import { useSearchParams } from 'react-router-dom'
 
 import './EmailSentPage.css'
 import Header from '../../components/Header'
+import useUserContext from '../../hooks/useUserContext'
 
 export default function EmailSentPage() {
+        const { user } = useUserContext()
         const [ searchParams ] = useSearchParams()
         const email = searchParams.get('email')
         const [ seconds, setSeconds ] = useState(120)
@@ -18,6 +20,27 @@ export default function EmailSentPage() {
 
                 return () => clearInterval(timer)
         }, [seconds])
+
+        const resendEmail = async () => {
+                setSeconds(120)
+
+                const response = await fetch('/api/v1/auth/verification-email', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({user})
+                })
+
+                const json = await response.json()
+
+                if (!response.ok) {
+                        console.log(json)
+                        return
+                }
+
+                // email resent
+        }
 
         return (
                 <section className='email-sent-page'>
@@ -40,7 +63,7 @@ export default function EmailSentPage() {
                         
                         <div className='email-sent__resend-email'>
                                 <p className='email-sent__expiration-counter'>Expires in: {seconds}s</p>
-                                <button className='email-sent__resend-email-button' disabled={seconds !== 0}>Resend email</button>
+                                <button className='email-sent__resend-email-button' onClick={resendEmail} disabled={seconds !== 0}>Resend email</button>
                         </div>
                 </section>
         )
