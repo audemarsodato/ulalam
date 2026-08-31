@@ -1,0 +1,11 @@
+
+.spinner-wrapper {
+        position: absolute;
+        right: 16px;
+        top: 45%;
+        transform: translateY(-50%);
+}
+
+.spinner {
+        animation: spin 0.8s linear infinite;
+}

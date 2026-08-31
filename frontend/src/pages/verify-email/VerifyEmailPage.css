@@ -1,11 +1,12 @@
 
+
 .mail-sent__mail-icon {
         font-size: 150px;
 
         opacity: 40%;
 }
 
-.email-sent-container {
+.verify-email-container {
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -15,7 +16,7 @@
         /* height: 100%; */
 }
 
-.email-sent__prompt {
+.verify-email__prompt {
         text-align: center;
         font-weight: 500;
         color: rgba(0, 0, 0, 60%);
@@ -27,7 +28,7 @@
         font-weight: 700;
 }
 
-.email-sent__resend-email {
+.verify-email__continue {
         position: fixed;
         left: 0;
         right: 0;
@@ -39,7 +40,7 @@
         padding: 32px;
 }
 
-.email-sent__resend-email-button {
+.verify-email__continue__button {
         font-size: 16px;
 
         background-color: rgba(0, 0, 0, 0);
