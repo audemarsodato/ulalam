@@ -19,14 +19,11 @@ export default function Signup() {
         const handleSignup = async (event) => {
                 event.preventDefault()
 
-                if (!confirmPassword) setError({message: 'Confirm Password required!'})
-                if (!password) setError({message: 'Password required!'})
-                if (!email) setError({message: 'Email required!'})
-
                 setIsLoading(true)
 
                 if (password.trim() !== confirmPassword.trim()) {
                         setError({message: 'Password does not match'})
+                        setIsLoading(false)
                         return
                 }
 
@@ -44,10 +41,10 @@ export default function Signup() {
 
                 if (!response.ok) {
                         setError(json.error)
+                        setIsLoading(false)
                         return
                 }
-
-                // userDispatch({type: 'LOGIN', payload: json.user})
+                
                 navigate(`/email-sent?email=${json.user.email}`)
                 setIsLoading(false)
         }
