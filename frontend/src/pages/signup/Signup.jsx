@@ -1,25 +1,55 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import './Signup.css'
 import googleIcon from '../../assets/icons/google-icon.svg'
 import AuthError from '../../components/auth-error/AuthError'
+import useUserContext from '../../hooks/useUserContext'
 
 export default function Signup() {
-        const [ email, setEmail ] = useState('')
-        const [ password, setPassword ] = useState('')
-        const [ confirmPassword, setConfirmPassword ] = useState('')
-        const [ error, setError ] = useState(null)
+        const { dispatch: userDispatch } = useUserContext()
+        const navigate = useNavigate()
 
-        const handleSubmit = (event) => {
+        const [ email, setEmail ] = useState()
+        const [ password, setPassword ] = useState()
+        const [ confirmPassword, setConfirmPassword ] = useState()
+        const [ error, setError ] = useState(null)
+        const [ isLoading, setIsLoading ] = useState(false)
+
+        const handleSignup = async (event) => {
                 event.preventDefault()
+
+                if (!confirmPassword) setError({message: 'Confirm Password required!'})
+                if (!password) setError({message: 'Password required!'})
+                if (!email) setError({message: 'Email required!'})
+
+                setIsLoading(true)
 
                 if (password.trim() !== confirmPassword.trim()) {
                         setError({message: 'Password does not match'})
                         return
                 }
 
-                // signup fetch
+                const formData = new FormData()
+                formData.append('email', email)
+                formData.append('password', password)
+                formData.append('username', email.split('@')[0])
+
+                const response = await fetch('/api/v1/auth/signup', {
+                        method: 'POST',
+                        body: formData
+                })
+
+                const json = await response.json()
+
+                if (!response.ok) {
+                        setError(json.error)
+                        return
+                }
+
+                // userDispatch({type: 'LOGIN', payload: json.user})
+                navigate(`/email-sent?email=${json.user.email}`)
+                setIsLoading(false)
         }
 
         return (
@@ -33,7 +63,7 @@ export default function Signup() {
                                 <AuthError message={error.message}/>
                         }
 
-                        <form className="signup__form">
+                        <form className="signup__form" onSubmit={handleSignup}>
                                 <div className="signup__form__email-input">
                                         <label for='email' className="signup__email label">Email</label>
                                         <input 
@@ -43,6 +73,7 @@ export default function Signup() {
                                                 className="signup__email input" 
                                                 onChange={event => setEmail(event.target.value)}
                                                 value={email}
+                                                required
                                         />
                                 </div>
 
@@ -55,6 +86,7 @@ export default function Signup() {
                                                 className="signup__password input" 
                                                 onChange={event => setPassword(event.target.value)}
                                                 value={password}
+                                                required
                                         />
                                 </div>
 
@@ -67,10 +99,11 @@ export default function Signup() {
                                                 className="signup__confirm-password input" 
                                                 onChange={event => setConfirmPassword(event.target.value)}
                                                 value={confirmPassword}
+                                                required
                                         />
                                 </div>
 
-                                <button type="submit" onClick={handleSubmit} className='signup__signup-button'>Sign Up</button>
+                                <button type="submit" className='signup__signup-button' disabled={isLoading}>{isLoading ? 'Signing up...' : 'Sign Up'}</button>
                         </form>
 
                         <section className="signup__actions">

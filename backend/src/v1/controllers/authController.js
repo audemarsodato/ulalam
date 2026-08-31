@@ -6,7 +6,7 @@ async function signup(req, res) {
                 email,
                 password,
                 username,
-        } = req.body
+        } = req.body ?? {}
         const profileImageBuffer = req.file?.buffer
 
         const missingFields = checkMissingFields({email, password, username})

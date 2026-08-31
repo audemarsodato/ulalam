@@ -41,7 +41,7 @@ async function sendVerificationEmail({ user, token, frontendUrl }) {
                                         font-weight: 600;
                                         background-color: #E52E01;
                                         color: #fff;
-                                ' href='${frontendUrl}?token=${token}'>
+                                ' href='${frontendUrl}/verify-email?token=${token}'>
                                         Verify your email
                                 </a>
                         </div>
