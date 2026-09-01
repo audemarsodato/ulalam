@@ -14,30 +14,28 @@ import useUserContext from '../../hooks/useUserContext'
 export default function UserProfile() {
         const navigate = useNavigate()
 
-        // const [ user, setUser ] = useState(null)
-        const { user } = useUserContext()
+        const [ user, setUser ] = useState(null)
+        const { user: currentUser } = useUserContext()
         const { username: profileOwnerUsername } = useParams()
-        const isOwnProfile = user.username === profileOwnerUsername
+        const isOwnProfile = currentUser.username === profileOwnerUsername
         const [ isFollowing, setIsFollowing ] = useState(false)
         const [ activeModal, setActiveModal ] = useState(null)
 
+        console.log({user, profileOwnerUsername, isOwnProfile})
         useEffect(() => {
-                // if (isOwnProfile) {
-                //         setUser(currentUser)
-                //         return
-                // }
+                if (isOwnProfile) {
+                        setUser(currentUser)
+                        return
+                }
                 
                 // setUser(currentUser)
-                console.log({user, profileOwnerUsername, isOwnProfile})
                 // fetch user using username
                 // set user to the fetched user
         })
 
-        // const bookmarks = [
-        //         { ulamName: 'Tinola', owner: 'Trisha Wyne Bobis'},
-        //         { ulamName: 'Sinigang na Bangus', owner: 'Apple Mae Odato'},
-        //         { ulamName: 'Adobong Chicken', owner: 'Nanay'}
-        // ]
+        if (!user) {
+                return
+        }
 
         return (
                 <section className="user-profile-page">
@@ -59,7 +57,7 @@ export default function UserProfile() {
 
                                 <div className="username">
                                         {/* <h1>{user.username}</h1> */}
-                                        <h1>audemarsodato</h1>
+                                        <h1>{user.username}</h1>
                                 </div>
                         </section>
 

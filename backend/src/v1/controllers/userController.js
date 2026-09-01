@@ -29,10 +29,10 @@ async function updateCurrentUser(req, res) {
 }
 
 async function getUser(req, res) {
-        const { userId } = req.params
+        const { username } = req.params
 
         try {
-                const user = await userService.getUser(userId)
+                const user = await userService.getUserByUsername(username)
                 res.status(200).json(user)
         } catch (error) {
                 const statusCode = error.statusCode ?? 500

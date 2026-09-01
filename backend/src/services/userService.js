@@ -23,6 +23,19 @@ async function getUser(userId) {
         return {...user.toObject(), published_ulams, followers, followings, earned_specialties}
 }
 
+async function getUserByUsername(username) {
+        const user = await User.findOne({username}).select('-password_hash')
+
+        if (!user) throw new Error('Failed to get user')
+
+        const followers = await User.find({_id: {$in: user.followers}}).select('username profile_image_url followings followers')
+        const followings = await User.find({_id: {$in: user.followings}}).select('username profile_image_url followings followers')
+        const published_ulams = await Ulam.find({user_id: userId})
+        const earned_specialties = await Ulam.find({_id: {$in: user.earned_specialties}})
+
+        return {...user.toObject(), published_ulams, followers, followings, earned_specialties}
+}
+
 async function updateCurrentUser({ userId, updates }) {
         if (updates.email || updates.password_hash) throw new AppError('Unauthorized action: Cannot change an email or password', 400) 
 
@@ -112,5 +125,6 @@ module.exports = {
         updateCurrentUser,
         followUser,
         unfollowUser,
-        updateProfileImage
+        updateProfileImage,
+        getUserByUsername
 }

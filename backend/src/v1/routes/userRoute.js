@@ -20,13 +20,13 @@ router.get('/me', getCurrentUser)
 
 router.patch('/me', updateCurrentUser)
 
-router.get('/:userId', getUser) // TODO refactor to use username not userId
+router.get('/:username', getUser) // TODO refactor to use username not userId
 
 router.post('/:userId/following', followUser)
 
 router.delete('/:userId/following', unfollowUser)
 
-// get the user's ulams from followings
+// get the user's ulams from followings for home page
 router.get('/me/ulams/from-following', getUlamsFromFollowings)
 
 // get users earned specialties
