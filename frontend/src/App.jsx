@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import ScrollToTop from './components/utils/ScrollToTop'
 
+import ProtectedRoutes from './components/auth/ProtectedRoutes'
 import Home from './pages/Home'
 import CreateUlam from './pages/CreateUlam'
 import EditUlam from './pages/EditUlam'
@@ -34,21 +35,24 @@ export default function App() {
                                         <Route path='/verify-email' element={<VerifyEmailPage />}/> 
                                         {/* ?token=efyi843rnu */}
 
-                                        <Route path='/' element={<Home />}/>
+                                        <Route element={<ProtectedRoutes />}>
+                                                <Route path='/' element={<Home />}/>
 
-                                        <Route path='/ulams/create' element={<CreateUlam />}/>
-                                        <Route path='/ulams/:ulamId/edit' element={<EditUlam />}/>
-                                        <Route path='/ulams/:ulamId/variations/new' element={<CreateVariation />}/>
-                                        <Route path='/ulams/:ulamId' element={<UlamProfile />}/>
+                                                <Route path='/ulams/create' element={<CreateUlam />}/>
+                                                <Route path='/ulams/:ulamId/edit' element={<EditUlam />}/>
+                                                <Route path='/ulams/:ulamId/variations/new' element={<CreateVariation />}/>
+                                                <Route path='/ulams/:ulamId' element={<UlamProfile />}/>
 
-                                        <Route path='/search' element={<Search />}/>
+                                                <Route path='/search' element={<Search />}/>
 
-                                        <Route path='/cook/:ulamId' element={<CookUlam />}/>
-                                        <Route path='/cook/history' element={<CookingHistory />}/>
+                                                <Route path='/cook/:ulamId' element={<CookUlam />}/>
+                                                <Route path='/cook/history' element={<CookingHistory />}/>
 
-                                        <Route path='/meal-planner' element={<MealPlanner />}/>
+                                                <Route path='/meal-planner' element={<MealPlanner />}/>
 
-                                        <Route path='/users/:username' element={<UserProfile />}/>
+                                                <Route path='/users/:username' element={<UserProfile />}/>
+                                        </Route>
+
 
                                         {/* TODO: add 404 page not found  */}
                                 </Routes>              
