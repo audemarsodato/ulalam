@@ -51,7 +51,7 @@ async function login(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
-                res.status(statusCode).json({error: {message: error.message}})              
+                res.status(statusCode).json({error: {message: error.message, code: error.code, payload: error.payload}})
         }
 }
 

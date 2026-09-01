@@ -1,9 +1,56 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 import './Login.css'
 import googleIcon from '../../assets/icons/google-icon.svg'
+import AuthError from '../../components/auth-error/AuthError'
+import useUserContext from '../../hooks/useUserContext'
 
 export default function Login() {
+        const { dispatch: userDispatch } = useUserContext()
+        const navigate = useNavigate()
+
+        const [ email, setEmail ] = useState('')
+        const [ password, setPassword ] = useState('')
+        const [ error, setError ] = useState(null)
+        const [ isLoading, setIsLoading ] = useState(false)
+
+        const handleLogin = async (event) => {
+                event.preventDefault()
+
+                setIsLoading(true)
+
+                const userCredentials = {email, password}
+
+                const response = await fetch('/api/v1/auth/login', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(userCredentials)
+                })
+
+                const json = await response.json()
+
+                if (!response.ok) {
+                        setIsLoading(false)
+                        setError(json.error)
+                        console.log(json)
+                        
+                        if (json.error.code === 'EMAIL_NOT_VERIFIED') {
+                                setTimeout(() => {
+                                        console.log('set time out')
+                                        console.log(json)
+                                        navigate(`/email-sent?email=${json.error.payload.email}`)
+                                }, 3000)
+                        }
+                        return
+                }
+                
+                setIsLoading(false)
+                userDispatch({type: 'LOGIN', payload: json.user})
+                navigate(`/`)
+        }
 
         return (
                 <section className="login-page">
@@ -12,19 +59,37 @@ export default function Login() {
                                 <h2 className="login__h2">Login</h2>
                         </header>
 
-                        {/* Error message component */}
+                        {error && 
+                                <AuthError message={error.message}/>
+                        }
 
-                        <form className="login__form">
+                        <form className="login__form" onSubmit={handleLogin}>
                                 <div className="login__form__email-input">
                                         <label for='email' className="login__email label">Email</label>
-                                        <input type="email" name="email" id="email" className="login__email input" />
+                                        <input 
+                                                type="email" 
+                                                name="email" 
+                                                id="email" 
+                                                className="login__email input"
+                                                value={email}
+                                                onChange={event => setEmail(event.target.value)}
+                                                required
+                                        />
                                 </div>
                                 <div className="login__form__password-input">
                                         <label for='password' className="login__password label">Password</label>
-                                        <input type="password" name="password" id="password" className="login__password input" />
+                                        <input 
+                                                type="password" 
+                                                name="password" 
+                                                id="password" 
+                                                className="login__password input"
+                                                value={password}
+                                                onChange={event => setPassword(event.target.value)}
+                                                required
+                                        />
                                 </div>
 
-                                <button type="submit" className='login__login-button'>Log In</button>
+                                <button type="submit" className='login__login-button' disabled={isLoading}>{isLoading ? 'Logging In...' : 'Log In'}</button>
                         </form>
 
                         <section className="login__actions">

@@ -44,7 +44,7 @@ async function signup({ username, email, password, profileImageBuffer }) {
 
                 const {password_hash, ...safeUser} = userExists.toObject()
 
-                await sendVerificationEmail(userExists) // TODO check if email is sent succesfully
+                await sendVerificationEmail(userExists)
 
                 return {user: safeUser}
         }
@@ -90,7 +90,13 @@ async function verifyEmail(verificationToken) {
 async function login({ email, password }) {
         const user = await User.login({email, password})
 
-        if (!user.email_verified) throw new AppError('Email not yet verified', 400)
+        if (!user.email_verified) {
+                await sendVerificationEmail(user)
+
+                throw new AppError('Email not yet verified. Verification email has been sent', 403, 'EMAIL_NOT_VERIFIED', {
+                        email: user.email
+                })
+        }
 
         const {password_hash, ...safeUser} = user.toObject()        
 
