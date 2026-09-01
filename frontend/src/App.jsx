@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import ScrollToTop from './components/utils/ScrollToTop'
 
@@ -18,8 +18,10 @@ import Login from './pages/login/Login'
 import CompleteProfilePage from './pages/complete-profile-page/CompleteProfilePage'
 import EmailSentPage from './pages/email-sent/EmailSentPage'
 import VerifyEmailPage from './pages/verify-email/VerifyEmailPage'
+import useUserContext from './hooks/useUserContext'
 
 export default function App() {
+        const { user } = useUserContext()
 
         return (
                 <div className='app'>
@@ -27,8 +29,8 @@ export default function App() {
                                 <ScrollToTop />
 
                                 <Routes>
-                                        <Route path='/signup' element={<Signup />}/>
-                                        <Route path='/login' element={<Login />}/>
+                                        <Route path='/signup' element={!user ? <Signup /> : <Navigate to={'/'} />}/>
+                                        <Route path='/login' element={!user ? <Login /> : <Navigate to={'/'} />}/>
 
                                         <Route path='/email-sent' element={<EmailSentPage />}/>
                                         <Route path='/verify-email' element={<VerifyEmailPage />}/> 

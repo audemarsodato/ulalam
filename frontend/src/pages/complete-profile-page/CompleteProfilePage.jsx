@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import './CompleteProfilePage.css'
 import defaultProfileImage from '../../assets/icons/default-profile-picture.svg'
 import useUserContext from '../../hooks/useUserContext'
+import AuthError from '../../components/auth-error/AuthError'
 
 export default function CompleteProfilePage() {
         const navigate = useNavigate()
@@ -12,6 +13,7 @@ export default function CompleteProfilePage() {
         const [ profileImage, setProfileImage ] = useState(null)
         const [ profileImageSrc, setprofileImageSrc ] = useState(null)
         const [ username, setUsername ] = useState('')
+        const [ error, setError ] = useState(null)
 
         const setPreview = (event) => {
                 const file = event.target.files[0]
@@ -30,33 +32,39 @@ export default function CompleteProfilePage() {
 
                 if (!username) return // TODO set globbal error
 
-                const formData = new FormData()
-                formData.append('profile-image', profileImage)
-
-                const [ profileImageResponse, usernameResponse ] = await Promise.all([
-                        fetch('/api/v1/users/me/profile-image', {
+                if (profileImage) {
+                        const formData = new FormData()
+                        formData.append('profile-image', profileImage)
+                        const profileImageResponse = await fetch('/api/v1/users/me/profile-image', {
                                 method: 'PATCH',
                                 headers: {
                                         authorization: `Bearer ${user.token}`
                                 },
                                 body: formData
-                        }),
-                        fetch('/api/v1/users/me', {
-                                method: 'PATCH',
-                                headers: {
-                                        'Content-Type': 'application/json',
-                                        authorization: `Bearer ${user.token}`
-                                },
-                                body: JSON.stringify({updates: {username}})
                         })
-                ])
 
-                const profileImageJson = await profileImageResponse.json()
+                        const profileImageJson = await profileImageResponse.json()
+
+                        if (!profileImageResponse.ok) {
+                                setError(profileImageJson.error)
+                                return
+                        }
+                }
+
+                const usernameResponse = await fetch('/api/v1/users/me', {
+                        method: 'PATCH',
+                        headers: {
+                                'Content-Type': 'application/json',
+                                authorization: `Bearer ${user.token}`
+                        },
+                        body: JSON.stringify({updates: {username}})
+                })
+
                 const usernameJson = await usernameResponse.json()
 
                 // TODO response not ok handler
-                if (!profileImageResponse.ok || !usernameResponse.ok) {
-                        console.log({profileImageJson, usernameJson})
+                if (!usernameResponse.ok) {
+                        setError(usernameJson.error)
                         return
                 }
 
@@ -94,6 +102,7 @@ export default function CompleteProfilePage() {
                                         />
                                 </section>
 
+
                                 <form className='complete-profile__form' onSubmit={handleProfileSetup}>
                                         <label className='complete-profile__username-label' htmlFor="username-input">Username <span>*</span></label>
                                         <input 
@@ -110,6 +119,10 @@ export default function CompleteProfilePage() {
                                                 <button type='submit' className="complete-profile__continue-button">Complete</button>
                                         </section>
                                 </form>
+                                
+                                {error &&
+                                        <AuthError message={error.message}/>
+                                }
                         </section>
                 </section>
         )

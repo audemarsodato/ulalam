@@ -26,6 +26,9 @@ async function getUser(userId) {
 async function updateCurrentUser({ userId, updates }) {
         if (updates.email || updates.password_hash) throw new AppError('Unauthorized action: Cannot change an email or password', 400) 
 
+        // Checks if username contains space
+        if (updates.username && /\s/.test(updates.username)) throw new AppError('Username must not contain space', 400)
+
         const options = {
                 returnDocument: 'after',
                 runValidators: true

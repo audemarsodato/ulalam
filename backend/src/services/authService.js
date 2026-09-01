@@ -36,6 +36,9 @@ async function sendVerificationEmail(user) {
 async function signup({ username, email, password }) {
         await User.validateSignup({username, email, password})
 
+        // Checks if username contains space
+        if (username && /\s/.test(username)) throw new AppError('Username must not contain space', 400)
+
         const userExists = await User.findOne({email})
         if (userExists) {
                 if (userExists.email_verified) throw new AppError('Email already taken', 400)
