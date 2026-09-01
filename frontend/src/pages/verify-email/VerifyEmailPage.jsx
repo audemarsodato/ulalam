@@ -7,10 +7,10 @@ import LoadingSpinner from '../../components/loading-spinner/LoadingSpinner'
 import useUserContext from '../../hooks/useUserContext'
 
 export default function VerifyEmailPage() {
-        const { dispatch: userDispatch } = useUserContext
+        const { dispatch: userDispatch } = useUserContext()
         const [ searchParams ] = useSearchParams()
         const verificationToken = searchParams.get('token')
-        const [ isLoading, setIsLoading ] = useState(false)
+        const [ isLoading, setIsLoading ] = useState(true)
         const [ error, setError ] = useState(null)
 
         useEffect(() => {
@@ -28,7 +28,6 @@ export default function VerifyEmailPage() {
                         const json = await response.json()
 
                         if (!response.ok) {
-                                console.log(json)
                                 setError(json.error)
                                 setIsLoading(false)
                                 return

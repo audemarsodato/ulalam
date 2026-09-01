@@ -54,3 +54,35 @@
 /* .email-sent__expiration-counter { */
         /* text-align: center; */
 /* } */
+
+.verify-email__loading-prompt {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 35dvh;
+        gap: 8px;
+        font-size: 16px;
+
+        font-weight: 600;
+}
+
+.verify-email__error-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        margin-top: 30dvh;
+        gap: 8px;
+        font-size: 16px;
+
+        font-weight: 600;
+}
+
+.verify-email__error-icon {
+        font-size: 96px;
+        
+        color: var(--error);
+        opacity: 60%;
+}

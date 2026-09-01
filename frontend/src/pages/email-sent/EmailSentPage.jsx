@@ -6,7 +6,7 @@ import Header from '../../components/Header'
 import useUserContext from '../../hooks/useUserContext'
 
 export default function EmailSentPage() {
-        const { user: userDispatch } = useUserContext()
+        const { user } = useUserContext()
         const [ searchParams ] = useSearchParams()
         const email = searchParams.get('email')
         const [ seconds, setSeconds ] = useState(120)
