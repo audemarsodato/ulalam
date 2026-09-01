@@ -98,7 +98,7 @@ async function login({ email, password }) {
 
         const {password_hash, ...safeUser} = user.toObject()        
 
-        const token = createToken(user._id)
+        const token = createToken(user._id, user.email_verified)
 
         return {token, user: safeUser}
 }

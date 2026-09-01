@@ -30,12 +30,12 @@ export default function App() {
                                         <Route path='/signup' element={<Signup />}/>
                                         <Route path='/login' element={<Login />}/>
 
-                                        <Route path='/profile-setup' element={<CompleteProfilePage />}/>
                                         <Route path='/email-sent' element={<EmailSentPage />}/>
                                         <Route path='/verify-email' element={<VerifyEmailPage />}/> 
-                                        {/* ?token=efyi843rnu */}
 
                                         <Route element={<ProtectedRoutes />}>
+                                                <Route path='/profile-setup' element={<CompleteProfilePage />}/>
+                                                
                                                 <Route path='/' element={<Home />}/>
 
                                                 <Route path='/ulams/create' element={<CreateUlam />}/>

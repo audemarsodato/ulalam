@@ -1,16 +1,26 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import './CompleteProfilePage.css'
 import defaultProfileImage from '../../assets/icons/default-profile-picture.svg'
+import useUserContext from '../../hooks/useUserContext'
 
 export default function CompleteProfilePage() {
+        const navigate = useNavigate()
+
+        const { user } = useUserContext()
+        const [ profileImage, setProfileImage ] = useState(null)
         const [ profileImageSrc, setprofileImageSrc ] = useState(null)
         const [ username, setUsername ] = useState('')
 
         const setPreview = (event) => {
                 const file = event.target.files[0]
 
-                const imageSrc = URL.createObjectURL(file)
+                if (!file) return
+
+                setProfileImage(file)
+
+                const imageSrc = URL.createObjectURL(file) // TODO cleanup
 
                 setprofileImageSrc(imageSrc)
         }
@@ -18,8 +28,41 @@ export default function CompleteProfilePage() {
         const handleProfileSetup = async (event) => {
                 event.preventDefault()
 
-                console.log(username)
-                // TODO update user's usename and profile image
+                if (!username) return // TODO set globbal error
+
+                const formData = new FormData()
+                formData.append('profile-image', profileImage)
+
+                const [ profileImageResponse, usernameResponse ] = await Promise.all([
+                        fetch('/api/v1/users/me/profile-image', {
+                                method: 'PATCH',
+                                headers: {
+                                        authorization: `Bearer ${user.token}`
+                                },
+                                body: formData
+                        }),
+                        fetch('/api/v1/users/me', {
+                                method: 'PATCH',
+                                headers: {
+                                        'Content-Type': 'application/json',
+                                        authorization: `Bearer ${user.token}`
+                                },
+                                body: JSON.stringify({updates: {username}})
+                        })
+                ])
+
+                const profileImageJson = await profileImageResponse.json()
+                const usernameJson = await usernameResponse.json()
+
+                // TODO response not ok handler
+                if (!profileImageResponse.ok || !usernameResponse.ok) {
+                        console.log({profileImageJson, usernameJson})
+                        return
+                }
+
+                // TODO update user from the context
+
+                navigate('/')
         }
 
         return (

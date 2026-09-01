@@ -6,6 +6,7 @@ const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
 const ulamsService = require('./ulamsService')
 const imagesService = require('./imagesService')
+const { options } = require('../v1/routes/userRoute')
 
 async function getUser(userId) {
         if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
@@ -87,15 +88,20 @@ async function updateProfileImage({ userId, profileImageBuffer }) {
                 profileImageUrl = await imagesService.uploadImage(profileImageBuffer)
         }
 
+        const options = {
+                returnDocument: 'after',
+                runValidators: true
+        }
+
         const updatedUser = await User.findByIdAndUpdate(userId, {
                 profile_image_url: profileImageUrl
-        })
+        }, options)
 
         if (!updatedUser) throw new AppError('Failed to update current users profile image')
         
         const { password_hash, ...safeUser } = updatedUser.toObject()
 
-        return {profile_image_url: user.profile_image_url, user: safeUser}
+        return {profile_image_url: updatedUser.profile_image_url, user: safeUser}
 }
 
 module.exports = {

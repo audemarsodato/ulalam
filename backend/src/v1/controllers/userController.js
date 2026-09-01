@@ -106,13 +106,13 @@ async function getEarnedSpecialties(req, res) {
 }
 
 async function updateProfileImageCurrentUser(req, res) {
-        const { userId } = req.user_id
+        const userId = req.user_id
 
         if (!req.file.buffer) return res.status(400).json({error: {message: 'Profile image is required'}})
         const profileImageBuffer = req.file.buffer
 
         try {
-                const { profile_image_url, user } = await User.updateProfileImageCurrentUser({userId, profileImageBuffer})
+                const { profile_image_url, user } = await userService.updateProfileImage({userId, profileImageBuffer})
                 res.status(200).json({profile_image_url, user})
         }
         catch (error) {

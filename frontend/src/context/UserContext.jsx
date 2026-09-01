@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from 'react'
+import { createContext, useEffect, useReducer, useState } from 'react'
 
 export const UserContext = createContext()
 
@@ -14,20 +14,23 @@ function userReducer(state, action) {
 }
 
 export function UserContextProvider({ children }) {
+        const [ isInitializing, setIsInitializing ] = useState(true)
         const [ state, dispatch ] = useReducer(userReducer, {
                 user: null
         })
 
         useEffect(() => {
                 let user = JSON.parse(localStorage.getItem('user'))
-
+                
                 if (user) {
                         dispatch({type: 'LOGIN', payload: user})
                 }
+                
+                setIsInitializing(false)
         }, [])
 
         return (
-                <UserContext.Provider value={{...state, dispatch}}>
+                <UserContext.Provider value={{...state, dispatch, isInitializing}}>
                         {children}
                 </UserContext.Provider>
         )

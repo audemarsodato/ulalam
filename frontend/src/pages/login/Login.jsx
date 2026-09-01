@@ -7,7 +7,7 @@ import AuthError from '../../components/auth-error/AuthError'
 import useUserContext from '../../hooks/useUserContext'
 
 export default function Login() {
-        const { dispatch: userDispatch } = useUserContext()
+        const { user, dispatch: userDispatch } = useUserContext()
         const navigate = useNavigate()
 
         const [ email, setEmail ] = useState('')
@@ -48,7 +48,8 @@ export default function Login() {
                 }
                 
                 setIsLoading(false)
-                userDispatch({type: 'LOGIN', payload: json.user})
+                userDispatch({type: 'LOGIN', payload: json})
+                localStorage.setItem('user', JSON.stringify(json))
                 navigate(`/`)
         }
 
