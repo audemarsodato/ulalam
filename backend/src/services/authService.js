@@ -53,7 +53,7 @@ async function signup({ username, email, password }) {
         const user = await User.signup({username, email, password })
         const {password_hash, ...safeUser} = user.toObject()
 
-        await sendVerificationEmail(user) // TODO check if email is sent succesfully
+        await sendVerificationEmail(user)
 
         return {user: safeUser}// TODO if user is not yet verified, frontend redirects to the verify email page
 }

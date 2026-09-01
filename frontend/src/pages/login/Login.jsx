@@ -15,6 +15,8 @@ export default function Login() {
         const [ error, setError ] = useState(null)
         const [ isLoading, setIsLoading ] = useState(false)
 
+        const [ showPassword, setShowPassword ] = useState(false)
+
         const handleLogin = async (event) => {
                 event.preventDefault()
 
@@ -79,15 +81,24 @@ export default function Login() {
                                 </div>
                                 <div className="login__form__password-input">
                                         <label for='password' className="login__password label">Password</label>
-                                        <input 
-                                                type="password" 
-                                                name="password" 
-                                                id="password" 
-                                                className="login__password input"
-                                                value={password}
-                                                onChange={event => setPassword(event.target.value)}
-                                                required
-                                        />
+                                        <div className="password-input-wrapper">
+                                                <input 
+                                                        type={showPassword ? 'text' : 'password'} 
+                                                        name="password" 
+                                                        id="password" 
+                                                        className="login__password input"
+                                                        value={password}
+                                                        onChange={event => setPassword(event.target.value)}
+                                                        required
+                                                />
+                                                <div className="toggle-password">
+                                                        <button type='button' onClick={() => setShowPassword(!showPassword)}>
+                                                                <span class='material-symbols-rounded'>
+                                                                        {showPassword ? "visibility_off" : "visibility"}
+                                                                </span>
+                                                        </button>
+                                                </div>
+                                        </div>
                                 </div>
 
                                 <button type="submit" className='login__login-button' disabled={isLoading}>{isLoading ? 'Logging In...' : 'Log In'}</button>

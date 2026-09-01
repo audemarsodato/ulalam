@@ -17,6 +17,9 @@ export default function Signup() {
         const [ isLoading, setIsLoading ] = useState(false)
         const [ missingFields, setMissingFields ] = useState([])
 
+        const [ showPassword, setShowPassword ] = useState(false)
+        const [ showConfirmPassword, setShowConfirmPassword ] = useState(false)
+
         const handleSignup = async (event) => {
                 event.preventDefault()
 
@@ -84,28 +87,47 @@ export default function Signup() {
 
                                 <div className="signup__form__password-input">
                                         <label for='password' className="signup__password label">Password</label>
-                                        <input 
-                                                type="password" 
-                                                name="password" 
-                                                id="password" 
-                                                className={`signup__password input ${missingFields.includes('password') ? 'border-red' : ''}`}
-                                                onChange={event => setPassword(event.target.value)}
-                                                value={password}
-                                                required
-                                        />
+                                        <div className="password-input-wrapper">
+                                                <input 
+                                                        type={showPassword ? 'text' : 'password'} 
+                                                        name="password" 
+                                                        id="password" 
+                                                        className={`signup__password input ${missingFields.includes('password') ? 'border-red' : ''}`}
+                                                        onChange={event => setPassword(event.target.value)}
+                                                        value={password}
+                                                        required
+                                                />
+                                                <div className="toggle-password">
+                                                        <button type='button' onClick={() => setShowPassword(!showPassword)}>
+                                                                <span class='material-symbols-rounded'>
+                                                                        {showPassword ? "visibility_off" : "visibility"}
+                                                                </span>
+                                                        </button>
+                                                </div>
+                                        </div>
                                 </div>
 
                                 <div className="signup__form__confirm-password-input">
                                         <label for='confirm-password' className="signup__confirm-password label">Confirm Password</label>
-                                        <input 
-                                                type="password" 
-                                                name="confirm-password" 
-                                                id="confirm-password" 
-                                                className={`signup__confirm-password input ${missingFields.includes('password') ? 'border-red' : ''}`}
-                                                onChange={event => setConfirmPassword(event.target.value)}
-                                                value={confirmPassword}
-                                                required
-                                        />
+                                        <div className="password-input-wrapper">
+                                                <input 
+                                                        type={showConfirmPassword ? 'text' : 'password'} 
+                                                        name="confirm-password" 
+                                                        id="confirm-password" 
+                                                        className={`signup__confirm-password input ${missingFields.includes('password') ? 'border-red' : ''}`}
+                                                        onChange={event => setConfirmPassword(event.target.value)}
+                                                        value={confirmPassword}
+                                                        required
+                                                />
+                                                <div className="toggle-password">
+                                                        <button type='button' onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                                                <span class='material-symbols-rounded'>
+                                                                        {showConfirmPassword ? "visibility_off" : "visibility"}
+                                                                </span>
+                                                        </button>
+                                                </div>
+                                        </div>
+
                                 </div>
 
                                 <button type="submit" className='signup__signup-button' disabled={isLoading}>{isLoading ? 'Signing up...' : 'Sign Up'}</button>

@@ -50,7 +50,7 @@ async function sendVerificationEmail({ user, token, frontendUrl }) {
                 `
         })
 
-        // TODO check if email succcessfull
+        // TODO check if email is sent succesfully
 
         return emailInfo
 }

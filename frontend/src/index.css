@@ -1006,6 +1006,43 @@ body {
         border-radius: 8px;
 }
 
+/* PASSWORD TOGGLE SHOW */
+.password-input-wrapper {
+        position: relative;
+}
+
+.password-input-wrapper .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 4px;
+        transform: translateY(-50%);
+}
+
+.password-input-wrapper .toggle-password button {
+        padding: 4px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        /* border-left: 2px solid rgba(0, 0, 0, 0.2); */
+}
+
+.password-input-wrapper .toggle-password button span {
+        opacity: 0.5;
+        color: #000;
+
+        transition: color 0.3s ease;
+        transition: opacity 0.3s ease;
+}
+
+.password-input-wrapper .toggle-password button span:hover {
+        color: var(--deep-green);
+        opacity: 1;
+}
+
 /* UTILS */
 .filled-icon {
         font-variation-settings: 'FILL' 1;
