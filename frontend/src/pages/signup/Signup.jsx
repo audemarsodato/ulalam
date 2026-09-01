@@ -15,6 +15,7 @@ export default function Signup() {
         const [ confirmPassword, setConfirmPassword ] = useState()
         const [ error, setError ] = useState(null)
         const [ isLoading, setIsLoading ] = useState(false)
+        const [ missingFields, setMissingFields ] = useState([])
 
         const handleSignup = async (event) => {
                 event.preventDefault()
@@ -27,14 +28,18 @@ export default function Signup() {
                         return
                 }
 
-                const formData = new FormData()
-                formData.append('email', email)
-                formData.append('password', password)
-                formData.append('username', email.split('@')[0])
+                const userCredentials = {
+                        email,
+                        password,
+                        username: email.split('@')[0]
+                }
 
                 const response = await fetch('/api/v1/auth/signup', {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(userCredentials)
                 })
 
                 const json = await response.json()
@@ -42,6 +47,8 @@ export default function Signup() {
                 if (!response.ok) {
                         setError(json.error)
                         setIsLoading(false)
+                        if (json.error.missingFields) setMissingFields(json.error.missingFields)
+                        console.log(json)
                         return
                 }
                 
@@ -68,7 +75,7 @@ export default function Signup() {
                                                 type="email" 
                                                 name="email" 
                                                 id="email" 
-                                                className="signup__email input" 
+                                                className={`signup__email input ${missingFields.includes('email') ? 'border-red' : ''}`}
                                                 onChange={event => setEmail(event.target.value)}
                                                 value={email}
                                                 required
@@ -81,7 +88,7 @@ export default function Signup() {
                                                 type="password" 
                                                 name="password" 
                                                 id="password" 
-                                                className="signup__password input" 
+                                                className={`signup__password input ${missingFields.includes('password') ? 'border-red' : ''}`}
                                                 onChange={event => setPassword(event.target.value)}
                                                 value={password}
                                                 required
@@ -94,7 +101,7 @@ export default function Signup() {
                                                 type="password" 
                                                 name="confirm-password" 
                                                 id="confirm-password" 
-                                                className="signup__confirm-password input" 
+                                                className={`signup__confirm-password input ${missingFields.includes('password') ? 'border-red' : ''}`}
                                                 onChange={event => setConfirmPassword(event.target.value)}
                                                 value={confirmPassword}
                                                 required

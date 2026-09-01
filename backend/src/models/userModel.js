@@ -68,7 +68,7 @@ userSchema.statics.validateSignup = async function({ username, email, password }
         if (!validator.isStrongPassword(password)) throw new AppError('Weak password', 400)
 }
 
-userSchema.statics.signup = async function({ username, email, password, profileImageUrl }) {
+userSchema.statics.signup = async function({ username, email, password }) {
         const salt = await bcrypt.genSalt(10)
         const passwordHash = await bcrypt.hash(password, salt)
 
@@ -76,10 +76,6 @@ userSchema.statics.signup = async function({ username, email, password, profileI
                 username,
                 email,
                 password_hash: passwordHash,
-        }
-
-        if (profileImageUrl) {
-                userData.profile_image_url = profileImageUrl
         }
 
         const user = await this.create(userData)

@@ -7,14 +7,13 @@ async function signup(req, res) {
                 password,
                 username,
         } = req.body ?? {}
-        const profileImageBuffer = req.file?.buffer
 
         const missingFields = checkMissingFields({email, password, username})
 
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
         try {
-                const { user } = await authService.signup({username, email, password, profileImageBuffer})
+                const { user } = await authService.signup({username, email, password })
                 res.status(201).json({user})
         }
         catch (error) {

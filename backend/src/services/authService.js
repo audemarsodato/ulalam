@@ -33,7 +33,7 @@ async function sendVerificationEmail(user) {
         await emailService.sendVerificationEmail({user, token: verificationToken, frontendUrl: process.env.FRONTEND_URL}) // TODO add prompt if email is not sent, email address of the user may be spelled wrong check you email address
 }
 
-async function signup({ username, email, password, profileImageBuffer }) {
+async function signup({ username, email, password }) {
         await User.validateSignup({username, email, password})
 
         const userExists = await User.findOne({email})
@@ -46,17 +46,11 @@ async function signup({ username, email, password, profileImageBuffer }) {
 
                 return {user: safeUser}
         }
-
-
-        let profileImageUrl = null
-        if (profileImageBuffer) {
-                profileImageUrl = await imagesService.uploadImage(profileImageBuffer)
-        }
         
         const usernameTaken = await User.findOne({username})
         if (usernameTaken) throw new AppError('Username already taken', 400)
 
-        const user = await User.signup({username, email, password, profileImageUrl})
+        const user = await User.signup({username, email, password })
         const {password_hash, ...safeUser} = user.toObject()
 
         await sendVerificationEmail(user) // TODO check if email is sent succesfully
