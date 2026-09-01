@@ -14,7 +14,7 @@ export default function VerifyEmailPage() {
         const [ error, setError ] = useState(null)
 
         useEffect(() => {
-                const verifyEmail = async () => {
+                const verifyEmail = async () => { // scoped and used only here
                         setIsLoading(true)
 
                         const response = await fetch('/api/v1/auth/verify-email', {
@@ -67,7 +67,7 @@ export default function VerifyEmailPage() {
                         }
 
                         <div className='verify-email__continue'>
-                                <Link to={'/'} className='verify-email__continue__button'>Continue</Link>
+                                <Link to={'/profile-setup'} className='verify-email__continue__button'>Continue</Link>
                         </div>
                 </section>
         )

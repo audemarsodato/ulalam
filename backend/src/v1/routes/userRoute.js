@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const upload = require('../../middlewares/multer')
+
 const {
         getCurrentUser,
         updateCurrentUser,
@@ -9,7 +11,8 @@ const {
         unfollowUser,
         getPublishedUlams,
         getUlamsFromFollowings,
-        getEarnedSpecialties
+        getEarnedSpecialties,
+        updateProfileImageCurrentUser
 } = require('../controllers/userController')
 
 // GET current users details except password hash
@@ -30,6 +33,8 @@ router.get('/me/ulams/from-following', getUlamsFromFollowings)
 router.get('/:userId/ulams/earned-specialties', getEarnedSpecialties)
 
 router.get('/:userId/ulams', getPublishedUlams)
+
+router.post('/me/profile-image', upload.single('profile-image'), updateProfileImageCurrentUser)
 
 // router.post('/me/ulams/earned-specialties/:ulamId', addToSpecialties)
 // whats the design for determining earned specialties?

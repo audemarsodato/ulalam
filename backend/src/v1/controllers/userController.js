@@ -105,6 +105,22 @@ async function getEarnedSpecialties(req, res) {
         }
 }
 
+async function updateProfileImageCurrentUser(req, res) {
+        const { userId } = req.user_id
+
+        if (!req.file.buffer) return res.status(400).json({error: {message: 'Profile image is required'}})
+        const profileImageBuffer = req.file.buffer
+
+        try {
+                const { profile_image_url, user } = await User.updateProfileImageCurrentUser({userId, profileImageBuffer})
+                res.status(200).json({profile_image_url, user})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 
 module.exports = {
         getCurrentUser,
@@ -114,5 +130,6 @@ module.exports = {
         unfollowUser,
         getPublishedUlams,
         getUlamsFromFollowings,
-        getEarnedSpecialties
+        getEarnedSpecialties,
+        updateProfileImageCurrentUser
 }

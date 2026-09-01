@@ -15,6 +15,13 @@ export default function CompleteProfilePage() {
                 setprofileImageSrc(imageSrc)
         }
 
+        const handleProfileSetup = async (event) => {
+                event.preventDefault()
+
+                console.log(username)
+                // TODO update user's usename and profile image
+        }
+
         return (
                 <section className="complete-profile-page">
                         <header className="page-headers">
@@ -44,7 +51,7 @@ export default function CompleteProfilePage() {
                                         />
                                 </section>
 
-                                <form className='complete-profile__form'>
+                                <form className='complete-profile__form' onSubmit={handleProfileSetup}>
                                         <label className='complete-profile__username-label' htmlFor="username-input">Username <span>*</span></label>
                                         <input 
                                                 type="text" 
@@ -55,11 +62,11 @@ export default function CompleteProfilePage() {
                                                 required
                                                 // placeholder='Taga Saing'
                                         />
-                                </form>
 
-                                <section className="complete-profile__continue">
-                                        <button className="complete-profile__continue-button">Continue</button>
-                                </section>
+                                        <section className="complete-profile__continue">
+                                                <button type='submit' className="complete-profile__continue-button">Complete</button>
+                                        </section>
+                                </form>
                         </section>
                 </section>
         )

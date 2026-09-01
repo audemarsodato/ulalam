@@ -38,9 +38,7 @@ async function signup({ username, email, password, profileImageBuffer }) {
 
         const userExists = await User.findOne({email})
         if (userExists) {
-                if (userExists.email_verified) throw new AppError('User already exist', 400)
-        
-                
+                if (userExists.email_verified) throw new AppError('Email already taken', 400)
 
                 const {password_hash, ...safeUser} = userExists.toObject()
 
