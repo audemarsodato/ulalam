@@ -6,7 +6,6 @@ const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
 const ulamsService = require('./ulamsService')
 const imagesService = require('./imagesService')
-const { options } = require('../v1/routes/userRoute')
 
 async function getUser(userId) {
         if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)

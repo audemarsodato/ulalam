@@ -306,6 +306,17 @@ async function getEarnedSpecialties(userId) {
                         $unwind: '$ulam'
                 },
                 {
+                        $lookup: {
+                                from: 'users',
+                                localField: 'ulam.user_id',
+                                foreignField: '_id',
+                                as: 'owner'
+                        }
+                    },
+                {
+                        $unwind: '$owner'
+                },
+                {
                         $project: {
                                 _id: '$ulam._id',
                                 name: '$ulam.name',
@@ -313,11 +324,12 @@ async function getEarnedSpecialties(userId) {
                                 ingredients: '$ulam.ingredients',
                                 instructions: '$ulam.instructions',
                                 user_id: '$ulam.user_id',
+                                username: '$owner.username',
                                 liked_by: '$ulam.liked_by',
                                 bookmarked_by: '$ulam.bookmarked_by',
                                 variation_of: '$ulam.variation_of',
                                 cooked_count: '$ulam.cooked_count',
-                                timesCooked: 1
+                                times_cooked: 1
                         }
                 }
         ])

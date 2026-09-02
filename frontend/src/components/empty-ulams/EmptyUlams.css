@@ -1,0 +1,24 @@
+
+.empty-ulams-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex: 1;
+        gap: 12px;
+}
+
+.empty-ulams__icon {
+        font-size: 96px;
+
+        opacity: 40%;
+        color: var(--error);
+}
+
+.empty-ulams__message {
+        text-align: center;
+
+        /* font-weight: 400; */
+        opacity: 80%;
+        color: var(--error);
+}

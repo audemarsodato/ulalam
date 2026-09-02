@@ -8,6 +8,8 @@ function userReducer(state, action) {
                         return {user: action.payload}
                 case 'LOGOUT':
                         return {user: null}
+                case 'UPDATE':
+                        return {...state, user: {...state.user, ...action.payload}}
                 default:
                         return state
         }
@@ -20,11 +22,23 @@ export function UserContextProvider({ children }) {
         })
 
         useEffect(() => {
+                if (isInitializing) return
+                
+                if (!state.user) {
+                        localStorage.removeItem('user')
+                        return
+                }
+                localStorage.setItem('user', JSON.stringify(state.user))
+        }, [state.user])
+
+        /* 
+        *  The purpose of this is to check if there are saved user that has logged in before.
+        *  It then log that saved user to the context 
+        */
+        useEffect(() => {
                 let user = JSON.parse(localStorage.getItem('user'))
                 
-                if (user) {
-                        dispatch({type: 'LOGIN', payload: user})
-                }
+                if (user) dispatch({type: 'LOGIN', payload: user})
                 
                 setIsInitializing(false)
         }, [])

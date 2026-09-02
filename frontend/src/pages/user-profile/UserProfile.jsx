@@ -10,32 +10,82 @@ import SpecialtyCard from '../../components/ulam-cards/SpecialtyCard'
 import Modal from "../../components/modal/Modal"
 import UserCard from '../../components/UserCard'
 import useUserContext from '../../hooks/useUserContext'
+import { 
+        fetchUserByUsername, 
+        fetchCurrentUsersDetails,
+        fetchChangeProfileImage
+} from '../../services/userService'
+import EmptyUlams from '../../components/empty-ulams/EmptyUlams'
 
 export default function UserProfile() {
         const navigate = useNavigate()
 
         const [ user, setUser ] = useState(null)
-        const { user: currentUser } = useUserContext()
+        const { user: currentUser, dispatch: userDispatch } = useUserContext()
         const { username: profileOwnerUsername } = useParams()
         const isOwnProfile = currentUser.username === profileOwnerUsername
+
         const [ isFollowing, setIsFollowing ] = useState(false)
         const [ activeModal, setActiveModal ] = useState(null)
+        const [ error, setError ] = useState(null)
 
-        console.log({user, profileOwnerUsername, isOwnProfile})
         useEffect(() => {
+                // const loadCurrentUser = async () => {
                 if (isOwnProfile) {
+                        // const { user, error } = await fetchCurrentUsersDetails(currentUser.token)
+
+                        // if (error) {
+                        //         setError(error)
+                        //         console.log(error)
+                        //         return
+                        // }
+
                         setUser(currentUser)
                         return
                 }
-                
-                // setUser(currentUser)
-                // fetch user using username
-                // set user to the fetched user
-        })
+                // }
+                // loadCurrentUser()
 
-        if (!user) {
-                return
+                const getUser = async () => {
+                        const { user, error } = await fetchUserByUsername({username: profileOwnerUsername, token: currentUser.token})
+                        
+                        if (error) {
+                                setError(error)
+                                console.log(error)
+                                return
+                        }
+                        
+                        setUser(user)
+                }
+                getUser()
+        }, [])
+
+        console.log(user)
+        
+        if (!user) return
+
+        const handleProfileChange = async (event) => {
+                const file = event.target.files[0]
+
+                const { profile_image_url, error } = await fetchChangeProfileImage({ imageFile: file, token: user.token }) // user.token ensures that the the user owns the profile
+
+                if (error) {
+                        setError(error)
+                        console.log(error)
+                        return
+                }
+
+                setUser(prev => ({...prev, profile_image_url})) 
+                userDispatch({type: 'UPDATE', payload: {profile_image_url}}) // this line seems to be crashing the frontend
         }
+
+        const displayPublishedUlams = user.published_ulams.map(ulam => 
+                <UlamCard ulamName={ulam.name} imageURL={ulam.image_url} stats={{bookmarks: ulam.bookmarked_by.length, timesCooked: ulam.cooked_count}}/>
+        )
+
+        const displaySpecialties = user.earned_specialties.map(ulam =>
+                <SpecialtyCard ulamName={ulam.name} timesCooked={ulam.times_cooked} owner={ulam.username} />
+        )
 
         return (
                 <section className="user-profile-page">
@@ -48,36 +98,54 @@ export default function UserProfile() {
                                         </div>
                                         {isOwnProfile &&
                                                 <div className="change-profile">
-                                                        <button>
+                                                        <label htmlFor='profile-picture__input'>
                                                                 <span class="material-symbols-rounded">edit</span>
-                                                        </button>
+                                                        </label>
+                                                        <input 
+                                                                type="file" 
+                                                                id='profile-picture__input' 
+                                                                onChange={handleProfileChange}
+                                                                accept="image/*"
+                                                                loading='lazy'
+                                                                hidden
+                                                        />
                                                 </div>
                                         }
                                 </div>
 
                                 <div className="username">
-                                        {/* <h1>{user.username}</h1> */}
                                         <h1>{user.username}</h1>
                                 </div>
                         </section>
 
                         <section className="stats section">
                                 <div className="published stat">
-                                        <p className="value">12</p>
+                                        <p className="value">{user.published_ulams.length}</p>
                                         <p>Published</p>
                                 </div>
                                 <div className="followers stat" onClick={() => setActiveModal('followers')}>
-                                        <p className="value">3</p>
+                                        <p className="value">{user.followers.length}</p>
                                         <p>Followers</p>
                                 </div>
                                 <div className="following stat" onClick={() => setActiveModal('followings')}>
-                                        <p className="value">3</p>
+                                        <p className="value">{user.followings.length}</p>
                                         <p>Following</p>
                                 </div>
                         </section>
 
                         <section className="action section">
-                                {isOwnProfile ? (
+                                {!isOwnProfile && (
+                                        isFollowing ? (
+                                                <button className="unfollow-button" onClick={() => setIsFollowing(false)}>
+                                                        Following
+                                                </button>
+                                        ) : (
+                                                <button className="follow-button" onClick={() => setIsFollowing(true)}>
+                                                Follow
+                                                </button>
+                                        )
+                                )}
+                                {/* {isOwnProfile ? (
                                         <button className="edit-profile-button">
                                                 <span className="material-symbols-rounded">edit</span>
                                                 Edit Profile
@@ -91,16 +159,21 @@ export default function UserProfile() {
                                                 Follow
                                                 </button>
                                         )
-                                )}
+                                )} */}
                         </section>
 
                         <section className="specialties section">
                                 <h2>Specialties</h2>
 
                                 <div className="ulam-container">
-                                        <SpecialtyCard ulamName={'Sinigang na Bangus'} timesCooked={'12'} owner={'Audemars Odato'} />
-                                        <SpecialtyCard ulamName={'Sinigang na Bangus'} timesCooked={'12'} owner={'Audemars Odato'} />
-                                        <SpecialtyCard ulamName={'Sinigang na Bangus'} timesCooked={'12'} owner={'Audemars Odato'} />
+                                        {user.earned_specialties.length > 0 ?
+                                                displaySpecialties
+                                                : (isOwnProfile ?
+                                                        <EmptyUlams message={"No specialties yet. Keep cooking your favorite ulams to earn specialties!"} />
+                                                        :
+                                                        <EmptyUlams message={`${user.username} does not have specialties yet.`} />
+                                                )
+                                        }  
                                 </div>
                         </section>
 
@@ -108,9 +181,14 @@ export default function UserProfile() {
                                 <h2>Published Ulams</h2>
 
                                 <div className="ulam-container">
-                                        <UlamCard ulamName={'Sinigang na Bangus'} stats={{bookmarks: 12, timesCooked: 123}}/>
-                                        <UlamCard ulamName={'Adobong Chicken'} stats={{bookmarks: 34, timesCooked: 123}}/>
-                                        <UlamCard ulamName={'Sweet and Sour'} stats={{bookmarks: 243, timesCooked: 123}}/>
+                                        {user.published_ulams.length > 0 ?
+                                                displayPublishedUlams
+                                                : (isOwnProfile ?
+                                                        <EmptyUlams message={"You haven't published any ulams yet."} />
+                                                        :
+                                                        <EmptyUlams message={`${user.username} haven't published any ulams yet.`} />
+                                                )
+                                        }
                                 </div>
                         </section>
 

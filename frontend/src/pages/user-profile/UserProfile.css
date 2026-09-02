@@ -50,12 +50,13 @@
         right: 0;
 }
 
-.user-profile-page .profile-image .change-profile button {
+.user-profile-page .profile-image .change-profile label {
         padding:8px;
         display: flex;
         align-items: center;
         justify-content: center;
 
+        background-color: #fff;
         border: none;
         border-radius: 50%;
         box-shadow: 8px 8px 20px -5px rgba(0,0,0,0.2);

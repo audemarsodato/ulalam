@@ -1,0 +1,2231 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://localhost:5173/users/audemarsodato -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+    <script type="module" src="./frontend_files/client"></script>
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./frontend_files/css2">
+    <link rel="shortcut icon" href="http://localhost:5173/src/assets/icon.png">
+    <title>frontend</title>
+  <style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/index.css">@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playpen+Sans:wght@100..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Sriracha&display=swap');
+
+:root {
+        --primary: #E52E01;
+        --bg: #F4F5F7;
+        --text: #000;
+        --error: #f61414;
+        --error-bg: #ff9a9a6b;
+
+        --text-size: 16px;
+        --text-small: 14px;
+        --medium-header: 20px;
+        --large-header: 24px;
+        --extra-large-header: 40px;
+
+        --page-padding: 32px;
+}
+
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+
+body {
+        font-family: "Inter";
+        background-color: var(--bg);
+}
+
+.app {
+        position: relative;
+
+        padding: var(--page-padding);
+        max-width: 750px;
+        margin: auto;
+        margin-bottom: 64px;
+}
+
+/* HOME PAGE */
+.home-page header  {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+}
+
+.home-page .profile-image {
+        width: 50px;
+        height: 50px;
+        
+        overflow: hidden;
+        border-radius: 50%;
+}
+
+.home-page .profile-image img {
+        width: 50px;
+        height: 50px;
+        
+        object-fit: cover;
+        object-position: center;
+}
+
+.home-page header .profile-icon {
+        font-size: 50px;
+        
+        font-variation-settings: 'FILL' 1;
+        color: var(--primary);
+        font-weight: 900;
+}
+
+.home-page header p {
+        margin-right: 40%;
+        font-size: var(--text-size);
+}
+
+.home-page .greetings {
+        margin: 24px 0;
+}
+
+.home-page .greetings h2 {
+        font-size: var(--medium-header);
+        font-weight: 600;
+}
+
+.home-page .search {
+        margin-bottom: 32px;
+}
+
+.home-page .search a {
+        font-size: var(--text-size);
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 1em;
+        padding: 1em;
+
+        font-weight: 600;
+        color: var(--text);
+        opacity: 40%;
+        border-radius: 50px;
+        background-color: #fff;
+        text-decoration: none;
+}
+
+.home-page .you-cooked-section header a{
+        color: var(--primary);
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.specialties.section .ulam-container,
+.specialties-section .ulam-container {
+        flex-direction: row;
+        overflow-x: auto; /*Adds a scroll if content exceeds specified width*/
+        overflow-y: hidden; /*Prevent vertical scrollbar*/
+        flex-wrap: nowrap; /*Prevent moving contents into another row*/
+
+        gap: 12px;
+  
+        /* Allow visible cards when scrolling horizontally */
+        /* Bypass padding of the app container */
+        margin-left: -32px;
+        margin-right: -32px;
+        
+        /* Moving the default placement to its original padding postion */
+        padding-left: 32px;
+        padding-right: 32px;
+}
+
+/* REMOVE SCROLLBAR VIEW */
+.specialties.section .ulam-container::-webkit-scrollbar,
+.specialties-section .ulam-container::-webkit-scrollbar {
+        display: none;
+}
+.specialties.section .ulam-container
+.specialties-section .ulam-container {
+        scrollbar-width: none;
+}
+
+/* GENERAL HOME PAGE*/
+.home-page .section {
+        margin-bottom: 24px;
+}
+
+.home-page .section header {
+        margin-bottom: 12px;
+}
+
+.home-page .section-title { 
+        font-size: var(--medium-header);
+
+        font-weight: 600;
+        opacity: 80%;
+}
+
+.ulam-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+}
+
+/* ULAM FORM */
+.ulam-form {
+        position: relative;
+        margin-bottom: 48px;
+}
+
+.ulam-form .label {
+        margin-bottom: 12px;
+        font-size: 16px;
+
+        font-weight: 500;
+}
+
+.ulam-form .section {
+        margin-bottom: 24px;
+}
+
+.ulam-form .ulam-name input {
+        font-size: 16px;
+        width: 100%;
+        padding: 1em;
+
+        font-weight: 600;
+        border-radius: 16px;
+        border: none;
+}
+
+.ulam-form .add-photo-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        height: 250px;
+        font-size: 16px;
+        gap: 1em;
+        /* padding: 64px; */
+
+        border-radius: 16px;
+        background-color: #fff;
+        font-weight: 700;
+}
+
+.ulam-form .add-photo-placeholder .icon {
+        font-size: 40px;
+}
+
+.ulam-form .preview-image {
+        position: relative;
+
+        width: 100%;
+        height: 250px;
+
+        overflow: hidden;
+        border-radius: 16px;
+}
+
+.ulam-form .preview-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+        /* transform: scale(1.1); */
+}
+
+.ulam-form .preview-image button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+
+        background-color: rgba(0,0,0,0);
+        color: var(--primary);
+        border: none;
+}
+
+.ulam-form .preview-image span {
+        font-size: 32px;
+}
+
+.ulam-form .ingredients-form {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 12px;
+}
+
+.ulam-form .ingredients-form input {
+        flex: 1;  
+        font-size: 16px;
+        padding: 1em;
+
+        font-weight: 600;
+        border: none;
+        border-radius: 16px;
+}
+
+.ulam-form .ingredients-form button {
+        padding: 16px;
+
+        border: none;
+        border-radius: 8px;
+        background-color: var(--primary);
+        color: #fff;
+        font-weight: 600;
+}
+
+.ulam-form .instructions textarea {
+        font-size: 16px;
+        padding: 1em;
+        width: 100%;
+
+        font-family: 'Inter';
+        font-weight: 500;
+        resize: vertical;
+        border-radius: 16px;
+        border: none;
+}
+
+.ulam-form .submit {
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+}
+
+.ulam-form button[type='submit'] {
+        font-size: 16px;
+        width: 100%;
+        padding: 1em;
+
+        border: none;
+        border-radius: 8px;
+        background-color: var(--primary);
+        color: #fff;
+        font-weight: 700;
+}
+
+/* INGREDIENT CHIP */
+.ulam-profile-page .ingredients-container,
+.search-page .ingredients-container,
+.ulam-form .ingredients-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 4px;
+}
+
+.ingredient-chip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 16px;
+        gap: 16px;
+        padding: 12px 16px;
+
+        font-weight: 500;
+        border-radius: 8px;
+        background-color: #fff;
+}
+
+.ingredient-chip button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: rgba(0,0,0,0);
+        border: none;
+}
+
+.ingredient-chip button span {
+        font-size: 20px;
+}
+
+/* ULAM CARDS */
+.ulam-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.ulam-card h1 {
+        font-size: var(--text-size);
+}
+
+.ulam-card .image-container {
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        border-radius: 8px;
+}
+
+.ulam-card .image-container img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+}
+
+.ulam-card .details {
+        flex: 1;
+}
+
+.ulam-card .details h1 {
+        width: 100%;
+        margin-bottom: 8px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: 600;
+}
+
+.ulam-card .details p {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        opacity: 40%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: 500;
+}
+
+.ulam-card .details p span {
+        font-variation-settings: 'FILL' 1;
+}
+
+.ulam-card .arrow-forward {
+        opacity: 40%;
+}
+
+.specialty-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        flex-shrink: 0;
+
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.specialty-card .image-container {
+        width: 150px;
+        height: 100px;
+        overflow: hidden;
+
+        border-radius: 8px;
+}
+
+.specialty-card img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+}
+
+.specialty-card h1 {
+        margin-bottom: 8px;
+        font-size: var(--text-size);
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.specialty-card .details p {
+        font-size: var(--text-small);
+
+        font-weight: 600;
+        opacity: 60%;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.specialty-card .action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.specialty-card .times-cooked {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+}
+
+.specialty-card .cook-button a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+
+        text-decoration: none;
+        background-color: var(--primary);
+        border-radius: 50%;
+}
+
+.specialty-card .cook-button span {
+        font-size: 32px;
+        color: #fff;
+}
+
+.planner-card {
+        padding-right: 16px;
+}
+
+.planner-card .delete__button {
+        border: none;
+        background-color: rgba(0,0,0,0);
+}
+
+.planner-card .delete__button span {
+        font-size: 32px;
+
+        color: var(--error);
+        opacity: 60%;
+}
+
+/* HEADER */
+.page-headers {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 32px;
+}
+
+.page-headers .return-button a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 56px;
+        height: 56px;
+        padding: 16px 12px 16px 16px;
+
+        color: var(--text);
+        background-color: #fff;
+        border-radius: 50%;
+        text-decoration: none;
+}
+
+.page-headers .return-button span {
+        font-size: 24px;
+        text-align: left;
+
+        opacity: 60%;
+}
+
+.page-headers .page-title {
+        flex: 1;
+}
+
+.page-headers .page-title h1 {
+        text-align: center;
+        font-size: 24px;
+
+        opacity: 80%;
+}
+
+/* SEARCH PAGE */
+.search-page .search-form {
+        position: relative;
+}
+
+.search-page .search-form input {
+        font-size: 16px;
+        width: 100%;
+        padding: 16px;
+
+        border: none;
+        border-radius: 16px;
+        font-weight: 600;
+}
+
+.search-page .search-form input::placeholder {
+        font-weight: 700;
+        opacity: 40%;
+}
+
+.search-page .search-form button {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        
+        background-color: rgba(0,0,0,0);
+        border: none;
+
+        transform: translateY(-50%);
+}
+
+.search-page .search-form span {
+        font-size: 32px;
+
+        opacity: 40%;
+        font-weight: 600;
+}
+
+.search-page .mode-selection {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        gap: 8px;
+
+        margin: 12px 0 24px 0;
+}
+
+.search-page .mode-selection .option {
+        font-size: var(--text-size);
+        padding: 0.5em;
+        font-weight: 700;
+
+        border-radius: 8px;
+        color: var(--primary);
+        background-color: #fff;
+}
+
+.search-page .mode-selection .active {
+
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.search-page .empty-state-placeholder p {
+        font-size: var(--text-size);
+        text-align: center;
+        font-weight: 700;
+        opacity: 60%;
+}
+
+.search-page .results {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.search-page .results h2 {
+        font-size: var(--text-size);
+        margin-bottom: 12px;
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.search-page .results.people {
+        gap: 8px;
+}
+
+/* USER CARD */
+.user-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.user-card h1 {
+        font-size: var(--text-size);
+}
+
+.user-card .image-container {
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        border-radius: 50%;
+}
+
+.user-card .image-container img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+}
+
+.user-card .details {
+        flex: 1;
+}
+
+.user-card .details h1 {
+        width: 100%;
+        margin-bottom: 8px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.user-card .details p {
+        width: 100%;
+
+        opacity: 40%;
+        font-weight: 500;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.user-card .arrow-forward {
+        opacity: 40%;
+}
+
+/* ULAM PROFILE */
+.ulam-profile-page .page-headers {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        z-index: 2;
+        width: 100%;
+        padding: 32px;
+        margin-bottom: 0;
+}
+
+.ulam-profile-page .page-headers .actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+}
+
+.ulam-profile-page .page-headers .actions span {
+        font-size: 40px;
+        padding: 0;
+
+        background-color: rgba(0,0,0,0);
+        /* color: #fff; */
+        opacity: 60%;
+}
+
+.ulam-profile-page .page-headers .actions button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+
+        background-color: #fff;
+        border: none;
+        border-radius: 50%;
+}
+
+.ulam-profile-page .more {
+        position: relative;
+}
+
+.ulam-profile-page .more .menu-options {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 8px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.15);
+}
+
+.ulam-profile-page .more .menu-options .button {
+        font-size: var(--text-size);
+        padding: 0.5em 1em;
+
+        border-radius: 0;
+        font-weight: 600;
+}
+
+.ulam-profile-page .more .menu-options .edit.button {
+        text-decoration: none;
+        color: var(--text);
+}
+
+.ulam-profile-page .more .menu-options .delete.button {
+        color: var(--error);
+}
+
+.ulam-profile-page .section {
+        margin-top: 24px;
+}
+
+.ulam-profile-page .section h2 {
+        font-size: 20px;
+        margin-bottom: 12px;
+
+        font-weight: 500;
+}
+
+.ulam-profile-page .ulam-image {
+        width: calc(100% + var(--page-padding * 2));
+        height: 350px;
+        margin: 
+                calc(-1 * var(--page-padding))
+                calc(-1 * var(--page-padding))
+                0
+                calc(-1 * var(--page-padding));
+
+        overflow: hidden;
+}
+        
+.ulam-profile-page .ulam-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+}
+
+.ulam-profile-page .title.section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.ulam-profile-page .details .title {
+        font-size: var(--large-header);
+        margin-bottom: 12px;
+
+        color: var(--text);
+        font-weight: 600;
+}
+
+.ulam-profile-page .details .owner {
+        font-size: var(--text-size);
+
+        color: var(--text);
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.ulam-profile-page .like-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        cursor: pointer;
+}
+
+.ulam-profile-page .like-button button {
+        border: none;
+        background-color: rgba(0,0,0,0);
+}
+
+.ulam-profile-page .like-button span {
+        font-size: 48px;
+
+        color: var(--primary);
+}
+
+.ulam-profile-page .like-button p {
+        font-size: var(--text-small);
+
+        color: var(--text);
+        opacity: 60%;
+}
+
+.ulam-profile-page .statistics {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.ulam-profile-page .statistics .stat {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ulam-profile-page .statistics .stat .value {
+        font-weight: 500;
+}
+
+.ulam-profile-page .statistics .stat .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+}
+
+.ulam-profile-page .divider {
+        height: 40px;
+        width: 1px;
+        background-color: rgba(0,0,0,0.15);
+}
+
+.ulam-profile-page .steps-container {
+        padding: 16px;
+        
+        background-color: #fff;
+        border-radius: 8px;
+}
+
+.ulam-profile-page .steps-container ol {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ulam-profile-page .steps-container li {
+        margin-left: 20px;
+        line-height: 1.5;
+}
+
+.ulam-profile-page .variations a {
+        font-size: var(--text-size);
+        display: block;
+        text-align: center;
+
+        margin-top: 12px;
+
+        font-weight: 600;
+        color: var(--primary);
+        opacity: 60%;
+}
+
+.ulam-profile-page .comments {
+        margin-bottom: 48px;
+}
+
+.ulam-profile-page .comments form {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+}
+
+.ulam-profile-page .comments input {
+        font-size: var(--text-size);
+        padding: 1em;
+        flex: 1;
+
+        border: none;
+        border-radius: 50px;
+}
+
+.ulam-profile-page .comments input::placeholder {
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.ulam-profile-page .comments button {
+        padding: 8px 16px;
+        
+        background-color: #fff;
+        border: none;
+        border-radius: 8px;
+}
+
+.ulam-profile-page .comments button span {
+        color: var(--primary);
+}
+
+.ulam-profile-page .comments-container {
+        margin-top: 12px;
+        padding: 16px;
+ 
+        border-radius: 16px;
+        background-color: #fff;
+}
+
+.ulam-profile-page .comment {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ulam-profile-page .comment:not(:last-child){
+        margin-bottom: 16px;
+}
+
+.ulam-profile-page .comment .details {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+}
+
+.ulam-profile-page .comment .details h3 {
+        font-weight: 600;
+        font-size: var(--text-size);
+}
+
+.ulam-profile-page .comment .details p { 
+        font-size: var(--text-small);
+        font-weight: 500;
+        opacity: 60%;
+}
+
+.ulam-profile-page .comment .message {
+        width: 100%;
+}
+
+.ulam-profile-page .comment .message p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+}
+
+.ulam-profile-page .cook-button {
+        position: fixed;
+        bottom: 16px;
+        left: 32px;
+        right: 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.ulam-profile-page .cook-button a {
+        display: block;
+        font-size: var(--text-size);
+        width: 100%;
+        max-width: 750px;
+        padding: 1em;
+
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        background-color: var(--primary);
+        color: #fff;
+        border-radius: 8px;
+}
+
+/* PASSWORD TOGGLE SHOW */
+.password-input-wrapper {
+        position: relative;
+}
+
+.password-input-wrapper .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 4px;
+        transform: translateY(-50%);
+}
+
+.password-input-wrapper .toggle-password button {
+        padding: 4px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        /* border-left: 2px solid rgba(0, 0, 0, 0.2); */
+}
+
+.password-input-wrapper .toggle-password button span {
+        opacity: 0.5;
+        color: #000;
+
+        transition: color 0.3s ease;
+        transition: opacity 0.3s ease;
+}
+
+.password-input-wrapper .toggle-password button span:hover {
+        color: var(--deep-green);
+        opacity: 1;
+}
+
+/* UTILS */
+.filled-icon {
+        font-variation-settings: 'FILL' 1;
+}
+
+.border-red {
+        border: 2px solid var(--error);
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/components/loading-spinner/LoadingSpinner.css">
+.spinner {
+        animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+    
+        to {
+            transform: rotate(360deg);
+        }
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/components/bottom-nav/BottomNav.css">
+.bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+}
+
+.bottom-nav .bottom-nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 12px;
+
+        /* box-shadow: 0px -9px 15px -3px rgba(0,0,0,0.1); */
+        border-top: 1px solid #c6c5c5;
+        background-color: #fff;
+}
+
+.bottom-nav .action {
+        flex: 1;
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    
+        gap: 4px;
+
+        text-decoration: none;
+        color: var(--text);
+}
+
+.bottom-nav .action p {
+        font-size: 12px;
+
+        opacity: 60%;
+        font-weight: 600;
+}
+
+.bottom-nav .action span {
+        font-size: 32px;
+
+        opacity: 80%;
+}
+
+.bottom-nav .create-ulam-button {
+        flex: 1;
+}
+
+.bottom-nav .create-ulam-button a {
+        padding: 16px;
+        
+        position: absolute;
+        top: 0;
+        transform: translateY(-35%);
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        border-radius: 50%;
+        text-decoration: none;
+        color: #fff;
+        background-color: var(--primary);
+}
+
+.bottom-nav .create-ulam-button span {
+        font-size: 32px;
+
+        opacity: 100%;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/cook-ulam/CookUlam.css">
+/* .cook-ulam-page {
+        min-height: calc(100vh - (var(--page-padding) * 2));
+        display: flex;
+        flex-direction: column;
+} */
+
+.navigation-buttons {
+        position: fixed;
+        bottom: var(--page-padding);
+        left: var(--page-padding);
+        right: var(--page-padding);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.navigation-buttons button {
+        font-size: 16px;
+        padding: 1em;
+
+        border: none;
+        font-weight: 600;
+}
+
+.navigation-buttons .previous-button {
+        background-color: rgba(0, 0, 0, 0);
+        text-decoration: underline;
+}
+
+.navigation-buttons .next-button,
+.navigation-buttons .finish-button {
+        flex: 1;
+
+        border-radius: 8px;
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.ingredients-checklist {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 24px;
+
+        flex: 1;
+}
+
+.ingredients-checklist .header h1 {
+        font-size: var(--extra-large-header);
+
+        opacity: 60%;
+}
+
+.ingredients-checklist .ingredients-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.ingredients-checklist .ingredients-container .ingredient {
+        font-size: 18px;
+        display: flex;
+        gap: 4px;
+}
+
+.ingredients-checklist .ingredients-container .checkbox__input:checked ~ .checkbox__content {
+        text-decoration: line-through;
+}
+
+.step {
+        /* height: 500px; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+}
+
+.step .header h1 {
+        font-size: var(--extra-large-header);
+        
+        font-weight: 900;
+        opacity: 40%;
+        /* font-style: italic; */
+}
+
+.step .step-container h2 {
+        font-size: var(--extra-large-header);
+
+        opacity: 80%;
+        font-weight: 700;
+}
+
+.finish-page {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+}
+
+.finish-page .header {
+        display: flex;
+        gap: 12px;
+        flex-direction: column;
+}
+
+
+.finish-page .header h1 {
+        font-size: 32px;
+        opacity: 80%;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+}
+
+.finish-page .header p {
+        font-weight: 600;
+        color: var(--primary);
+}
+
+.finish-page .header .finish-icon {
+        font-size: var(--extra-large-header);
+
+        font-weight: 1000;
+        opacity: 40%;
+}
+
+.finish-page .header .mastery-message {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+}
+
+.finish-page .history h2 {
+        font-size: var(--medium-header);
+        margin-bottom: 12px;
+
+        opacity: 60%;
+}
+
+.finish-page .history .mastery-icon {
+        font-size: 24px;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/components/checkbox/CheckBox.css">
+.checkbox__input {
+        display: none;
+}
+
+.checkbox__checkmark {
+        width: 24px;
+        height: 24px;
+
+        border: 1px solid #999;
+        border-radius: 8px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.checkbox__checkmark::after {
+        content: '';
+        display: none;
+}
+
+.checkbox__input:checked + .checkbox__checkmark::after {
+        content: 'check';
+        font-family: "Material Symbols Rounded";
+        display: block;
+        font-weight: 600;
+}
+
+.checkbox__input:checked + .checkbox__checkmark {
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        color: var(--primary);
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/cooking-history/CookingHistory.css">
+.history-page .history {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.history-page .daily-history {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.history-page .daily-history .date-header h2 {
+        font-size: var(--text-size);
+
+        opacity: 40%;
+}
+
+.history-page .load-more {
+        margin-top: 24px;
+}
+
+.history-page .load-more p {
+        font-size: var(--text-size);
+        text-align: center;
+
+        font-weight: 600;
+        opacity: 40%;
+        text-decoration: underline;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/meal-planner/MealPlanner.css">
+.meal-planner-page {
+        --light-primary: rgba(255, 199, 199, 0.3);
+}
+
+.meal-planner-page .week-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+
+        margin-bottom: 24px;
+}
+
+
+.meal-planner-page .week-container .day-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+        
+        padding: 4px;
+        
+        background-color: #fff;
+        border-radius: 8px;
+        border: none;
+}
+
+.meal-planner-page .week-container .day-container .day-of-week {
+        font-size: var(--text-size);
+        
+        font-weight: 600;
+        /* opacity: 90%; */
+}
+
+.meal-planner-page .week-container .day-container .day-of-month {
+        font-size: 20px;
+
+        opacity: 80%;
+}
+
+.meal-planner-page .week-container .active {
+        /* background-color: var(--light-primary);
+        color: var(--primary);
+        border: 1px solid var(--primary); */
+
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.meal-planner-page .ulam-plans {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.meal-planner-page .ulam-plans .current-date {
+        font-size: var(--text-size);
+
+        opacity: 60%;
+        font-weight: 500;
+}
+
+.meal-planner-page .action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 12px;
+}
+
+.meal-planner-page .action button {
+        font-size: var(--text-size);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+
+        width: 100%;
+        padding: 1em;
+
+        border-radius: 4px;
+        border: 1px solid var(--primary);
+        background-color: var(--light-primary);
+        color: var(--primary);
+        font-weight: 600;
+}
+
+.meal-planner-page .modal .mealtime {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+
+        margin-bottom: 12px;
+}
+
+.meal-planner-page .modal .mealtime__option {
+        font-size: var(--text-size);
+        padding: 0.5em 1em;
+
+        background-color: #fff;
+        color: var(--primary);
+        border-radius: 8px;
+        font-weight: 500;
+}
+
+.meal-planner-page .modal .mealtime__option--active {
+        background-color: var(--primary);
+        color: #fff;
+}
+
+.meal-planner-page .modal .bookmarks__title {
+        font-size: var(--text-size);
+        margin-bottom: 12px;
+        
+        opacity: 80%;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/components/modal/Modal.css">
+.modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal__body {
+        padding: 16px;
+        max-width: 90%;
+
+        background-color: var(--bg);
+        border-radius: 8px;
+        box-shadow: 0px 8px 22px 0px rgba(0,0,0,0.1);
+}
+
+.modal__body header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+}
+
+.modal__title h1 {
+        font-size: var(--text-size);
+        opacity: 80%;
+}
+
+.modal__close button {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/user-profile/UserProfile.css">
+.user-profile-page .section {
+        margin-bottom: 24px;
+}
+
+.user-profile-page .section h2 {
+        font-size: var(--text-size);
+        margin-bottom: 12px;
+
+        font-weight: 500;
+        opacity: 80%;
+}
+
+.user-profile-page .profile.section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        gap: 16px;
+}
+
+.user-profile-page .profile-image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 130px;
+        height: 130px;
+
+        overflow: hidden;
+        border-radius: 50%;
+}
+
+.user-profile-page .profile-image-container img {
+        width: 130px;
+        height: 130px;
+
+        object-fit: cover;
+        object-position: center;
+}
+
+.user-profile-page .profile-image {
+        position: relative;
+}
+
+.user-profile-page .profile-image .change-profile {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+}
+
+.user-profile-page .profile-image .change-profile button {
+        padding:8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+        border-radius: 50%;
+        box-shadow: 8px 8px 20px -5px rgba(0,0,0,0.2);
+}
+
+.user-profile-page .profile-image .change-profile span {
+        opacity: 60%;
+}
+
+.user-profile-page .profile.section .username h1 {
+        font-size: var(--large-header);
+}
+
+.user-profile-page .stats {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+}
+
+.user-profile-page .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+
+        font-weight: 500;
+}
+
+.user-profile-page .action.section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.user-profile-page .action.section button {
+        font-size: var(--text-size);
+        padding: 12px;
+        width: 60%;
+        /* width: 100%; */
+        border: none;
+        font-weight: 600;
+        border-radius: 4px;
+}
+
+.user-profile-page .action.section .follow-button {
+        color: #fff;
+        background-color: var(--primary);
+}
+
+
+.user-profile-page .action.section .unfollow-button,
+.user-profile-page .action.section .edit-profile-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+
+        color: var(--primary);
+        background-color: #fff;
+}
+
+.user-profile-page .more-actions.section {
+        display: flex;
+        flex-direction: column;
+
+        border-top: 1px solid rgba(0,0,0,0.2);
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        /* padding-top: 24px; */
+}
+
+.user-profile-page .more-actions.section button {
+        font-size: var(--text-size);
+        padding: 1em;
+
+        border: none;
+        font-weight: 600;
+        background-color: #fff;
+        color: var(--text);
+}
+
+.user-profile-page .more-actions.section .danger-button {
+        margin-top: 12px;
+
+        background-color: rgba(0,0,0,0);
+        color: var(--error);
+}
+
+.modal .user-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/components/empty-ulams/EmptyUlams.css">
+.empty-ulams-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.empty-ulams__icon {
+        font-size: 96px;
+
+        opacity: 40%;
+        color: var(--error);
+}
+
+.empty-ulams__message {
+        text-align: center;
+
+        /* font-weight: 400; */
+        opacity: 80%;
+        color: var(--error);
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/signup/Signup.css">
+.signup-page__header {
+        display: flex;
+        flex-direction: column;
+        margin-top: 48px;
+        gap: 24px;
+        margin-bottom: 24px;
+}
+
+.signup__title {
+        font-size: var(--extra-large-header);
+}
+
+.signup__h2 {
+        /* font-size: var(--large-header); */
+        font-size: 32px;
+}
+
+.signup__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        margin-bottom: 24px;
+}
+
+.signup__form .label {
+        display: block;
+        margin-bottom: 6px;
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.signup__form .input {
+        width: 100%;
+        padding: 16px;
+        font-size: var(--text-size);
+        font-weight: 600;
+
+        border: 2px solid #0003;
+        border-radius: 16px;
+        color: var(--text);
+        background-color: #fff;
+}
+
+.signup__form .input:focus {
+        border-color: var(--primary);
+        outline: none;
+}
+
+.signup__signup-button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+        margin-top: 12px;
+
+        font-weight: 700;
+        border: none;
+        border-radius: 50px;
+        color: #fff;
+        background-color: var(--primary);
+}
+
+.signup__actions-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+}
+
+.signup__actions-divider hr {
+        flex: auto;
+}
+
+.signup__other-options-label {
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.signup__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.signup__login-prompt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+}
+
+.signup__login-label {
+        opacity: 60%;
+}
+
+.signup__login-button {
+        font-weight: 600;
+        color: var(--primary);
+}
+
+.signup__other-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+}
+
+.signup__other-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 96px;
+        height: 64px;
+
+        border-radius: 16px;
+        background-color: #fff;
+        border: 2px solid #0003;
+}
+
+.signup__other-option img {
+        width: 32px;
+        height: 32px;
+}
+
+.signup__other-option p {
+        font-size: 18px;
+        font-weight: 600;
+        opacity: 60%;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/components/auth-error/AuthError.css">
+.auth-error-card {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        font-size: 16px;
+        gap: 8px;
+        padding: 1em;
+        margin-bottom: 12px;
+
+        background-color: var(--error-bg);
+        color: var(--error);
+        border: 2px solid var(--error);
+        border-radius: 8px;
+}
+
+.error-card__message {
+        font-weight: 600;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/login/Login.css">
+.login-page__header {
+        display: flex;
+        flex-direction: column;
+        margin-top: 48px;
+        gap: 24px;
+        margin-bottom: 24px;
+}
+
+.login__title {
+        font-size: var(--extra-large-header);
+}
+
+.login__h2 {
+        /* font-size: var(--large-header); */
+        font-size: 32px;
+}
+
+.login__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        margin-bottom: 40px;
+}
+
+.login__form .label {
+        display: block;
+        margin-bottom: 6px;
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.login__form .input {
+        width: 100%;
+        padding: 16px;
+        font-size: var(--text-size);
+        font-weight: 600;
+
+        border: 2px solid #0003;
+        border-radius: 16px;
+        color: var(--text);
+        background-color: #fff;
+}
+
+.login__form .input:focus {
+        border-color: var(--primary);
+        outline: none;
+}
+
+.login__login-button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+        margin-top: 12px;
+
+        font-weight: 700;
+        border: none;
+        border-radius: 50px;
+        color: #fff;
+        background-color: var(--primary);
+}
+
+.login__actions-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+}
+
+.login__actions-divider hr {
+        flex: auto;
+}
+
+.login__other-options-label {
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.login__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.login__login-prompt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+}
+
+.login__signup-label {
+        opacity: 60%;
+}
+
+.login__signup-button {
+        font-weight: 600;
+        color: var(--primary);
+}
+
+.login__other-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+}
+
+.login__other-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 96px;
+        height: 64px;
+
+        border-radius: 16px;
+        background-color: #fff;
+        border: 2px solid #0003;
+}
+
+.login__other-option img {
+        width: 32px;
+        height: 32px;
+}
+
+.login__other-option p {
+        font-size: 18px;
+        font-weight: 600;
+        opacity: 60%;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/complete-profile-page/CompleteProfilePage.css">
+.complete-profile__profile-form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+}
+
+.complete-profile__profile-picture-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.complete-profile__profile-picture-container {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.complete-profile__profile-image {
+        position: relative;
+}
+
+.profile-picture__image {
+        width: 150px;
+        height: 150px;
+
+        object-fit: cover;
+        object-position: center;
+}
+
+.change-profile-image__label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        padding: 8px;
+
+        background-color: #fff;
+        border-radius: 50%;
+        border: 2px solid #0003;
+        /* Change profile label styles */
+        /* font-size: var(--text-size);
+
+        font-weight: 500;
+        opacity: 80%; */
+        /* text-decoration: underline; */
+}
+
+.change-profile-image__label span {
+        font-size: 32px;
+
+        opacity: 60%;
+}
+
+.complete-profile__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+}
+
+.complete-profile__username-label {
+        font-size: var(--text-size);
+
+        font-weight: 600;
+        opacity: 60%;
+}
+
+.complete-profile__username-input {
+        font-size: var(--text-size);
+        padding: 16px;
+
+        border: 2px solid #0003;
+        border-radius: 16px;
+        background-color: #fff;
+        font-weight: 600;
+        opacity: 80%;
+}
+
+.complete-profile__continue {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        padding: 32px;
+}
+
+.complete-profile__continue-button {
+        font-size: var(--text-size);
+        width: 100%;
+        padding: 1em;
+
+        font-weight: 700;
+        background-color: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/email-sent/EmailSentPage.css">
+.mail-sent__mail-icon {
+        font-size: 150px;
+
+        opacity: 40%;
+}
+
+.email-sent-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25dvh;
+        /* height: 100%; */
+}
+
+.email-sent__prompt {
+        text-align: center;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 60%);
+        /* line-height: 1.5; */
+}
+
+.email-sent__prompt span {
+        color: rgba(191, 0, 0, 0.8);
+        font-weight: 700;
+}
+
+.email-sent__resend-email {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 32px;
+}
+
+.email-sent__resend-email-button {
+        font-size: 16px;
+
+        background-color: rgba(0, 0, 0, 0);
+        font-weight: 600;
+        border: none;
+        text-decoration: underline;
+        opacity: 80%;
+}
+
+/* .email-sent__expiration-counter { */
+        /* text-align: center; */
+/* } */</style><style type="text/css" data-vite-dev-id="C:/Users/THIS-PC/Documents/GitHub/ulalam/frontend/src/pages/verify-email/VerifyEmailPage.css">
+
+.mail-sent__mail-icon {
+        font-size: 96px;
+
+        opacity: 40%;
+}
+
+.verify-email-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25dvh;
+        /* height: 100%; */
+}
+
+.verify-email__prompt {
+        text-align: center;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 60%);
+        /* line-height: 1.5; */
+}
+
+.email-sent__prompt span {
+        color: rgba(191, 0, 0, 0.8);
+        font-weight: 700;
+}
+
+.verify-email__continue {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 32px;
+}
+
+.verify-email__continue__button {
+        font-size: 16px;
+
+        color: var(--text);
+        font-weight: 600;
+        border: none;
+        text-decoration: underline;
+        opacity: 80%;
+}
+
+/* .email-sent__expiration-counter { */
+        /* text-align: center; */
+/* } */
+
+.verify-email__loading-prompt {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 35dvh;
+        gap: 8px;
+        font-size: 16px;
+
+        font-weight: 600;
+}
+
+.verify-email__error-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        margin-top: 30dvh;
+        gap: 8px;
+        font-size: 16px;
+
+        font-weight: 600;
+}
+
+.verify-email__error-icon {
+        font-size: 96px;
+        
+        color: var(--error);
+        opacity: 60%;
+}</style></head>
+  <body>
+    <div id="root"><div class="app"><section class="user-profile-page"><header class="page-headers"><div class="return-button"><a href="http://localhost:5173/" data-discover="true"><span class="material-symbols-rounded">arrow_back_ios</span></a></div><div class="page-title"><h1>Profile</h1></div></header><section class="profile section"><div class="profile-image"><div class="profile-image-container"><img src="data:image/svg+xml,%3csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20height=&#39;24px&#39;%20viewBox=&#39;0%20-960%20960%20960&#39;%20width=&#39;24px&#39;%20fill=&#39;%23E52E01&#39;%3e%3cpath%20d=&#39;M234-276q51-39%20114-61.5T480-360q69%200%20132%2022.5T726-276q35-41%2054.5-93T800-480q0-133-93.5-226.5T480-800q-133%200-226.5%2093.5T160-480q0%2059%2019.5%20111t54.5%2093Zm146.5-204.5Q340-521%20340-580t40.5-99.5Q421-720%20480-720t99.5%2040.5Q620-639%20620-580t-40.5%2099.5Q539-440%20480-440t-99.5-40.5ZM480-80q-83%200-156-31.5T197-197q-54-54-85.5-127T80-480q0-83%2031.5-156T197-763q54-54%20127-85.5T480-880q83%200%20156%2031.5T763-763q54%2054%2085.5%20127T880-480q0%2083-31.5%20156T763-197q-54%2054-127%2085.5T480-80Zm100-95.5q47-15.5%2086-44.5-39-29-86-44.5T480-280q-53%200-100%2015.5T294-220q39%2029%2086%2044.5T480-160q53%200%20100-15.5ZM523-537q17-17%2017-43t-17-43q-17-17-43-17t-43%2017q-17%2017-17%2043t17%2043q17%2017%2043%2017t43-17Zm-43-43Zm0%20360Z&#39;/%3e%3c/svg%3e"></div><div class="change-profile"><button><span class="material-symbols-rounded">edit</span></button></div></div><div class="username"><h1>audemarsodato</h1></div></section><section class="stats section"><div class="published stat"><p class="value">1</p><p>Published</p></div><div class="followers stat"><p class="value">0</p><p>Followers</p></div><div class="following stat"><p class="value">0</p><p>Following</p></div></section><section class="action section"><button class="edit-profile-button"><span class="material-symbols-rounded">edit</span>Edit Profile</button></section><section class="specialties section"><h2>Specialties</h2><div class="ulam-container"><section class="empty-ulams-placeholder"><span class="material-symbols-rounded empty-ulams__icon">no_meals</span><p class="empty-ulams__message">No specialties yet. Keep cooking your favorite ulams to earn specialties!</p></section></div></section><section class="published-ulams section"><h2>Published Ulams</h2><div class="ulam-container"><div class="ulam-card"><div class="image-container"><img loading="lazy" src="./frontend_files/fkwv9oie1ewrne0jvqfy.jpg"></div><div class="details"><h1>Sinigang</h1><p><span class="material-symbols-rounded">bookmark</span>0</p></div><div class="arrow-forward"><span class="material-symbols-rounded">arrow_forward_ios</span></div></div></div></section><section class="more-actions section"><button class="more-actions__bookmark">Bookmarks</button> <button>Cooking History</button><button class="logout-button danger-button">Log out</button></section></section></div></div>
+    <script type="module" src="./frontend_files/main.jsx"></script>
+  
+
+</body></html>
