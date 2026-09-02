@@ -1,42 +1,45 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { formatDistanceToNow } from 'date-fns'
 
-import Sinigang from '../assets/sinigang-bangus.jpg'
 import Stat from '../components/ulam-profile/Stat'
 import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
+import useUserContext from '../hooks/useUserContext'
+import { fetchUlam } from "../services/ulamsService"
+import EmptyUlams from '../components/empty-ulams/EmptyUlams'
 
 export default function UlamProfile() {
-        const user = 'Audemars Odato'
+        const { user, dispatch: userDispatch } = useUserContext()
         const { ulamId } = useParams()
+        const [ ulam, setUlam ] = useState(null)
+
         const [ liked, setLiked ] = useState(false)
         // if owner
         const [ showOptions, setShowOptions ] = useState(false)
         const [ showCookButton, setShowCookButton ] = useState(true)
         const [ commentInput, setCommentInput ] = useState('')
-        
-        const [ ulam, setUlam ] = useState({
-                title: 'Sinigang na Bangus',
-                owner: 'Audemars Odato',
-                likedBy: ['Audemars Odato', 'Trisha Wyne', 'w', 'v'],
-                ingredients: ['Sibuyas', 'Kamatis', 'Luya', 'Bangus'],
-                instructions: ['Pakulo ng water and lagay sibuyas at kamatis', 'Lagay sinigang mix', 'Lagay na bangus'],
-                variationOf: null,
-                comments: [
-                        {
-                                user: 'Audemars Odato',
-                                content: 'Very delicious!',
-                                createdAt: '2026-08-05T11:45:42.123Z'
-                        },
-                        {
-                                user: 'Trisha Wyne Bobis',
-                                content: 'Dapat may sinigang mix',
-                                createdAt: '2025-12-25T08:30:15.456Z'
-                        },
-                ]
-        })
+
+        console.log(ulamId)
+
+        useEffect(() => {
+                const getUlam = async () => {
+                        const { ulam, error } = await fetchUlam({ulamId, token: user.token})
+                        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                return
+                        }
+                        console.log(ulam)
+
+                        setUlam(ulam)
+                }
+                getUlam()
+        }, [])
+
+        if (!ulam) return
 
         const addComment = () => {
                 if (!commentInput) return
@@ -79,7 +82,7 @@ export default function UlamProfile() {
                                                 <span className="material-symbols-rounded">bookmark_add</span>
                                         </button>
 
-                                        {user === ulam.owner &&
+                                        {user._id === ulam.user_id._id &&
                                                 <div className="more">
                                                         <button className="more-button" onClick={() => setShowOptions(current => !current)}>
                                                                 <span className="material-symbols-rounded">more_vert</span>
@@ -98,29 +101,29 @@ export default function UlamProfile() {
                         </header>
 
                         <section className="ulam-image">
-                                <img src={Sinigang} loading="lazy"/>
+                                <img src={ulam.image_url} loading="lazy"/>
                         </section>
 
                         <section className="title section">
                                 <div className="details">
-                                        <h1 className="title">{ulam.title}</h1>
-                                        <p className="owner">By {ulam.owner}</p>
+                                        <h1 className="title">{ulam.name}</h1>
+                                        <p className="owner">By {ulam.user_id.username}</p>
                                 </div>
 
                                 <div className="like-button">
                                         <button onClick={() => setLiked(current => !current)}>
                                                 <span className={`material-symbols-rounded ${liked ? 'filled-icon' : ''}`}>favorite</span>
                                         </button>
-                                        <p>{ulam.likedBy.length} Likes</p>
+                                        <p>{ulam.liked_by.length} Likes</p>
                                 </div>
                         </section>
 
                         <section className="statistics section">
-                                <Stat value={12} icon={'skillet'} title={'Cooked'}/>
+                                <Stat value={ulam.cooked_count} icon={'skillet'} title={'Cooked'}/>
                                 <div className="divider"></div>
-                                <Stat value={9} icon={'chat'} title={'Comments'}/>
+                                <Stat value={ulam.comments.length} icon={'chat'} title={'Comments'}/>
                                 <div className="divider"></div>
-                                <Stat value={345} icon={'bookmark'} title={'Saved'}/>
+                                <Stat value={ulam.bookmarked_by.length} icon={'bookmark'} title={'Saved'}/>
                         </section>
 
                         <section className="ingredients section">
@@ -140,14 +143,25 @@ export default function UlamProfile() {
                         </section>
 
                         <section className="variations section">
-                                {/* If variation of is not null
-                                *   Show: Variation of
-                                 */}
-                                <h2>Variations</h2>
-                                <div className="variations-container">
-                                        <UlamCard ulamName={'Sinigang na Bangus with Gabi'} owner={'Audemars Odato'} />
-                                </div>
-                                <Link to={`/ulams/${ulamId}/variations/new`}>Create Variation</Link>
+                                {!ulam.variation_of ? (<>
+                                        <h2>Variations</h2>
+                                        <div className="variations-container">
+                                                {/* {variations.length > 0// TODO fetch ulams using variation of
+                                                        displayVariations
+                                                        :
+                                                        <EmptyUlams message={'This ulam has no variations yet. Be the first one to make one!'} />
+                                                } */}
+                                                <UlamCard ulamName={'Sinigang na Bangus with Gabi'} owner={'Audemars Odato'} />
+                                        </div>
+                                        <Link to={`/ulams/${ulamId}/variations/new`}>Create Variation</Link>
+                                </>) : (<>
+                                        <h2>Variation of</h2>
+                                        <div className="variations-container">
+                                                {/* fetch ulam using id from variation of*/}
+                                                <UlamCard ulamName={ulam.variation_of.name} owner={ulam.variation_of.user_id} />
+                                        </div>
+                                </>)
+                                }
                         </section>
 
                         <section className="comments section">
@@ -168,9 +182,11 @@ export default function UlamProfile() {
                                                 <span className="material-symbols-rounded">send</span>
                                         </button>
                                 </form>
-                                <div className="comments-container">
-                                        { displayComments }
-                                </div>
+                                {ulam.comments.length > 0 &&
+                                        <div className="comments-container">
+                                                { displayComments }
+                                        </div>
+                                }
                         </section>
 
                         {showCookButton &&

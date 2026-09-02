@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 import useUlamCard from './useUlamCard'
 
-export default function SpecialtyCard({ ulamName, owner, timesCooked, imageURL }) {
-        const { openProfile } = useUlamCard(ulamName)
+export default function SpecialtyCard({ ulamName, owner, timesCooked, imageURL, id }) {
+        const { openProfile } = useUlamCard(id)
 
         return (
                 <div className="specialty-card" onClick={openProfile}>

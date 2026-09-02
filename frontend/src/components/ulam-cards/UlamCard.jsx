@@ -1,7 +1,7 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCard({ ulamName, owner, stats, imageURL, onClick }){
-        const { openProfile } = useUlamCard(ulamName)
+export default function UlamCard({ ulamName, owner, stats, imageURL, onClick, id }){
+        const { openProfile } = useUlamCard(id)
 
         const handleClick = () => {
                 if (!onClick) {

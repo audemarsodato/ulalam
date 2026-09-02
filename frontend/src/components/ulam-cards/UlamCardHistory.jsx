@@ -1,7 +1,7 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCardHistory({ ulamName, date, mealtime, imageURL }){
-        const { openProfile } = useUlamCard(ulamName)
+export default function UlamCardHistory({ ulamName, date, mealtime, imageURL, id }){
+        const { openProfile } = useUlamCard(id)
 
         return (
                 <div className="ulam-card history-card" onClick={openProfile}>

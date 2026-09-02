@@ -70,11 +70,22 @@ export default function UserProfile() {
         }
 
         const displayPublishedUlams = user.published_ulams.map(ulam => 
-                <UlamCard ulamName={ulam.name} imageURL={ulam.image_url} stats={{bookmarks: ulam.bookmarked_by.length, timesCooked: ulam.cooked_count}}/>
+                <UlamCard 
+                        ulamName={ulam.name} 
+                        imageURL={ulam.image_url} 
+                        stats={{bookmarks: ulam.bookmarked_by.length, timesCooked: ulam.cooked_count}}
+                        id={ulam._id}
+                />
         )
 
         const displaySpecialties = user.earned_specialties.map(ulam =>
-                <SpecialtyCard ulamName={ulam.name} timesCooked={ulam.times_cooked} owner={ulam.username} imageURL={ulam.image_url} />
+                <SpecialtyCard 
+                        ulamName={ulam.name} 
+                        timesCooked={ulam.times_cooked} 
+                        owner={ulam.username} i
+                        mageURL={ulam.image_url}
+                        id={ulam._id}
+                />
         )
 
         return (

@@ -4,7 +4,7 @@ export default function Comment({ user, timestamp, message}) {
         return (
                 <div className="comment">
                         <div className="details">
-                                <h3>{user}</h3>
+                                <h3>{user.username}</h3>
                                 <p>{timestamp}</p>
                         </div>
 

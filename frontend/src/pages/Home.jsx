@@ -53,14 +53,23 @@ export default function Home() {
                         date={formatCreatedAt(record.createdAt)} 
                         mealtime={capitalize(record.mealtime)} 
                         imageURL={record.ulam_id.image_url}
+                        id={record.ulam_id._id}
                 />
         )
 
         const displaySpecialties = user.earned_specialties.sort((a, b) => b.times_cooked - a.times_cooked).map(ulam => 
-                <SpecialtyCard ulamName={ulam.name} owner={ulam.username} timesCooked={ulam.times_cooked} imageURL={ulam.image_url} />
+                <SpecialtyCard 
+                        ulamName={ulam.name} 
+                        owner={ulam.username} 
+                        timesCooked={ulam.times_cooked} 
+                        imageURL={ulam.image_url} 
+                        id={ulam._id}
+                />
         )
 
-        const displayUlamsFromFollowings = ulamsFromFollowings?.map(ulam=> <UlamCard ulamName={ulam.ulamName} owner={ulam.owner} />)
+        const displayUlamsFromFollowings = ulamsFromFollowings?.map(ulam=> 
+                <UlamCard ulamName={ulam.ulamName} owner={ulam.owner} id={ulam._id} />
+        )
 
         return (
                 <section className='home-page'>

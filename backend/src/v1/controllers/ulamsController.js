@@ -197,8 +197,8 @@ async function getUlam(req, res) {
 
         try {
                 const [ ulam, comments ] = await Promise.all([
-                        await ulamsService.getUlam(ulamId),
-                        await ulamsService.getCommentsOfUlam({ulamId})
+                        (await ulamsService.getUlam(ulamId)).populate('user_id variation_of'),
+                        ulamsService.getCommentsOfUlam(ulamId)
                 ])
                 res.status(200).json({...ulam.toObject(), comments})
         }
