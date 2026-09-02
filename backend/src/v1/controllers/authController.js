@@ -1,4 +1,5 @@
 const authService = require('../../services/authService')
+const userService = require('../..//services/userService')
 const { checkMissingFields } = require('../../utils/utils')
 
 async function signup(req, res) {
@@ -29,7 +30,8 @@ async function verifyEmail(req, res) {
 
         try {
                 const { user, token } = await authService.verifyEmail(verificationToken)
-                res.status(200).json({...user, token})
+                const userDetails = await userService.getUser(user._id)
+                res.status(200).json({...userDetails, token})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

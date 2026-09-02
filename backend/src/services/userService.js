@@ -18,7 +18,7 @@ async function getUser(userId) {
         const followers = await User.find({_id: {$in: user.followers}}).select('username profile_image_url followings followers')
         const followings = await User.find({_id: {$in: user.followings}}).select('username profile_image_url followings followers')
         const published_ulams = await Ulam.find({user_id: userId})
-        const earned_specialties = await Ulam.find({_id: {$in: user.earned_specialties}})
+        const earned_specialties = await ulamsService.getEarnedSpecialties(user._id)
 
         return {...user.toObject(), published_ulams, followers, followings, earned_specialties}
 }
@@ -30,7 +30,7 @@ async function getUserByUsername(username) {
 
         const followers = await User.find({_id: {$in: user.followers}}).select('username profile_image_url followings followers')
         const followings = await User.find({_id: {$in: user.followings}}).select('username profile_image_url followings followers')
-        const published_ulams = await Ulam.find({user_id: userId})
+        const published_ulams = await Ulam.find({user_id: user._id})
         const earned_specialties = await Ulam.find({_id: {$in: user.earned_specialties}})
 
         return {...user.toObject(), published_ulams, followers, followings, earned_specialties}

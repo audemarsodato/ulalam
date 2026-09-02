@@ -58,28 +58,32 @@ async function signup({ username, email, password }) {
 
         await sendVerificationEmail(user)
 
-        return {user: safeUser}// TODO if user is not yet verified, frontend redirects to the verify email page
+        /*
+        *  if user is not yet verified, frontend redirects to the verify email page
+        */
+        return {user: safeUser} 
 }
 
 async function verifyEmail(verificationToken) {
         const hashedToken = crypto.createHash('sha256').update(verificationToken).digest('hex')
+
         const emailVerification = await EmailVerification.findOne({token_hash: hashedToken})
         if (!emailVerification) throw new AppError('Invalid verification token', 400)
-        const user = await User.findById(emailVerification.user_id)
-        if (!user) throw new AppError('Failed to find user')
-
-        
+                
         if (emailVerification.expires_at < new Date()) throw new AppError('Verification token has expired', 400)
-        
-        const userVerified = await User.findByIdAndUpdate(user._id, {email_verified: true}, {returnDocument: 'after', runValidators: true})
+                        
+        const updatedUser = await User.findByIdAndUpdate(
+                emailVerification.user_id, 
+                {email_verified: true}, 
+                {returnDocument: 'after', runValidators: true}
+        ).select('-password_hash')
+        if (!updatedUser) throw new AppError('Failed to find user')
 
         await EmailVerification.findByIdAndDelete(emailVerification._id)
 
-        const token = createToken(user._id, userVerified.email_verified)
+        const token = createToken(updatedUser._id, updatedUser.email_verified)
 
-        const {password_hash, ...safeUser} = userVerified.toObject()
-
-        return {user: safeUser, token}
+        return {user: updatedUser, token}
 }
 
 async function login({ email, password }) {

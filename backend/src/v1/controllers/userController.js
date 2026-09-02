@@ -6,7 +6,7 @@ async function getCurrentUser(req, res) {
 
         try {
                 const user = await userService.getUser(userId)
-                res.status(200).json(user)
+                res.status(200).json({user})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
@@ -21,7 +21,7 @@ async function updateCurrentUser(req, res) {
 
         try {
                 const updatedUser = await userService.updateCurrentUser({userId, updates})
-                res.status(200).json(updatedUser)
+                res.status(200).json({updatedUser})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
@@ -33,7 +33,7 @@ async function getUser(req, res) {
 
         try {
                 const user = await userService.getUserByUsername(username)
-                res.status(200).json(user)
+                res.status(200).json({user})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})
@@ -71,7 +71,7 @@ async function getPublishedUlams(req, res) {
 
         try {
                 const publishedUlams = await ulamsService.getPublishedUlams(userId)
-                res.status(200).json({publishedUlams})
+                res.status(200).json({published_ulams: publishedUlams})
         } catch (error) {
                 const statusCode = error.statusCode ?? 500
                 res.status(statusCode).json({error: {message: error.message}})

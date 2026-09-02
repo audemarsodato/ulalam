@@ -20,7 +20,7 @@ router.get('/me', getCurrentUser)
 
 router.patch('/me', updateCurrentUser)
 
-router.get('/:username', getUser) // TODO refactor to use username not userId
+router.get('/:username', getUser)
 
 router.post('/:userId/following', followUser)
 
