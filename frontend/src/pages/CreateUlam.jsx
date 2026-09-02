@@ -11,7 +11,7 @@ import { toArray } from '../utils/formatText'
 export default function CreateUlam() {
         const navigate = useNavigate()
 
-        const { user } = useUserContext()
+        const { user, dispatch: userDispatch } = useUserContext()
         const [ error, setError ] = useState(null)
 
         const handleSubmit = async ( event, { name, imageFile, ingredients, instructionsText }) => {
@@ -53,6 +53,7 @@ export default function CreateUlam() {
                         return
                 }
 
+                userDispatch({type: 'UPDATE', payload: {published_ulams: [...user.published_ulams, ulam]}})
                 navigate(`/ulams/${ulam._id}`)
         }
 

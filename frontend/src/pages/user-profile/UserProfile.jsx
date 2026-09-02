@@ -187,7 +187,7 @@ export default function UserProfile() {
                                         <button onClick={() => setActiveModal('bookmarks')} className='more-actions__bookmark'>Bookmarks</button> {/* opens modal */}
                                         <button onClick={() => navigate('/cook/history')}>Cooking History</button>
                                         {/* <button className='danger-button'>Delete account</button> */}
-                                        <button className='logout-button danger-button'>Log out</button>
+                                        <button className='logout-button danger-button' onClick={() => userDispatch({type: 'LOGOUT'})}>Log out</button>
                                 </section>
                         }
 
