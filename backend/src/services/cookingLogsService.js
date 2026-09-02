@@ -74,7 +74,7 @@ async function recordSession({ ulamId, userId }) {
 }
 
 async function getRecords(userId) {
-        const records = await CookingLog.find({user_id: userId})
+        const records = await CookingLog.find({user_id: userId}).sort({createdAt: -1}).populate('ulam_id')
 
         if (!records) throw new AppError('Failed to fetch records')
 

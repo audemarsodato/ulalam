@@ -1,4 +1,34 @@
 
+
+export async function fetchCookingRecords({ token, limit }) { // TODO implement pagination and limit fetch
+        const response = await fetch('/api/v1/cooking-logs', {
+                method: 'GET',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+        
+        const json = await response.json()
+        
+        if (!response.ok) return {error: json.error, cooking_records: null}
+        
+        return {cooking_records: json.cooking_records, error: null}
+}
+
+export async function fetchUlamsFromFollowings(token) {
+        const response = await fetch('/api/v1/users/me/ulams/from-following', {
+                method: 'GET',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulams_from_followings: null}
+
+        return {ulams_from_followings: json.ulams_from_followings, error: null}
+}
 export async function fetchChangeProfileImage({ imageFile, token }) {
         const formData = new FormData()
         formData.append('profile-image', imageFile)

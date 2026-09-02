@@ -25,8 +25,8 @@ async function getRecords(req, res) {
         const userId = req.user_id
 
         try {
-                const records = await cookingLogsService.getRecords(userId)
-                res.status(200).json({records})
+                const cooking_records = await cookingLogsService.getRecords(userId)
+                res.status(200).json({cooking_records})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

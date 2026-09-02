@@ -83,7 +83,7 @@ async function getUlamsFromFollowings(req, res) {
 
         try {
                 const ulams = await ulamsService.getUlamsFromFollowings(userId)
-                res.status(200).json({fromFollowings: ulams})
+                res.status(200).json({ulams_from_followings: ulams})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

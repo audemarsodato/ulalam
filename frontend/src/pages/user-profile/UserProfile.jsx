@@ -30,21 +30,11 @@ export default function UserProfile() {
         const [ error, setError ] = useState(null)
 
         useEffect(() => {
-                // const loadCurrentUser = async () => {
                 if (isOwnProfile) {
-                        // const { user, error } = await fetchCurrentUsersDetails(currentUser.token)
-
-                        // if (error) {
-                        //         setError(error)
-                        //         console.log(error)
-                        //         return
-                        // }
 
                         setUser(currentUser)
                         return
                 }
-                // }
-                // loadCurrentUser()
 
                 const getUser = async () => {
                         const { user, error } = await fetchUserByUsername({username: profileOwnerUsername, token: currentUser.token})
