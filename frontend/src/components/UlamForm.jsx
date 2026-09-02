@@ -3,9 +3,12 @@ import { useState, useRef } from "react"
 import Ingredient from "../components/Ingredient"
 
 export default function UlalmForm({ mode, ulamData, handleSubmit }) {
-        const [ imageSRC, setImageSRC ] = useState(null)
+        const [ name, setName ] = useState('')
+        const [ imageFile, setImageFile] = useState(null)
         const [ ingredients, setIngredients ]  = useState([])
+        const [ instructionsText, setInstructions ]  = useState()
 
+        const [ imageSRC, setImageSRC ] = useState(null)
         const [ showSubmit, setShowSubmit ] = useState(true)
         
         const [ ingredient, setIngredient ] = useState('')
@@ -17,7 +20,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit }) {
         }
 
         const textAreaRef = useRef(null)
-        const autoResizeTextarea = (event) => {
+        const autoResizeTextarea = () => {
                 const textarea = textAreaRef.current
 
                 textarea.style.height = 'auto' // reset
@@ -26,6 +29,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit }) {
 
         const setPreview = (event) => {
                 const file = event.target.files[0]
+                setImageFile(file)
 
                 const imageSRC = URL.createObjectURL(file) // Creates an image in memory that can be access using url
 
@@ -33,6 +37,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit }) {
         }
 
         const removePreview = () => {
+                setImageFile(null)
                 setImageSRC(null)
         }
 
@@ -49,13 +54,16 @@ export default function UlalmForm({ mode, ulamData, handleSubmit }) {
         )
 
         return (
-                <form className="ulam-form">
+                <form className="ulam-form" onSubmit={event => handleSubmit(event, {name, imageFile, ingredients, instructionsText})}>
                         <div className="ulam-name section">
                                 <p className="label">Ulam Name</p>
                                 <input 
                                         type="text"
                                         onBlur={() => setShowSubmit(true)}
                                         onFocus={() => setShowSubmit(false)}
+                                        value={name}
+                                        onChange={event => setName(event.target.value)}
+                                        required
                                 />
                         </div>
 
@@ -110,12 +118,17 @@ export default function UlalmForm({ mode, ulamData, handleSubmit }) {
 
                         <div className="instructions section">
                                 <p className="label">Instructions</p>
-                                <textarea 
-                                        rows={5} 
+                                <textarea
+                                        rows={5}
                                         ref={textAreaRef}
-                                        onChange={autoResizeTextarea}
                                         onBlur={() => setShowSubmit(true)}
                                         onFocus={() => setShowSubmit(false)}
+                                        value={instructionsText}
+                                        onChange={event => {
+                                                setInstructions(event.target.value)
+                                                autoResizeTextarea()
+                                        }}
+                                        required
                                 ></textarea>
                         </div>
 

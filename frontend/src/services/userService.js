@@ -1,5 +1,5 @@
 
-
+// TODO move to cookingLogs service
 export async function fetchCookingRecords({ token, limit }) { // TODO implement pagination and limit fetch
         const response = await fetch('/api/v1/cooking-logs', {
                 method: 'GET',

@@ -60,9 +60,6 @@ export default function Home() {
                 <SpecialtyCard ulamName={ulam.name} owner={ulam.username} timesCooked={ulam.times_cooked} imageURL={ulam.image_url} />
         )
 
-        console.log({cookedUlams})
-        console.log({ulamsFromFollowings})
-
         const displayUlamsFromFollowings = ulamsFromFollowings?.map(ulam=> <UlamCard ulamName={ulam.ulamName} owner={ulam.owner} />)
 
         return (

@@ -50,9 +50,9 @@ export default function UserProfile() {
                 getUser()
         }, [])
 
-        console.log(user)
         
         if (!user) return
+        console.log(user.earned_specialties)
 
         const handleProfileChange = async (event) => {
                 const file = event.target.files[0]
@@ -74,7 +74,7 @@ export default function UserProfile() {
         )
 
         const displaySpecialties = user.earned_specialties.map(ulam =>
-                <SpecialtyCard ulamName={ulam.name} timesCooked={ulam.times_cooked} owner={ulam.username} />
+                <SpecialtyCard ulamName={ulam.name} timesCooked={ulam.times_cooked} owner={ulam.username} imageURL={ulam.image_url} />
         )
 
         return (

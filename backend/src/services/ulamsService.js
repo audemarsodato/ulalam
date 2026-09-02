@@ -291,7 +291,7 @@ async function getEarnedSpecialties(userId) {
                 },
                 {
                         $group: {
-                                _id: '$ulam_id', timesCooked: {$sum: 1}
+                                _id: '$ulam_id', times_cooked: {$sum: 1}
                         }
                 },
                 {
