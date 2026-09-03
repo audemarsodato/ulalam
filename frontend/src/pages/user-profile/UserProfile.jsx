@@ -82,7 +82,7 @@ export default function UserProfile() {
                         ulamName={ulam.name} 
                         timesCooked={ulam.times_cooked} 
                         owner={ulam.username} i
-                        mageURL={ulam.image_url}
+                        imageURL={ulam.image_url}
                         id={ulam._id}
                 />
         )

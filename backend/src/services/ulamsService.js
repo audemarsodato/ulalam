@@ -190,6 +190,7 @@ async function commentToUlam({ ulamId, content, userId }) {
                 }
 
                 const comment = await Comment.create(commentData)
+                await comment.populate('user_id')
 
                 if (!comment) throw new Error('Failed to comment to ulam')
 
@@ -204,7 +205,7 @@ async function getCommentsOfUlam(ulamId) {
         try {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
 
-                const comments = await Comment.find({ulam_id: ulamId})
+                const comments = await Comment.find({ulam_id: ulamId}).populate('user_id')
 
                 if (!comments) throw new AppError('Cannot find ulam', 404)
 
@@ -348,7 +349,7 @@ async function getPublishedUlams(userId) {
 async function getVariations(ulamId) {
         if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
 
-        const variations = (await Ulam.find({variation_of: ulamId})).populate('user_id')
+        const variations = await Ulam.find({variation_of: ulamId}).populate('user_id')
         
         return variations
 }

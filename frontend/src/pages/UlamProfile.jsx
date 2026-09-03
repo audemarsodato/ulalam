@@ -7,7 +7,7 @@ import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
 import useUserContext from '../hooks/useUserContext'
-import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations } from "../services/ulamsService"
+import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations, fetchAddComment } from "../services/ulamsService"
 import EmptyUlams from '../components/empty-ulams/EmptyUlams'
 
 export default function UlamProfile() {
@@ -90,8 +90,19 @@ export default function UlamProfile() {
                 return
         }
 
-        const addComment = () => {
+        const addComment = async () => {
                 if (!commentInput) return
+
+                const { comment, error } = await fetchAddComment({ulamId, content: commentInput, token: user.token})
+
+                if (error) {
+                        // setError(error)
+                        console.log(error)
+                        return
+                }
+
+                console.log({comment})
+                console.log({commentInput})
 
                 setUlam(current => ({
                                 ...current, 
@@ -99,7 +110,7 @@ export default function UlamProfile() {
                                         ...current.comments, 
                                         {
                                                 user, 
-                                                content: commentInput, 
+                                                content: comment.content, 
                                                 createdAt: new Date()
                                         }
                                 ]
@@ -108,10 +119,10 @@ export default function UlamProfile() {
                 setCommentInput('')
         }
 
-        const displayComments = ulam.comments.map(comment => (
+        const displayComments = ulam.comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(comment => (
                 <Comment
                         key={comment.createAt}
-                        user={comment.user} 
+                        user={comment.user_id || comment.user} 
                         timestamp={formatDistanceToNow(new Date(comment.createdAt), { includeSeconds: true, addSuffix: true}).replace('about', '')} 
                         message={comment.content}
                 />
@@ -121,7 +132,6 @@ export default function UlamProfile() {
                 <UlamCard ulamName={ulam.name} owner={ulam.user_id.username} />
         )
 
-        console.log(ulam)
         return (
                 <section className="ulam-profile-page">
                         <header className="page-headers">
