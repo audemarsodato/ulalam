@@ -1,3 +1,4 @@
+const { populate } = require('../../models/ulamModel')
 const ulamsService = require('../../services/ulamsService')
 const AppError = require('../../utils/AppError')
 const { checkMissingFields } = require('../../utils/utils')
@@ -197,10 +198,27 @@ async function getUlam(req, res) {
 
         try {
                 const [ ulam, comments ] = await Promise.all([
-                        (await ulamsService.getUlam(ulamId)).populate('user_id variation_of'),
+                        (await ulamsService.getUlam(ulamId))
+                                .populate([
+                                        {path: 'user_id'},
+                                        {path: 'variation_of', populate: {path: 'user_id'}}
+                                ]),
                         ulamsService.getCommentsOfUlam(ulamId)
                 ])
                 res.status(200).json({...ulam.toObject(), comments})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
+async function getVariationsOfUlam(req, res) {
+        const { ulamId } = req.params
+
+        try {
+                const ulams = await ulamsService.getVariations(ulamId)
+                res.status(200).json(ulams)
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
@@ -219,5 +237,6 @@ module.exports = {
         unbookmarkUlam,
         createComment,
         getUlamComments,
-        getUlam
+        getUlam,
+        getVariationsOfUlam
 }

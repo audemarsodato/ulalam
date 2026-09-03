@@ -15,7 +15,8 @@ const {
         unbookmarkUlam,
         createComment,
         getUlamComments,
-        getUlam
+        getUlam,
+        getVariationsOfUlam
 } = require('../controllers/ulamsController')
 
 // CREATE ulam
@@ -50,5 +51,7 @@ router.post('/:ulamId/comments', createComment)
 
 // GET comments of an ulam
 router.get('/:ulamId/comments', getUlamComments)
+
+router.get('/:ulamId/variations', getVariationsOfUlam)
 
 module.exports = router

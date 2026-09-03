@@ -345,6 +345,14 @@ async function getPublishedUlams(userId) {
         return ulams
 }
 
+async function getVariations(ulamId) {
+        if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
+
+        const variations = await Ulam.find({variation_of: ulamId})
+        
+        return variations
+}
+
 module.exports = {
         createUlam,
         updateUlam,
@@ -359,5 +367,6 @@ module.exports = {
         getUlamsFromFollowings,
         getEarnedSpecialties,
         getUlamsByIngredients,
-        getPublishedUlams
+        getPublishedUlams,
+        getVariations
 }
