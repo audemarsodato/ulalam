@@ -7,7 +7,7 @@ import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
 import useUserContext from '../hooks/useUserContext'
-import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations, fetchAddComment } from "../services/ulamsService"
+import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations, fetchAddComment, fetchUnbookmarkUlam, fetchBookmarkUlam } from "../services/ulamsService"
 import EmptyUlams from '../components/empty-ulams/EmptyUlams'
 
 export default function UlamProfile() {
@@ -17,6 +17,9 @@ export default function UlamProfile() {
 
         const [ liked, setLiked ] = useState(false)
         const [ isLiking, setIsLiking ] = useState(false)
+        
+        const [ bookmarked, setBookmarked ] = useState(false)
+        const [ isBookmarking, setIsBookmarking ] = useState(false)
 
         const [ showOptions, setShowOptions ] = useState(false)
         const [ showCookButton, setShowCookButton ] = useState(true)
@@ -34,6 +37,7 @@ export default function UlamProfile() {
                         }
 
                         setLiked(ulam.liked_by.includes(user._id))
+                        setBookmarked(ulam.bookmarked_by.includes(user._id))
                         setUlam(ulam)
 
                         // fetch variations ulams
@@ -53,6 +57,43 @@ export default function UlamProfile() {
         }, [])
 
         if (!ulam) return
+
+        const handleBookmark = async () => {
+                if (isBookmarking) return
+
+                setIsBookmarking(true)
+
+                if (bookmarked) {
+                        setBookmarked(false)
+                        setUlam(prev => ({...prev, bookmarked_by: prev.bookmarked_by.filter(userId => userId !== user._id)}))
+
+                        const { ulam, error } = await fetchUnbookmarkUlam({ulamId, token: user.token})
+        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                setUlam(prev => ({...prev, bookmarked_by: [...prev.bookmarked_by, user._id]}))
+                                setLiked(true)
+                        }
+
+                        setIsBookmarking(false)
+                        return
+                }
+
+                setBookmarked(true)
+                setUlam(prev => ({...prev, bookmarked_by: [...prev.bookmarked_by, user._id]}))
+
+                const { ulam, error } = await fetchBookmarkUlam({ulamId, token: user.token})
+
+                if (error) {
+                        // setError(error)
+                        console.log(error)
+                        setBookmarked(false)
+                        setUlam(prev => ({...prev, bookmarked_by: prev.bookmarked_by.filter(userId => userId !== user._id)}))
+                }
+                setIsBookmarking(false)
+                return
+        }
 
         const handleLike = async () => {
                 if (isLiking) return
@@ -140,8 +181,8 @@ export default function UlamProfile() {
                                 </div>
 
                                 <div className="actions">
-                                        <button className="bookmark button">
-                                                <span className="material-symbols-rounded">bookmark_add</span>
+                                        <button className={`material-symbols-rounded ${bookmarked ? 'filled-icon' : ''}`} onClick={handleBookmark}>
+                                                <span className="material-symbols-rounded">{bookmarked ? 'bookmark' : 'bookmark_add'}</span>
                                         </button>
 
                                         {user._id === ulam.user_id._id &&
