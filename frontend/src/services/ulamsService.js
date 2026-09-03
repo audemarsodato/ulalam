@@ -1,4 +1,34 @@
 
+export async function fetchUnlikeUlam({ ulamId, token }) {
+        const response = await fetch(`/api/v1/ulams/${ulamId}/like`, {
+                method: 'DELETE',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulam: null}
+
+        return {ulam: json, error: null}
+}
+
+export async function fetchLikeUlam({ ulamId, token }) {
+        const response = await fetch(`/api/v1/ulams/${ulamId}/like`, {
+                method: 'PATCH',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulam: null}
+
+        return {ulam: json, error: null}
+}
+
 export async function fetchUlam({ ulamId, token }) {
         const response = await fetch(`/api/v1/ulams/${ulamId}`, {
                 method: 'GET',

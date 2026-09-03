@@ -7,21 +7,18 @@ import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
 import useUserContext from '../hooks/useUserContext'
-import { fetchUlam } from "../services/ulamsService"
+import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam } from "../services/ulamsService"
 import EmptyUlams from '../components/empty-ulams/EmptyUlams'
 
 export default function UlamProfile() {
         const { user, dispatch: userDispatch } = useUserContext()
         const { ulamId } = useParams()
         const [ ulam, setUlam ] = useState(null)
-
         const [ liked, setLiked ] = useState(false)
-        // if owner
+        const [ isLiking, setIsLiking ] = useState(false)
         const [ showOptions, setShowOptions ] = useState(false)
         const [ showCookButton, setShowCookButton ] = useState(true)
         const [ commentInput, setCommentInput ] = useState('')
-
-        console.log(ulamId)
 
         useEffect(() => {
                 const getUlam = async () => {
@@ -32,14 +29,50 @@ export default function UlamProfile() {
                                 console.log(error)
                                 return
                         }
-                        console.log(ulam)
 
+                        setLiked(ulam.liked_by.includes(user._id))
                         setUlam(ulam)
                 }
                 getUlam()
         }, [])
 
         if (!ulam) return
+
+        const handleLike = async () => {
+                if (isLiking) return
+
+                setIsLiking(true)
+
+                if (liked) {
+                        setLiked(false)
+                        // Removes the users id
+                        setUlam(prev => ({...prev, liked_by: prev.liked_by.filter(userId => userId !== user._id)}))
+                        const { ulam, error } = await fetchUnlikeUlam({ulamId, token: user.token})
+        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                setUlam(prev => ({...prev, liked_by: [...prev.liked_by, user._id]}))
+                                setLiked(true)
+                        }
+                        setIsLiking(false)
+                        return
+                }
+
+                setLiked(true)
+                // Adds the users id
+                setUlam(prev => ({...prev, liked_by: [...prev.liked_by, user._id]}))
+                const { ulam, error } = await fetchLikeUlam({ulamId, token: user.token})
+
+                if (error) {
+                        // setError(error)
+                        console.log(error)
+                        setLiked(false)
+                        setUlam(prev => ({...prev, liked_by: prev.liked_by.filter(userId => userId !== user._id)}))
+                }
+                setIsLiking(false)
+                return
+        }
 
         const addComment = () => {
                 if (!commentInput) return
@@ -68,8 +101,6 @@ export default function UlamProfile() {
                 />
         ))
 
-        console.log('ulamId:', ulamId)
-
         return (
                 <section className="ulam-profile-page">
                         <header className="page-headers">
@@ -88,7 +119,7 @@ export default function UlamProfile() {
                                                                 <span className="material-symbols-rounded">more_vert</span>
                                                         </button>
 
-                                                        { showOptions &&
+                                                        {showOptions &&
                                                                 <div className="menu-options">
                                                                         <Link to={`/ulams/${ulamId}/edit`} className="edit button">Edit</Link>
                                                                         {/* TODO: Add confirmation modal */}
@@ -111,10 +142,11 @@ export default function UlamProfile() {
                                 </div>
 
                                 <div className="like-button">
-                                        <button onClick={() => setLiked(current => !current)}>
+                                        <button onClick={handleLike}>
                                                 <span className={`material-symbols-rounded ${liked ? 'filled-icon' : ''}`}>favorite</span>
                                         </button>
-                                        <p>{ulam.liked_by.length} Likes</p>
+                                        <p>{ulam.liked_by.length}</p>
+                                        {/* <p>{ulam.liked_by.length} Likes</p> */}
                                 </div>
                         </section>
 
