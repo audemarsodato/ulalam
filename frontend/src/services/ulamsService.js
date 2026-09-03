@@ -1,4 +1,19 @@
 
+export async function fetchVariations({ ulamId, token }) {
+        const response = await fetch(`/api/v1/ulams/${ulamId}/variations`, {
+                method: 'GET',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulams: null}
+
+        return {ulams: json, error: null}
+}
+
 export async function fetchUnlikeUlam({ ulamId, token }) {
         const response = await fetch(`/api/v1/ulams/${ulamId}/like`, {
                 method: 'DELETE',

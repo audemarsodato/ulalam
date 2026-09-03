@@ -52,7 +52,6 @@ export default function UserProfile() {
 
         
         if (!user) return
-        console.log(user.earned_specialties)
 
         const handleProfileChange = async (event) => {
                 const file = event.target.files[0]

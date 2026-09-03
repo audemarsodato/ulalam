@@ -7,18 +7,21 @@ import Comment from "../components/ulam-profile/Comment"
 import Ingredient from '../components/Ingredient'
 import UlamCard from '../components/ulam-cards/UlamCard'
 import useUserContext from '../hooks/useUserContext'
-import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam } from "../services/ulamsService"
+import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations } from "../services/ulamsService"
 import EmptyUlams from '../components/empty-ulams/EmptyUlams'
 
 export default function UlamProfile() {
         const { user, dispatch: userDispatch } = useUserContext()
         const { ulamId } = useParams()
         const [ ulam, setUlam ] = useState(null)
+
         const [ liked, setLiked ] = useState(false)
         const [ isLiking, setIsLiking ] = useState(false)
+
         const [ showOptions, setShowOptions ] = useState(false)
         const [ showCookButton, setShowCookButton ] = useState(true)
         const [ commentInput, setCommentInput ] = useState('')
+        const [ variations, setVariations ] = useState([])
 
         useEffect(() => {
                 const getUlam = async () => {
@@ -32,7 +35,20 @@ export default function UlamProfile() {
 
                         setLiked(ulam.liked_by.includes(user._id))
                         setUlam(ulam)
+
+                        // fetch variations ulams
+                        if (ulam.variation_of === null) {
+                                const { ulams, error } = await fetchVariations({ulamId, token: user.token})
+                        
+                                if (error) {
+                                        // setError(error)
+                                        console.log(error)
+                                        return
+                                }
+                                setVariations(ulams)
+                        }
                 }
+                // Does not need await because it does not return any value needed
                 getUlam()
         }, [])
 
@@ -101,6 +117,11 @@ export default function UlamProfile() {
                 />
         ))
 
+        const displayVariations = variations.map(ulam => 
+                <UlamCard ulamName={ulam.name} owner={ulam.user_id.username} />
+        )
+
+        console.log(ulam)
         return (
                 <section className="ulam-profile-page">
                         <header className="page-headers">
@@ -131,7 +152,7 @@ export default function UlamProfile() {
                                 </div>
                         </header>
 
-                        <section className="ulam-image">
+                        <section className="ulam-image" onDoubleClick={handleLike}>
                                 <img src={ulam.image_url} loading="lazy"/>
                         </section>
 
@@ -178,22 +199,19 @@ export default function UlamProfile() {
                                 {!ulam.variation_of ? (<>
                                         <h2>Variations</h2>
                                         <div className="variations-container">
-                                                {/* {variations.length > 0// TODO fetch ulams using variation of
-                                                        displayVariations
-                                                        :
+                                                {variations.length > 0 ? (
+                                                                displayVariations
+                                                        ) :
                                                         <EmptyUlams message={'This ulam has no variations yet. Be the first one to make one!'} />
-                                                } */}
-                                                <UlamCard ulamName={'Sinigang na Bangus with Gabi'} owner={'Audemars Odato'} />
+                                                }
                                         </div>
                                         <Link to={`/ulams/${ulamId}/variations/new`}>Create Variation</Link>
                                 </>) : (<>
                                         <h2>Variation of</h2>
                                         <div className="variations-container">
-                                                {/* fetch ulam using id from variation of*/}
-                                                <UlamCard ulamName={ulam.variation_of.name} owner={ulam.variation_of.user_id} />
+                                                <UlamCard ulamName={ulam.variation_of.name} owner={ulam.variation_of.user_id.username} imageURL={ulam.variation_of.image_url} />
                                         </div>
-                                </>)
-                                }
+                                </>)}
                         </section>
 
                         <section className="comments section">
