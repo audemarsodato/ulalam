@@ -72,7 +72,7 @@ async function deleteUlam({ ulamId, userId }) {
 
                 if (!deletedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
                 
-                return deleteUlam
+                return deletedUlam
         }
         catch (error) {
                throw error

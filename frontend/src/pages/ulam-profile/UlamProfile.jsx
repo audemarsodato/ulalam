@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { formatDistanceToNow } from 'date-fns'
 
-import Stat from '../components/ulam-profile/Stat'
-import Comment from "../components/ulam-profile/Comment"
-import Ingredient from '../components/Ingredient'
-import UlamCard from '../components/ulam-cards/UlamCard'
-import useUserContext from '../hooks/useUserContext'
-import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations, fetchAddComment, fetchUnbookmarkUlam, fetchBookmarkUlam } from "../services/ulamsService"
-import EmptyUlams from '../components/empty-ulams/EmptyUlams'
+import './UlamProfile.css'
+import Stat from '../../components/ulam-profile/Stat'
+import Comment from "../../components/ulam-profile/Comment"
+import Ingredient from '../../components/Ingredient'
+import UlamCard from '../../components/ulam-cards/UlamCard'
+import useUserContext from '../../hooks/useUserContext'
+import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations, fetchAddComment, fetchUnbookmarkUlam, fetchBookmarkUlam, fetchDeleteUlam } from "../../services/ulamsService"
+import EmptyUlams from '../../components/empty-ulams/EmptyUlams'
+import Modal from "../../components/modal/Modal"
 
 export default function UlamProfile() {
+        const navigate = useNavigate()
+
+        const [ activeModal, setActiveModal ] = useState(null)
+
         const { user, dispatch: userDispatch } = useUserContext()
         const { ulamId } = useParams()
         const [ ulam, setUlam ] = useState(null)
@@ -57,6 +63,20 @@ export default function UlamProfile() {
         }, [])
 
         if (!ulam) return
+
+        const handleDelete = async () => {
+                const { ulams, error } = await fetchDeleteUlam({ulamId, token: user.token})
+                        
+                if (error) {
+                        // setError(error)
+                        console.log(error)
+                        return
+                }
+
+                //TODO if own ulam, delete it from the user context
+                // TODO handle deleted ulams in the references of users, like specialties and history
+                navigate('/')
+        }
 
         const handleBookmark = async () => {
                 if (isBookmarking) return
@@ -194,8 +214,7 @@ export default function UlamProfile() {
                                                         {showOptions &&
                                                                 <div className="menu-options">
                                                                         <Link to={`/ulams/${ulamId}/edit`} className="edit button">Edit</Link>
-                                                                        {/* TODO: Add confirmation modal */}
-                                                                        <button className="delete button">Delete</button> 
+                                                                        <button className="delete button" onClick={() => setActiveModal('delete')}>Delete</button> 
                                                                 </div>
                                                         }
                                                 </div>
@@ -294,6 +313,21 @@ export default function UlamProfile() {
                                 <div className="cook-button">
                                         <Link to={`/cook/${ulamId}`}>COOK</Link>
                                 </div>
+                        }
+
+                        {activeModal === 'delete' &&
+                                <Modal modalTitle={'Delete ulam?'} onClose={() => setActiveModal(null)} className={'ulam-profile__delete-modal'}>
+                                        <p className="ulam-profile__delete-modal-message">
+                                                This ulam will be permanently deleted. <br /> This action cannot be undone.
+                                        </p>
+                                        <br />
+                                        <p className="ulam-profile__delete-modal-ulam">{ulam.name}</p>
+                                        <br />
+                                        <div className="ulam-profile__delete-modal-buttons">
+                                                <button className="ulam-profile__delete-modal-cancel-button" onClick={() => setActiveModal(null)}>Cancel</button>
+                                                <button className="ulam-profile__delete-modal-delete-button" onClick={handleDelete}>Delete</button>
+                                        </div>
+                                </Modal>
                         }
                 </section>
         )

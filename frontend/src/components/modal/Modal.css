@@ -11,7 +11,7 @@
         align-items: center;
         justify-content: center;
 
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.15);
 }
 
 .modal__body {
@@ -38,4 +38,8 @@
 .modal__close button {
         background-color: rgba(0, 0, 0, 0);
         border: none;
+}
+
+.modal__close span {
+        text-align: center;
 }

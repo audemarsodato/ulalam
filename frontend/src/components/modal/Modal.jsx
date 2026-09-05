@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import './Modal.css'
 
-export default function Modal({ modalTitle, onClose, children }) {
+export default function Modal({ modalTitle, onClose, children, className }) {
 
         /*
         * Mounts => when conditional rendering, when the condition becomes true and react renders the component
@@ -37,7 +37,7 @@ export default function Modal({ modalTitle, onClose, children }) {
 
         return (
                 <section className="modal modal-container" onClick={onClose}>
-                        <section className="modal__body" onClick={event => event.stopPropagation()}>
+                        <section className={`modal__body ${className}`} onClick={event => event.stopPropagation()}>
                                 <header>
                                         <div className="modal__title">
                                                 <h1>{modalTitle}</h1>

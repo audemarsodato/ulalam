@@ -1,4 +1,19 @@
 
+export async function fetchDeleteUlam({ ulamId, token }) {
+        const response = await fetch(`/api/v1/ulams/${ulamId}`, {
+                method: 'DELETE',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulam: null}
+
+        return {ulam: json, error: null}
+}
+
 export async function fetchUnbookmarkUlam({ ulamId, token }) {
         const response = await fetch(`/api/v1/ulams/${ulamId}/bookmark`, {
                 method: 'DELETE',
