@@ -1,0 +1,11 @@
+
+.deleted-ulam-card {
+        height: 88px;
+}
+
+.deleted-ulam-card__message {
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+}

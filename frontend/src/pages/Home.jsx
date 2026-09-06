@@ -11,6 +11,7 @@ import { fetchCookingRecords, fetchUlamsFromFollowings } from '../services/userS
 import { formatCreatedAt } from '../utils/formatDate'
 import { capitalize } from '../utils/formatText'
 import EmptyUlams from '../components/empty-ulams/EmptyUlams'
+import DeletedUlamCard from '../components/ulam-cards/DeletedUlamCard'
 
 export default function Home() {
         const { user } = useUserContext()
@@ -34,6 +35,7 @@ export default function Home() {
                                 console.log(recordsError)
                                 return
                         }
+                        console.log(cooking_records)
                         setCookedUlams(cooking_records)
                         
                         const { ulams_from_followings, error: fromFollowingsError } = await fetchUlamsFromFollowings(user.token)
@@ -47,7 +49,7 @@ export default function Home() {
                 getUlams()
         }, [])
 
-        const displayHistory = cookedUlams.slice(0, 3).map(record => 
+        const displayHistory = cookedUlams.slice(0, 3).map(record => record.ulam_id ?
                 <UlamCardHistory 
                         ulamName={record.ulam_id.name} 
                         date={formatCreatedAt(record.createdAt)} 
@@ -55,6 +57,8 @@ export default function Home() {
                         imageURL={record.ulam_id.image_url}
                         id={record.ulam_id._id}
                 />
+                :
+                <DeletedUlamCard />
         )
 
         const displaySpecialties = user.earned_specialties.sort((a, b) => b.times_cooked - a.times_cooked).map(ulam => 
