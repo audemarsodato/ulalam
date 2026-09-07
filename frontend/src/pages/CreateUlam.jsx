@@ -13,26 +13,33 @@ export default function CreateUlam() {
 
         const { user, dispatch: userDispatch } = useUserContext()
         const [ error, setError ] = useState(null)
+        const [ isLoading, setIsLoading ] = useState(false)
 
-        const handleSubmit = async ( event, { name, imageFile, ingredients, instructionsText }) => {
+        const handleSubmit = async (event, { name, imageFile, ingredients, instructionsText }) => {
                 event.preventDefault()
+
+                setIsLoading(true)
 
                 const instructions = toArray(instructionsText)
 
                 if (!name) {
                         setError({message: 'Ulam name is required'})
+                        setIsLoading(false)
                         return
                 }
                 if (!imageFile) {
                         setError({message: 'Ulam image is required'})
+                        setIsLoading(false)
                         return
                 }
                 if (!ingredients.length === 0) {
                         setError({message: 'Ingredients is required'})
+                        setIsLoading(false)
                         return
                 }
                 if (!instructions.length === 0) {
                         setError({message: 'Instructions is required'})
+                        setIsLoading(false)
                         return
                 }
 
@@ -50,10 +57,12 @@ export default function CreateUlam() {
                 if (errorResponse) {
                         setError(errorResponse)
                         console.log(errorResponse)
+                        setIsLoading(false)
                         return
                 }
 
                 userDispatch({type: 'UPDATE', payload: {published_ulams: [...user.published_ulams, ulam]}})
+                setIsLoading(false)
                 navigate(`/ulams/${ulam._id}`)
         }
 
@@ -64,7 +73,7 @@ export default function CreateUlam() {
                         {error &&
                                 <AuthError message={error.message}/>
                         }
-                        <UlamForm handleSubmit={handleSubmit}/>
+                        <UlamForm handleSubmit={handleSubmit} isLoading={isLoading}/>
                 </section>
         )
 }

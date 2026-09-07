@@ -1,8 +1,9 @@
 import { useState, useRef } from "react"
 
+import LoadingSpinner from "./loading-spinner/LoadingSpinner"
 import Ingredient from "../components/Ingredient"
 
-export default function UlalmForm({ mode, ulamData, handleSubmit }) {
+export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
         const [ name, setName ] = useState('')
         const [ imageFile, setImageFile] = useState(null)
         const [ ingredients, setIngredients ]  = useState([])
@@ -134,7 +135,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit }) {
 
                         {showSubmit &&
                                 <div className="submit">
-                                        <button type="submit">PUBLISH ULAM</button>
+                                        <button type="submit" disabled={isLoading}>{isLoading ? <LoadingSpinner /> : 'PUBLISH ULAM'}</button>
                                 </div>
                         }
                 </form>

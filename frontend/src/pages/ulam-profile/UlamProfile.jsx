@@ -77,7 +77,7 @@ export default function UlamProfile() {
                 navigate('/')
         }
 
-        const handleBookmark = async () => {
+        const handleBookmark = async () => { // TODO update user context too using map for bookmark and like
                 if (isBookmarking) return
 
                 setIsBookmarking(true)
