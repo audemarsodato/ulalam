@@ -53,6 +53,11 @@ export default function UserProfile() {
         
         if (!user) return
 
+        const logout = () => {
+                userDispatch({type: 'LOGOUT'})
+                localStorage.removeItem('user')
+        }
+
         const handleProfileChange = async (event) => {
                 const file = event.target.files[0]
 
@@ -197,7 +202,7 @@ export default function UserProfile() {
                                         <button onClick={() => setActiveModal('bookmarks')} className='more-actions__bookmark'>Bookmarks</button> {/* opens modal */}
                                         <button onClick={() => navigate('/cook/history')}>Cooking History</button>
                                         {/* <button className='danger-button'>Delete account</button> */}
-                                        <button className='logout-button danger-button' onClick={() => userDispatch({type: 'LOGOUT'})}>Log out</button>
+                                        <button className='logout-button danger-button' onClick={logout}>Log out</button>
                                 </section>
                         }
 
