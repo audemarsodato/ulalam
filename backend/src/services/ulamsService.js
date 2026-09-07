@@ -71,6 +71,8 @@ async function deleteUlam({ ulamId, userId }) {
                 const deletedUlam = await Ulam.findOneAndDelete({_id: ulamId, user_id: userId})
 
                 if (!deletedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                        
+                await User.updateMany({earned_specialties: ulamId}, {$pull: {earned_specialties: ulamId}})
                 
                 return deletedUlam
         }

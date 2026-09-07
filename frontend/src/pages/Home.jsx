@@ -49,7 +49,17 @@ export default function Home() {
                 getUlams()
         }, [])
 
-        const displayHistory = cookedUlams.slice(0, 3).map(record => record.ulam_id ?
+        const displayHistory = cookedUlams.slice(0, 3).map(record => record.ulam_id &&
+                <UlamCardHistory 
+                        ulamName={record.ulam_id.name} 
+                        date={formatCreatedAt(record.createdAt)} 
+                        mealtime={capitalize(record.mealtime)} 
+                        imageURL={record.ulam_id.image_url}
+                        id={record.ulam_id._id}
+                />
+        )
+
+        const displayHistoryIncludeNull = cookedUlams.slice(0, 3).map(record => record.ulam_id ?
                 <UlamCardHistory 
                         ulamName={record.ulam_id.name} 
                         date={formatCreatedAt(record.createdAt)} 
@@ -103,7 +113,7 @@ export default function Home() {
 
                                 <div className='ulam-container'>
                                         {cookedUlams.length > 0 ?
-                                                displayHistory
+                                                displayHistoryIncludeNull
                                                 :
                                                 <EmptyUlams message={'No cooking history yet. Start cooking to see your history here.'} />
                                         }
