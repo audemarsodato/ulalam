@@ -65,7 +65,7 @@ export default function UlamProfile() {
         if (!ulam) return
 
         const handleDelete = async () => {
-                const { ulams, error } = await fetchDeleteUlam({ulamId, token: user.token})
+                const { ulam, error } = await fetchDeleteUlam({ulamId, token: user.token})
                         
                 if (error) {
                         // setError(error)
@@ -73,8 +73,7 @@ export default function UlamProfile() {
                         return
                 }
 
-                //TODO if own ulam, delete it from the user context
-                // TODO handle deleted ulams in the references of users, like specialties and history
+                userDispatch({type: 'UPDATE', payload: {published_ulams: user.published_ulams.filter(published_ulam => published_ulam._id !== ulam._id)}})
                 navigate('/')
         }
 
