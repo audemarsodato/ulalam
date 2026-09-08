@@ -70,7 +70,7 @@ export default function UserProfile() {
                 }
 
                 setUser(prev => ({...prev, profile_image_url})) 
-                userDispatch({type: 'UPDATE', payload: {profile_image_url}}) // this line seems to be crashing the frontend
+                userDispatch({type: 'UPDATE', payload: {profile_image_url}}) 
         }
 
         const displayPublishedUlams = user.published_ulams.map(ulam => 

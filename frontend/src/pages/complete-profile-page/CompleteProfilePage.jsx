@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import './CompleteProfilePage.css'
@@ -9,7 +9,7 @@ import AuthError from '../../components/auth-error/AuthError'
 export default function CompleteProfilePage() {
         const navigate = useNavigate()
 
-        const { user } = useUserContext()
+        const { user, dispatch: userDispatch } = useUserContext()
         const [ profileImage, setProfileImage ] = useState(null)
         const [ profileImageSrc, setprofileImageSrc ] = useState(null)
         const [ username, setUsername ] = useState('')
@@ -21,11 +21,19 @@ export default function CompleteProfilePage() {
                 if (!file) return
 
                 setProfileImage(file)
+        }
 
-                const imageSrc = URL.createObjectURL(file) // TODO cleanup
+        useEffect(() => {
+                if (!profileImage) return
+
+                const imageSrc = URL.createObjectURL(profileImage) 
 
                 setprofileImageSrc(imageSrc)
-        }
+
+                return () => {
+                        URL.revokeObjectURL(imageSrc)
+                }
+        }, [profileImage])
 
         const handleProfileSetup = async (event) => {
                 event.preventDefault()
@@ -44,11 +52,14 @@ export default function CompleteProfilePage() {
                         })
 
                         const profileImageJson = await profileImageResponse.json()
-
+                        
                         if (!profileImageResponse.ok) {
                                 setError(profileImageJson.error)
                                 return
                         }
+                        userDispatch({type: 'UPDATE', payload: {
+                                profile_image_url: profileImageJson.profile_image_url, 
+                        }})
                 }
 
                 const usernameResponse = await fetch('/api/v1/users/me', {
@@ -68,8 +79,7 @@ export default function CompleteProfilePage() {
                         return
                 }
 
-                // TODO update user from the context
-
+                userDispatch({type: 'UPDATE', payload: {username: usernameJson.updatedUser.username}})
                 navigate('/')
         }
 
