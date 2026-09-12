@@ -251,7 +251,9 @@ function countMatchedIngredients(matchedUlams, cleanIngredients) {
 
 async function getUlamsByIngredients(ingredients) {
         const cleanIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
+
         const matchedUlams = await Ulam.find({ingredients: {$in: cleanIngredients}}).select('name ingredients image_url')
+
         if (matchedUlams.length === 0) throw new AppError('No matched ulams found using the ingredients', 400)
 
         const ulams = countMatchedIngredients(matchedUlams, cleanIngredients)

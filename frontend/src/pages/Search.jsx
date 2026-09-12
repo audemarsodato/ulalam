@@ -1,15 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Header from '../components/Header'
 import Ingredient from '../components/Ingredient'
 import UlamCardSearch from '../components/ulam-cards/UlamCardSearch'
 import UserCard from '../components/UserCard'
+import { fetchUlamsByIngredients } from '../services/searchService'
+import useUserContext from '../hooks/useUserContext'
 
 export default function Search() {
+        const { user } = useUserContext()
+        const [ matchedUlams, setMatchedUlams ] = useState([])
+
         const [ mode, setMode ] = useState('ulam')
 
         const [ input, setInput ] = useState('')
         const [ ingredients, setIngredients ] = useState([])
+
+        useEffect(() => {
+                const queryUlams = async () => {
+                        let ingredientsString = ingredients.join(',')
+
+                        const { ulams, error } = await fetchUlamsByIngredients({ ingredientsString, token: user.token})
+                        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                return
+                        }
+                        console.log(ulams)
+                        setMatchedUlams(ulams)
+                }
+                queryUlams()
+        }, [ingredients])
 
         const addIngredient = (event) => {
                 event.preventDefault()
@@ -30,6 +52,10 @@ export default function Search() {
                         name={ingredient} 
                         remove={() => removeIngredient(ingredient)}
                 />
+        )
+
+        const displayMatchedUlams = matchedUlams && matchedUlams.map(ulam => 
+                <UlamCardSearch ulamName={ulam.name} matchCount={ulam.matchCount} id={ulam._id} imageUrl={ulam.image_url}/>
         )
 
         const searchPeople = () => {
@@ -110,11 +136,7 @@ export default function Search() {
                                                 <div className="matched-ulams-section">
                                                         <h2>Match Found</h2>
                                                         <div className="ulam-container">
-                                                                <UlamCardSearch ulamName={'Adobo'} matchCount={2} />
-                                                                <UlamCardSearch ulamName={'Adobo'} matchCount={2} />
-                                                                <UlamCardSearch ulamName={'Adobo'} matchCount={2} />
-                                                                <UlamCardSearch ulamName={'Adobo'} matchCount={2} />
-                                                                <UlamCardSearch ulamName={'Adobo'} matchCount={2} />
+                                                                {displayMatchedUlams}
                                                         </div>
                                                 </div>
                                         </div>

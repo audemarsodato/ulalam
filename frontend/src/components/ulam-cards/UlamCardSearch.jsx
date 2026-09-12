@@ -1,12 +1,12 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCardSearch({ ulamName, matchCount }){
-        const { openProfile } = useUlamCard(ulamName)
+export default function UlamCardSearch({ ulamName, matchCount, id, imageUrl }){
+        const { openProfile } = useUlamCard(id)
 
         return (
                 <div className="ulam-card" onClick={openProfile}>
                         <div className="image-container">
-                                <img src="" loading="lazy"/>
+                                <img src={imageUrl} loading="lazy"/>
                         </div>
 
                         <div className="details">
