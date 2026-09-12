@@ -12,7 +12,8 @@ const {
         getPublishedUlams,
         getUlamsFromFollowings,
         getEarnedSpecialties,
-        updateProfileImageCurrentUser
+        updateProfileImageCurrentUser,
+        getBookmarkedUlams
 } = require('../controllers/userController')
 
 // GET current users details except password hash
@@ -36,7 +37,6 @@ router.get('/:userId/ulams', getPublishedUlams)
 
 router.patch('/me/profile-image', upload.single('profile-image'), updateProfileImageCurrentUser)
 
-// router.post('/me/ulams/earned-specialties/:ulamId', addToSpecialties)
-// whats the design for determining earned specialties?
+router.get('/me/ulams/bookmarks', getBookmarkedUlams)
 
 module.exports = router

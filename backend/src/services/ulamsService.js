@@ -356,6 +356,14 @@ async function getVariations(ulamId) {
         return variations
 }
 
+async function getBookmarkedUlams(userId) {
+        if (!mongoose.Types.ObjectId.isValid(userId)) throw new AppError('User id is not valid id', 400)
+
+        const bookmarks = await Ulam.find({bookmarked_by: userId}).populate('user_id')
+
+        return bookmarks
+}
+
 module.exports = {
         createUlam,
         updateUlam,
@@ -371,5 +379,6 @@ module.exports = {
         getEarnedSpecialties,
         getUlamsByIngredients,
         getPublishedUlams,
-        getVariations
+        getVariations,
+        getBookmarkedUlams
 }

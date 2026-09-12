@@ -121,6 +121,19 @@ async function updateProfileImageCurrentUser(req, res) {
         }
 }
 
+async function getBookmarkedUlams(req, res) {
+        const userId = req.user_id
+        
+        try {
+                const ulams = await ulamsService.getBookmarkedUlams(userId)
+                res.status(200).json({bookmarks: ulams})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 
 module.exports = {
         getCurrentUser,
@@ -131,5 +144,6 @@ module.exports = {
         getPublishedUlams,
         getUlamsFromFollowings,
         getEarnedSpecialties,
-        updateProfileImageCurrentUser
+        updateProfileImageCurrentUser,
+        getBookmarkedUlams
 }
