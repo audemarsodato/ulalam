@@ -36,6 +36,18 @@ body {
         margin-bottom: 64px;
 }
 
+.init-state .spinner-wrapper {
+        position: fixed;
+        top: 50dvh;
+        left: 50dvw;
+}
+
+.init-state .spinner-wrapper span {
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--text);
+}
+
 /* HOME PAGE */
 .home-page header  {
         display: flex;

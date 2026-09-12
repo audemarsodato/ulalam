@@ -1,4 +1,19 @@
 
+export async function fetchBookmarks(token) {
+        const response = await fetch(`/api/v1/users/me/ulams/bookmarks`, {
+                method: 'GET',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, bookmarks: null}
+
+        return {bookmarks: json.bookmarks, error: null}
+}
+
 export async function fetchDeleteUlam({ ulamId, token }) {
         const response = await fetch(`/api/v1/ulams/${ulamId}`, {
                 method: 'DELETE',

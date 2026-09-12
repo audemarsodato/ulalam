@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './MealPlanner.css'
 
@@ -7,17 +7,28 @@ import Day from './components/Day'
 import UlamCardPlanner from '../../components/ulam-cards/UlamCardPlanner'
 import UlamCard from '../../components/ulam-cards/UlamCard'
 import Modal from '../../components/modal/Modal'
-import { useEffect } from 'react'
+
+import { mealtimes, numDaysAhead } from '../../config/config'
+import { capitalize } from '../../utils/formatText'
+
+import useUserContext from '../../hooks/useUserContext'
+
+import { fetchBookmarks } from '../../services/ulamsService'
+import { fetchAddMealplan, fetchMealplans, fetchRemoveMealplan } from '../../services/mealplansService'
 
 export default function MealPlanner() {
+        const { user } = useUserContext()
+
         const [ activeModal, setActiveModal ] = useState(null)
+        
         const [ selectedDate, setSelectedDate ] = useState(new Date())
         const [ selectedMealtime, setSelectedMealtime ] = useState('breakfast')
+
         const [ mealplan, setMealplan ] = useState([])
+        const [ bookmarks, setBookmarks ] = useState(null)
+
         const today = new Date()
         const next7Days = []
-        const numDaysAhead = 7
-        const mealtimes = ['breakfast', 'lunch', 'dinner']
 
         for (let i = 0; i < numDaysAhead; i++) {
                 const date = new Date(today)
@@ -26,29 +37,77 @@ export default function MealPlanner() {
                 next7Days.push(date)
         }
 
-        const bookmarks = [
-                { ulamName: 'Tinola', owner: 'Trisha Wyne Bobis'},
-                { ulamName: 'Sinigang na Bangus', owner: 'Apple Mae Odato'},
-                { ulamName: 'Adobong Chicken', owner: 'Nanay'}
-        ]
+        useEffect(() => {
+                const getBookmarks = async () => {
+                        const { bookmarks, error } = await fetchBookmarks(user.token)
+                        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                return
+                        }
+                        setBookmarks(bookmarks)
+                }
+                const getMealplans = async () => {
+                        const { mealplans, error } = await fetchMealplans(user.token)
+                        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                return
+                        }
+                        console.log(mealplans)
+                        setMealplan(mealplans)
+                }
+                getMealplans()
+                getBookmarks()
+        }, [])
 
-
-        const addToPlan = ({ ulam, owner, date, mealtime }) => {
+        const addToPlan = async (ulam) => {
                 // TODO: create error message system, toast, popup etc
                 if (!selectedMealtime) return
 
-                // TODO: create capitalize utility function
-                setMealplan(current => [...current, {ulam, owner, date, mealtime: mealtime.charAt(0).toUpperCase() + mealtime.slice(1)}])
+                const mealplanInput = {
+                        ulamId : ulam._id, 
+                        date: selectedDate, 
+                        mealtime: selectedMealtime
+                }
+
+                const { mealplan, error } = await fetchAddMealplan({ mealplan: mealplanInput, token:user.token })
+                        
+                if (error) {
+                        // setError(error)
+                        console.log(error)
+                        return
+                }
+
+                setMealplan(current => 
+                        [
+                                ...current, 
+                                {...mealplan, mealtime: capitalize(mealplan.mealtime)}
+                        ]
+                )
+                setSelectedMealtime('breakfast')
                 setActiveModal(null)
         }
 
-        const removeUlamFromPlan = (planToRemove) => {
+        const removeUlamFromPlan = async (planToRemove) => {
                 setMealplan(current => current.filter(plan => plan !== planToRemove))
-        }
 
-        useEffect(() => {
-                console.log(selectedDate);
-        }, [selectedDate])
+                const { mealplan, error } = await fetchRemoveMealplan({ mealplanId: planToRemove._id, token: user.token })
+
+                if (error) {
+                        // setError(error)
+                        console.log(error)
+                        setMealplan(current => 
+                                [
+                                        ...current, 
+                                        {...planToRemove, mealtime: capitalize(planToRemove.mealtime)}
+                                ]
+                        )
+                        return
+                }
+        }
 
         const displayDates = next7Days.map(day => (
                 <Day 
@@ -60,18 +119,21 @@ export default function MealPlanner() {
                 />
         ))
 
-        const displayBookmarks = bookmarks.map(ulam => 
+        const displayBookmarks = bookmarks && bookmarks.map(ulam => 
                 <UlamCard 
-                        ulamName={ulam.ulamName} 
-                        owner={ulam.owner} 
-                        onClick={() => addToPlan({ulam, owner: 'audemarsodato', date: selectedDate, mealtime: selectedMealtime})} 
+                        ulamName={ulam.name} 
+                        owner={ulam.user_id.username} 
+                        imageURL={ulam.image_url}
+                        onClick={() => addToPlan(ulam)}
                 />
         )
 
-        const displayUlamPlans = mealplan.filter(plan => plan.date.toDateString() === selectedDate.toDateString()).map(plan => (
+        const displayUlamPlans = mealplan.filter(plan => new Date(plan.date).toDateString() === selectedDate.toDateString()).map(plan => (
                 <UlamCardPlanner 
-                        ulamName={plan.ulam.ulamName} 
-                        mealtime={plan.mealtime} 
+                        id={plan.ulam_id._id}
+                        ulamName={plan.ulam_id.name} 
+                        mealtime={capitalize(plan.mealtime)} 
+                        imageUrl={plan.ulam_id.image_url}
                         onDelete={() => removeUlamFromPlan(plan)} 
                 />
         ))
@@ -87,7 +149,7 @@ export default function MealPlanner() {
                         </div>
 
                         <div className="ulam-plans">
-                                <h2 className='current-date'>{selectedDate.toLocaleDateString('en-US', {
+                                <h2 className='current-date'>{today.toDateString() === selectedDate.toDateString() ? 'Today - ' : ''}{selectedDate.toLocaleDateString('en-US', {
                                         weekday: 'long',
                                         month: 'long',
                                         day: 'numeric'

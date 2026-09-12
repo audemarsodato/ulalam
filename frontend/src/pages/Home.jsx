@@ -35,7 +35,6 @@ export default function Home() {
                                 console.log(recordsError)
                                 return
                         }
-                        console.log(cooking_records)
                         setCookedUlams(cooking_records)
                         
                         const { ulams_from_followings, error: fromFollowingsError } = await fetchUlamsFromFollowings(user.token)

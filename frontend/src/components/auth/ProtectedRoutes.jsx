@@ -5,7 +5,7 @@ import LoadingSpinner from '../loading-spinner/LoadingSpinner'
 export default function ProtectedRoutes() {
         const { user, isInitializing } = useUserContext()
 
-        if (isInitializing) return <LoadingSpinner />
+        if (isInitializing) return <div className="init-state"><LoadingSpinner /></div>
 
         return user && user.email_verified ? <Outlet /> : <Navigate to={'/login'}/>
 }

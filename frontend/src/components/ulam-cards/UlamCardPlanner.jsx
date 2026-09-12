@@ -1,12 +1,12 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCardPlanner({ ulamName, mealtime, date, onDelete }) {
-        const { openProfile } = useUlamCard(ulamName)
+export default function UlamCardPlanner({ ulamName, mealtime, date, imageUrl, onDelete, id }) {
+        const { openProfile } = useUlamCard(id)
        
         return (
                 <div className="ulam-card planner-card" onClick={openProfile}>
                         <div className="image-container">
-                                <img loading='lazy' />
+                                <img loading='lazy' src={imageUrl}/>
                         </div>
 
                         <div className="details">

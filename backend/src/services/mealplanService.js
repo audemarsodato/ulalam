@@ -17,6 +17,7 @@ async function addMealplan({ ulamId, userId, mealtime, dateString }) {
                 mealtime: mealtime.trim().toLowerCase(),
                 date
         })
+        await mealplan.populate('user_id ulam_id')
 
         if (!mealplan) throw new AppError('Failed to create mealplan')
 
@@ -24,7 +25,7 @@ async function addMealplan({ ulamId, userId, mealtime, dateString }) {
 }
 
 async function getMealplans(userId) {
-        const mealplans = await Mealplan.find({user_id: userId})
+        const mealplans = await Mealplan.find({user_id: userId}).populate('ulam_id user_id')
         if (!mealplans) throw new AppError('Failed to fetch mealplans')
 
         return mealplans

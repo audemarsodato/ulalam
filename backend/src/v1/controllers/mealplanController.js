@@ -3,7 +3,7 @@ const { checkMissingFields } = require('../../utils/utils')
 
 async function addMealplan(req, res) {
         const userId = req.user_id
-        const { ulamId, mealtime, date } = req.body
+        const { ulamId, mealtime, date } = req.body ?? {}
 
         const missingFields = checkMissingFields({ulamId, mealtime, date})
 
@@ -11,7 +11,7 @@ async function addMealplan(req, res) {
 
         try {
                 const mealplan = await mealplanService.addMealplan({ulamId, userId, mealtime, dateString: date})
-                res.status(201).json(mealplan)
+                res.status(201).json({mealplan})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
@@ -54,7 +54,7 @@ async function removeMealplan(req, res) {
 
         try {
                 const mealplan = await mealplanService.removeMealplan({mealplanId, userId})
-                res.status(200).json(mealplan)
+                res.status(200).json({mealplan})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
