@@ -40,6 +40,7 @@ body {
         position: fixed;
         top: 50dvh;
         left: 50dvw;
+        transform: translate(-50%);
 }
 
 .init-state .spinner-wrapper span {

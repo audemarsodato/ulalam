@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-
+const { queryLimit } = require('../config/config')
 const User = require('../models/userModel')
 const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
@@ -25,7 +25,7 @@ async function getUser(userId) {
 async function getUserByUsername(username) {
         const user = await User.findOne({username}).select('-password_hash')
 
-        if (!user) throw new Error('Failed to get user')
+        if (!user) throw new AppError('User not found. No such username exists', 404)
 
         const followers = await User.find({_id: {$in: user.followers}}).select('username profile_image_url followings followers')
         const followings = await User.find({_id: {$in: user.followings}}).select('username profile_image_url followings followers')
@@ -33,6 +33,20 @@ async function getUserByUsername(username) {
         const earned_specialties = await Ulam.find({_id: {$in: user.earned_specialties}})
 
         return {...user.toObject(), published_ulams, followers, followings, earned_specialties}
+}
+
+async function queryUsersByUsername({ username, limit: limitString }) {
+        const limit = limitString ? Number(limitString) : queryLimit
+
+        if (username.includes(' ')) throw new AppError('Usernames does not include spaces', 400)
+
+        const users = await User.find({
+                username: { $regex: `^${username}`, $options: 'i' }
+        })
+                .select('username profile_image_url followers followings')
+                .limit(limit)
+
+        return users
 }
 
 async function updateCurrentUser({ userId, updates }) {
@@ -125,5 +139,6 @@ module.exports = {
         followUser,
         unfollowUser,
         updateProfileImage,
-        getUserByUsername
+        getUserByUsername,
+        queryUsersByUsername
 }

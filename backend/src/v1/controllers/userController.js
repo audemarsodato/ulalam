@@ -134,6 +134,20 @@ async function getBookmarkedUlams(req, res) {
         }
 }
 
+async function queryUsers(req, res) {
+        const { username, limit } = req.query
+
+        if (!username) return res.status(400).json({error: {message: 'Username is required to search users'}})
+
+        try {
+                const users = await userService.queryUsersByUsername({username, limit})
+                res.status(200).json({users})
+        } catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 
 module.exports = {
         getCurrentUser,
@@ -145,5 +159,6 @@ module.exports = {
         getUlamsFromFollowings,
         getEarnedSpecialties,
         updateProfileImageCurrentUser,
-        getBookmarkedUlams
+        getBookmarkedUlams,
+        queryUsers
 }

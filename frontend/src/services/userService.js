@@ -1,4 +1,19 @@
 
+export async function fetchQueryUsers(token) {
+        const response = await fetch('/api/v1/users/me/ulams/from-following', {
+                method: 'GET',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulams_from_followings: null}
+
+        return {ulams_from_followings: json.ulams_from_followings, error: null}
+}
+
 // TODO move to cookingLogs service
 export async function fetchCookingRecords({ token, limit }) { // TODO implement pagination and limit fetch
         const response = await fetch('/api/v1/cooking-logs', {
@@ -29,6 +44,7 @@ export async function fetchUlamsFromFollowings(token) {
 
         return {ulams_from_followings: json.ulams_from_followings, error: null}
 }
+
 export async function fetchChangeProfileImage({ imageFile, token }) {
         const formData = new FormData()
         formData.append('profile-image', imageFile)

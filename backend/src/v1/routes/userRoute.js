@@ -13,7 +13,8 @@ const {
         getUlamsFromFollowings,
         getEarnedSpecialties,
         updateProfileImageCurrentUser,
-        getBookmarkedUlams
+        getBookmarkedUlams,
+        queryUsers
 } = require('../controllers/userController')
 
 // GET current users details except password hash
@@ -38,5 +39,7 @@ router.get('/:userId/ulams', getPublishedUlams)
 router.patch('/me/profile-image', upload.single('profile-image'), updateProfileImageCurrentUser)
 
 router.get('/me/ulams/bookmarks', getBookmarkedUlams)
+
+router.get('', queryUsers)
 
 module.exports = router

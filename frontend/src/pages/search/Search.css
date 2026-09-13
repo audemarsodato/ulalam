@@ -1,0 +1,15 @@
+
+.search-page .empty-state-placeholder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin: 12px;
+}
+
+.search-page .empty-state-placeholder span {
+        font-size: 32px;
+
+        opacity: 60%;
+}
