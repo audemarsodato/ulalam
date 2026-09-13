@@ -8,7 +8,7 @@ import Header from "../../components/Header"
 import UlamCard from '../../components/ulam-cards/UlamCard'
 import SpecialtyCard from '../../components/ulam-cards/SpecialtyCard'
 import Modal from "../../components/modal/Modal"
-import UserCard from '../../components/UserCard'
+import UserCard from '../../components/user-card/UserCard'
 import useUserContext from '../../hooks/useUserContext'
 import { 
         fetchUserByUsername, 

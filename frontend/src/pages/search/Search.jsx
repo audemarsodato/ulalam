@@ -5,13 +5,15 @@ import './Search.css'
 import Header from '../../components/Header'
 import Ingredient from '../../components/Ingredient'
 import UlamCardSearch from '../../components/ulam-cards/UlamCardSearch'
-import UserCard from '../../components/UserCard'
+import UserCard from '../../components/user-card/UserCard'
 import Error from './components/Error'
+
+import { queryLimit } from '../../config/config'
 
 import useUserContext from '../../hooks/useUserContext'
 
 import { fetchUlamsByIngredients } from '../../services/searchService'
-import { fetchUserByUsername } from '../../services/userService'
+import { fetchQueryUsers } from '../../services/userService'
 
 export default function Search() {
         const { user } = useUserContext()
@@ -46,6 +48,10 @@ export default function Search() {
                 queryUlams()
         }, [ingredients])
 
+        useEffect(() => {
+                setInput('')
+        }, [mode])
+
         const addIngredient = (event) => {
                 event.preventDefault()
 
@@ -72,24 +78,34 @@ export default function Search() {
         )
 
         const searchPeople = async () => {
+                setMatchedUsers(null)
+                setUserError(null)
+                
                 if (!input) return
 
-                const { user: matchedUser, error } = await fetchUserByUsername({username: input, token: user.token})
+                const { users: matchedUsers, error } = await fetchQueryUsers({username: input, limit:  queryLimit, token: user.token})
                         
                 if (error) {
                         setUserError(error)
                         console.log(error)
                         return
                 }
-                setMatchedUsers(matchedUser)
+
+                console.log(matchedUsers.length)
+
+                if (matchedUsers.length === 0) {
+                        setUserError({message: 'No user found'})
+                        return
+                }
+
+                setMatchedUsers(matchedUsers)
                 setUserError(null)
-                setInput('')
         }
 
-        const displayMatchedUsers = matchedUsers && <UserCard userName={matchedUsers.username} followerCount={matchedUsers.followers.length} followingCount={matchedUsers.followings.length} profileURL={matchedUsers.profile_image_url}/>
-        // const displayMatchedUsers = matchedUsers && matchedUsers.map(user => 
-        //         <UserCard userName={user.username} followerCount={user.followers.length} followingCount={user.followings.length} profileURL={user.profile_image_url}/>
-        // )
+        // const displayMatchedUsers = matchedUsers && <UserCard userName={matchedUsers.username} followerCount={matchedUsers.followers.length} followingCount={matchedUsers.followings.length} profileURL={matchedUsers.profile_image_url}/>
+        const displayMatchedUsers = matchedUsers && matchedUsers.map(user => 
+                <UserCard user={user} />
+        )
 
         return (
                 <section className="search-page">

@@ -1,6 +1,6 @@
 
-export async function fetchQueryUsers(token) {
-        const response = await fetch('/api/v1/users/me/ulams/from-following', {
+export async function fetchQueryUsers({ username, limit, token }) {
+        const response = await fetch(`/api/v1/users?username=${username}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                         authorization: `Bearer ${token}`
@@ -9,9 +9,9 @@ export async function fetchQueryUsers(token) {
 
         const json = await response.json()
 
-        if (!response.ok) return {error: json.error, ulams_from_followings: null}
+        if (!response.ok) return {error: json.error, users: null}
 
-        return {ulams_from_followings: json.ulams_from_followings, error: null}
+        return {users: json.users, error: null}
 }
 
 // TODO move to cookingLogs service
