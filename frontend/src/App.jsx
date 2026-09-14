@@ -23,6 +23,9 @@ import useUserContext from './hooks/useUserContext'
 export default function App() {
         const { user } = useUserContext()
 
+        // everytime we go to a page we push the url
+        // we everytime we go back we pop and go to the popped url
+
         return (
                 <div className='app'>
                         <BrowserRouter>

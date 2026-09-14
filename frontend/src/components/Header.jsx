@@ -1,12 +1,11 @@
-import { Link } from 'react-router-dom'
+
+import ReturnButton from "./return-button/ReturnButton"
 
 export default function Header({ pageTitle }) {
 
         return (
                 <header className="page-headers">
-                        <div className="return-button">
-                                <Link to={'/'}><span className="material-symbols-rounded">arrow_back_ios</span></Link>
-                        </div>
+                        <ReturnButton />
 
                         <div className="page-title">
                                 <h1>

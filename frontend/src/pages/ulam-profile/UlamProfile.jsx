@@ -7,6 +7,8 @@ import Stat from '../../components/ulam-profile/Stat'
 import Comment from "../../components/ulam-profile/Comment"
 import Ingredient from '../../components/Ingredient'
 import UlamCard from '../../components/ulam-cards/UlamCard'
+import ReturnButton from '../../components/return-button/ReturnButton'
+
 import useUserContext from '../../hooks/useUserContext'
 import { fetchUlam, fetchLikeUlam, fetchUnlikeUlam, fetchVariations, fetchAddComment, fetchUnbookmarkUlam, fetchBookmarkUlam, fetchDeleteUlam } from "../../services/ulamsService"
 import EmptyUlams from '../../components/empty-ulams/EmptyUlams'
@@ -195,9 +197,7 @@ export default function UlamProfile() {
         return (
                 <section className="ulam-profile-page">
                         <header className="page-headers">
-                                <div className="return-button">
-                                        <Link to={'/'}><span className="material-symbols-rounded">arrow_back_ios</span></Link>
-                                </div>
+                                <ReturnButton />
 
                                 <div className="actions">
                                         <button className={`material-symbols-rounded ${bookmarked ? 'filled-icon' : ''}`} onClick={handleBookmark}>

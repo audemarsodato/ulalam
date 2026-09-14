@@ -512,7 +512,7 @@ body {
         margin-bottom: 32px;
 }
 
-.page-headers .return-button a {
+.page-headers .return-button button {
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -523,6 +523,7 @@ body {
         color: var(--text);
         background-color: #fff;
         border-radius: 50%;
+        border: none;
         text-decoration: none;
 }
 

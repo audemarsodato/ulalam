@@ -6,6 +6,7 @@ import './CookUlam.css'
 import IngredientsList from './components/IngredientsList'
 import Finish from './components/Finish'
 import Step from './components/Step'
+import ReturnButton from '../../components/return-button/ReturnButton'
 
 export default function CookUlam() {
         const { ulamId } = useParams()
@@ -65,9 +66,7 @@ export default function CookUlam() {
         return (
                 <section className="cook-ulam-page">
                         <header className="page-headers">
-                                <div className="return-button">
-                                        <Link to={'/'}><span className="material-symbols-rounded">arrow_back_ios</span></Link>
-                                </div>
+                                <ReturnButton />
 
                                 <div className="step-indicator">
                                         <p>Step {currentStepIndex} of {steps.length - 1}</p>
