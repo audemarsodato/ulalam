@@ -85,7 +85,7 @@ export default function Home() {
         return (
                 <section className='home-page'>
                         <header>
-                                <Link to={'/users/audemarsodato'} className='profile-image'>
+                                <Link to={`/users/${user.username}`} className='profile-image'>
                                         <img src={user.profile_image_url ? user.profile_image_url : defaultProfileImage}/>
                                 </Link>
                                 <p>Ulalam</p>

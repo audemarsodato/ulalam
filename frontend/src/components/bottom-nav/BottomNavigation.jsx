@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 
 import './BottomNav.css'
+import useUserContext from '../../hooks/useUserContext'
 
 export default function BottomNavigation() {
+        const { user } = useUserContext()
        
         return (
                 <section className="bottom-nav">
@@ -28,7 +30,7 @@ export default function BottomNavigation() {
                                         <p>History</p>
                                 </Link>
 
-                                <Link to={'/users/audemarsodato'} className="profile-button action">
+                                <Link to={`/users/${user.username}`} className="profile-button action">
                                         <span class='material-symbols-rounded'>person</span>
                                         <p>Profile</p>
                                 </Link>
