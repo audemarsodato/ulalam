@@ -4,7 +4,7 @@ const CookingLog = require('../models/cookingLogModel')
 const User = require('../models/userModel')
 const Ulam = require('../models/ulamModel')
 const AppError = require('../utils/AppError')
-const { masteryThreshold } = require('../config/config')
+const { masteryThreshold, queryLimit, defaultPagination } = require('../config/config')
 
 /*
 * mealtimes hour here is determined by the cooking time in mind, therefore the the time the ulam is cooked determines the mealtime
@@ -73,8 +73,21 @@ async function recordSession({ ulamId, userId }) {
         return {...cookingLog.toObject(), times_cooked: timesCooked, isNewlyAdded}
 }
 
-async function getRecords(userId) {
-        const records = await CookingLog.find({user_id: userId}).sort({createdAt: -1}).populate('ulam_id')
+/* Pagination
+*  Takes the limit and also page the frontend requested
+*  Limit handles how many documents to only return, the max number
+*  Skip index means skip the previous pages and start at the skip index, current page - 1 multiplied by the limit
+*/
+async function getRecords({ userId, limit: limitString , page: pageString }) {
+        const limit = limitString ? Number(limitString) : queryLimit
+        const page = Number(pageString) || defaultPagination
+        const skipIndex = (page - 1) * limit
+
+        const records = await CookingLog.find({user_id: userId})
+                .sort({createdAt: -1})
+                .skip(skipIndex)
+                .limit(limit)
+                .populate('ulam_id')
 
         if (!records) throw new AppError('Failed to fetch records')
 

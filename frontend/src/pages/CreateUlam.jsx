@@ -49,9 +49,6 @@ export default function CreateUlam() {
                 formData.append('instructions', JSON.stringify(instructions))
                 formData.append('image-file', imageFile)
 
-                console.log({ name, imageFile, ingredients, instructions })
-                console.log(formData)
-
                 const { ulam, error: errorResponse } = await fetchCreateUlam({formData, token: user.token})
 
                 if (errorResponse) {
@@ -63,7 +60,7 @@ export default function CreateUlam() {
 
                 userDispatch({type: 'UPDATE', payload: {published_ulams: [...user.published_ulams, ulam]}})
                 setIsLoading(false)
-                navigate(`/ulams/${ulam._id}`)
+                navigate(`/ulams/${ulam._id}`, {replace: true})
         }
 
         return (

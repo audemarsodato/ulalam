@@ -1,4 +1,3 @@
-const { populate } = require('../../models/ulamModel')
 const ulamsService = require('../../services/ulamsService')
 const AppError = require('../../utils/AppError')
 const { checkMissingFields } = require('../../utils/utils')

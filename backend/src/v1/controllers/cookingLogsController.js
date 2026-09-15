@@ -23,9 +23,10 @@ async function recordSession(req, res) {
 // GET records from log
 async function getRecords(req, res) {
         const userId = req.user_id
+        const { limit, page } = req.query
 
         try {
-                const cooking_records = await cookingLogsService.getRecords(userId)
+                const cooking_records = await cookingLogsService.getRecords({userId, limit, page})
                 res.status(200).json({cooking_records})
         }
         catch (error) {
