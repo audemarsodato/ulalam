@@ -48,23 +48,21 @@ export default function Home() {
                 getUlams()
         }, [])
 
-        const displayHistory = cookedUlams.slice(0, 3).map(record => record.ulam_id &&
-                <UlamCardHistory 
-                        ulamName={record.ulam_id.name} 
-                        date={formatCreatedAt(record.createdAt)} 
-                        mealtime={capitalize(record.mealtime)} 
-                        imageURL={record.ulam_id.image_url}
-                        id={record.ulam_id._id}
-                />
-        )
+        // const displayHistory = cookedUlams.slice(0, 3).map(record => record.ulam_id &&
+        //         <UlamCardHistory 
+        //                 ulamName={record.ulam_id.name} 
+        //                 date={formatCreatedAt(record.createdAt)} 
+        //                 mealtime={capitalize(record.mealtime)} 
+        //                 imageURL={record.ulam_id.image_url}
+        //                 id={record.ulam_id._id}
+        //         />
+        // )
 
         const displayHistoryIncludeNull = cookedUlams.slice(0, 3).map(record => record.ulam_id ?
                 <UlamCardHistory 
-                        ulamName={record.ulam_id.name} 
+                        ulam={record.ulam_id}
                         date={formatCreatedAt(record.createdAt)} 
                         mealtime={capitalize(record.mealtime)} 
-                        imageURL={record.ulam_id.image_url}
-                        id={record.ulam_id._id}
                 />
                 :
                 <DeletedUlamCard />

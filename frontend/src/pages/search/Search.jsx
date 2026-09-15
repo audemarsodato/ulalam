@@ -91,8 +91,6 @@ export default function Search() {
                         return
                 }
 
-                console.log(matchedUsers.length)
-
                 if (matchedUsers.length === 0) {
                         setUserError({message: 'No user found'})
                         return

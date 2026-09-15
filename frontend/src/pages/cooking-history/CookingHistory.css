@@ -19,13 +19,18 @@
 
 .history-page .load-more {
         margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 
-.history-page .load-more p {
+.history-page .load-more button {
         font-size: var(--text-size);
         text-align: center;
 
         font-weight: 600;
         opacity: 40%;
         text-decoration: underline;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
 }

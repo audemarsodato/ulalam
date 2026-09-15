@@ -1,16 +1,16 @@
 import useUlamCard from "./useUlamCard"
 
-export default function UlamCardHistory({ ulamName, date, mealtime, imageURL, id }){
-        const { openProfile } = useUlamCard(id)
+export default function UlamCardHistory({ ulam, mealtime, date }){
+        const { openProfile } = useUlamCard(ulam._id)
 
         return (
                 <div className="ulam-card history-card" onClick={openProfile}>
                         <div className="image-container">
-                                <img src={imageURL} loading='lazy' />
+                                <img src={ulam.image_url} loading='lazy' />
                         </div>
 
                         <div className="details">
-                                <h1>{ulamName}</h1>
+                                <h1>{ulam.name}</h1>
                                 <p>
                                         {date &&
                                                 `${date} - `
