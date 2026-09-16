@@ -86,8 +86,7 @@ async function likeUlam({ ulamId, userId }) {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
                 const filters = {
-                        _id: ulamId,
-                        user_id: userId
+                        _id: ulamId
                 }
         
                 const options = {
@@ -111,8 +110,7 @@ async function unlikeUlam({ ulamId, userId }) {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
                 const filters = {
-                        _id: ulamId,
-                        user_id: userId
+                        _id: ulamId
                 }
         
                 const options = {
@@ -136,8 +134,7 @@ async function bookmarkUlam({ ulamId, userId }) {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
                 const filters = {
-                        _id: ulamId,
-                        user_id: userId
+                        _id: ulamId
                 }
         
                 const options = {
@@ -161,8 +158,7 @@ async function unbookmarkUlam({ ulamId, userId }) {
                 if (!mongoose.Types.ObjectId.isValid(ulamId)) throw new AppError('Ulam id is not valid id', 400)
                 
                 const filters = {
-                        _id: ulamId,
-                        user_id: userId
+                        _id: ulamId
                 }
         
                 const options = {
