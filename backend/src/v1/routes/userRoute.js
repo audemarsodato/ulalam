@@ -24,9 +24,9 @@ router.patch('/me', updateCurrentUser)
 
 router.get('/:username', getUser)
 
-router.post('/:userId/following', followUser)
+router.post('/:userId/followings', followUser)
 
-router.delete('/:userId/following', unfollowUser)
+router.delete('/:userId/followings', unfollowUser)
 
 // get the user's ulams from followings for home page
 router.get('/me/ulams/from-following', getUlamsFromFollowings)

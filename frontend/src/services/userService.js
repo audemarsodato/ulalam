@@ -1,4 +1,34 @@
 
+export async function fetchUnfollowUser({ userId, token }) {
+        const response = await fetch(`/api/v1/users/${userId}/followings`, {
+                method: 'DELETE',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, user: null}
+
+        return {user: json.targetUser, error: null}
+}
+
+export async function fetchFollowUser({ userId, token }) {
+        const response = await fetch(`/api/v1/users/${userId}/followings`, {
+                method: 'POST',
+                headers: {
+                        authorization: `Bearer ${token}`
+                }
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, user: null}
+
+        return {user: json.targetUser, error: null}
+}
+
 export async function fetchQueryUsers({ username, limit, token }) {
         const response = await fetch(`/api/v1/users?username=${username}&limit=${limit}`, {
                 method: 'GET',
@@ -15,7 +45,7 @@ export async function fetchQueryUsers({ username, limit, token }) {
 }
 
 // TODO move to cookingLogs service
-export async function fetchCookingRecords({ token, limit }) { // TODO implement pagination and limit fetch
+export async function fetchCookingRecords({ token, limit }) {
         const response = await fetch('/api/v1/cooking-logs', {
                 method: 'GET',
                 headers: {

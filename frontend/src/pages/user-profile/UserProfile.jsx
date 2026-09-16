@@ -4,18 +4,24 @@ import { useNavigate, useParams } from 'react-router-dom'
 import './UserProfile.css'
 
 import defaultProfileImage from '../../assets/icons/default-profile-picture.svg'
+
 import Header from "../../components/Header"
 import UlamCard from '../../components/ulam-cards/UlamCard'
 import SpecialtyCard from '../../components/ulam-cards/SpecialtyCard'
 import Modal from "../../components/modal/Modal"
 import UserCard from '../../components/user-card/UserCard'
+import EmptyUlams from '../../components/empty-ulams/EmptyUlams'
+import LoadingSpinner from '../../components/loading-spinner/LoadingSpinner'
+
 import useUserContext from '../../hooks/useUserContext'
+
 import { 
         fetchUserByUsername, 
         fetchCurrentUsersDetails,
-        fetchChangeProfileImage
+        fetchChangeProfileImage,
+        fetchFollowUser,
+        fetchUnfollowUser
 } from '../../services/userService'
-import EmptyUlams from '../../components/empty-ulams/EmptyUlams'
 
 export default function UserProfile() {
         const navigate = useNavigate()
@@ -26,6 +32,7 @@ export default function UserProfile() {
         const isOwnProfile = currentUser.username === profileOwnerUsername
 
         const [ isFollowing, setIsFollowing ] = useState(false)
+        const [ isFollowLoading, setIsFollowLoading ] = useState(false)
         const [ activeModal, setActiveModal ] = useState(null)
         const [ error, setError ] = useState(null)
 
@@ -46,12 +53,55 @@ export default function UserProfile() {
                         }
                         
                         setUser(user)
+                        
+                        for (const follower of user.followers) {
+                                if (follower._id === currentUser._id) setIsFollowing(true)
+                        }
                 }
                 getUser()
         }, [])
 
+        // Debugging
+        useEffect(() => {
+                console.log({user})
+        }, [user])
+
         
         if (!user) return
+
+        const handleUnfollow = async () => {
+                setIsFollowLoading(true)
+
+                const { user: followedUser, error } = await fetchUnfollowUser({userId: user._id, token: currentUser.token})
+
+                if (error) {
+                        setIsFollowLoading(false)
+                        setError(error)
+                        console.log(error)
+                        return
+                }
+
+                setUser(current => ({...current, followers: current.followers.filter(follower => follower._id !== currentUser._id)}))
+                setIsFollowing(false)
+                setIsFollowLoading(false)
+        }
+
+        const handleFollow = async () => {
+                setIsFollowLoading(true)
+
+                const { user: followedUser, error } = await fetchFollowUser({userId: user._id, token: currentUser.token})
+
+                if (error) {
+                        setIsFollowLoading(false)
+                        setError(error)
+                        console.log(error)
+                        return
+                }
+
+                setUser(current => ({...current, followers: [...current.followers, currentUser]}))
+                setIsFollowing(true)
+                setIsFollowLoading(false)
+        }
 
         const logout = () => {
                 userDispatch({type: 'LOGOUT'})
@@ -141,30 +191,15 @@ export default function UserProfile() {
                         <section className="action section">
                                 {!isOwnProfile && (
                                         isFollowing ? (
-                                                <button className="unfollow-button" onClick={() => setIsFollowing(false)}>
-                                                        Following
+                                                <button className="unfollow-button" onClick={handleUnfollow} disabled={isFollowLoading}>
+                                                        {isFollowLoading ? 'Unfolling...' : 'Following' }
                                                 </button>
                                         ) : (
-                                                <button className="follow-button" onClick={() => setIsFollowing(true)}>
-                                                Follow
+                                                <button className="follow-button" onClick={handleFollow} disabled={isFollowLoading}>
+                                                        {isFollowLoading ? 'Following...' : 'Follow' }
                                                 </button>
                                         )
                                 )}
-                                {/* {isOwnProfile ? (
-                                        <button className="edit-profile-button">
-                                                <span className="material-symbols-rounded">edit</span>
-                                                Edit Profile
-                                        </button>
-                                ) : ( isFollowing ? (
-                                                <button className="unfollow-button" onClick={() => setIsFollowing(false)}>
-                                                        Following
-                                                </button>
-                                        ) : (
-                                                <button className="follow-button" onClick={() => setIsFollowing(true)}>
-                                                Follow
-                                                </button>
-                                        )
-                                )} */}
                         </section>
 
                         <section className="specialties section">
