@@ -1,4 +1,37 @@
 
+export async function fetchUpdateUlamImage({ ulamId, formData, token }) {
+        const response = await fetch(`/api/v1/ulams/${ulamId}/image`, {
+                method: 'PATCH',
+                headers: {
+                        authorization: `Bearer ${token}`
+                },
+                body: formData
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, image_url: null}
+
+        return {image_url: json.newImageUrl, error: null}
+}
+
+export async function fetchUpdateUlam({ ulamId, ulamData, token }) {
+        const response = await fetch(`/api/v1/ulams/${ulamId}`, {
+                method: 'PATCH',
+                headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({updates: ulamData})
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) return {error: json.error, ulam: null}
+
+        return {ulam: json, error: null}
+}
+
 export async function fetchBookmarks(token) {
         const response = await fetch(`/api/v1/users/me/ulams/bookmarks`, {
                 method: 'GET',

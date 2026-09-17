@@ -165,9 +165,6 @@ export default function UlamProfile() {
                         return
                 }
 
-                console.log({comment})
-                console.log({commentInput})
-
                 setUlam(current => ({
                                 ...current, 
                                 comments: [
@@ -230,7 +227,7 @@ export default function UlamProfile() {
                         <section className="title section">
                                 <div className="details">
                                         <h1 className="title">{ulam.name}</h1>
-                                        <p className="owner">By {ulam.user_id.username}</p>
+                                        <Link to={`/users/${ulam.user_id.username}`} className="owner">By {ulam.user_id.username}</Link>
                                 </div>
 
                                 <div className="like-button">

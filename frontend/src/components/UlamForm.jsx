@@ -22,9 +22,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
 
         useEffect(() => {
                 if (!mode) return
-                console.log(mode)
 
-                console.log(ulamData)
                 if (!ulamData) return
 
                 setName(ulamData.name)
@@ -149,7 +147,11 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
 
                         {showSubmit &&
                                 <div className="submit">
-                                        <button type="submit" disabled={isLoading}>{isLoading ? <LoadingSpinner /> : 'PUBLISH ULAM'}</button>
+                                        <button type="submit" disabled={isLoading}>
+                                                {isLoading ? 
+                                                        <LoadingSpinner /> 
+                                                        : mode === 'edit' ? 'SAVE CHANGES' : `PUBLISH ${mode === 'variation' ? 'VARIATION' : 'ULAM'}`}
+                                        </button>
                                 </div>
                         }
                 </form>

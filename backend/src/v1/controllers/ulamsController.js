@@ -228,6 +228,25 @@ async function getVariationsOfUlam(req, res) {
         }
 }
 
+async function updateUlamsImage(req, res) {
+        const userId = req.user_id
+        const { ulamId } = req.params
+        const imageBuffer = req.file?.buffer
+
+        const missingFields = checkMissingFields({image: imageBuffer})
+
+        if (missingFields.length > 0) return res.status(400).json({error: {message: 'Image required to update ulams image', missingFields}})
+
+        try {
+                const newImageUrl = await ulamsService.updateUlamsImage({userId, ulamId, imageBuffer})
+                res.status(200).json({newImageUrl})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 module.exports = {
         createUlam,
         getUlams,
@@ -240,5 +259,6 @@ module.exports = {
         createComment,
         getUlamComments,
         getUlam,
-        getVariationsOfUlam
+        getVariationsOfUlam,
+        updateUlamsImage
 }

@@ -16,7 +16,8 @@ const {
         createComment,
         getUlamComments,
         getUlam,
-        getVariationsOfUlam
+        getVariationsOfUlam,
+        updateUlamsImage
 } = require('../controllers/ulamsController')
 
 // CREATE ulam
@@ -30,6 +31,8 @@ router.get('/:ulamId', getUlam)
 
 // UPDATE a user's ulam
 router.patch('/:ulamId', updateUlam)
+
+router.patch('/:ulamId/image', upload.single('image-file'), updateUlamsImage)
 
 // DELETE a user's ulam
 router.delete('/:ulamId', deleteUlam)

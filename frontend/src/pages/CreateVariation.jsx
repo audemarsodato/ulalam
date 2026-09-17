@@ -81,15 +81,15 @@ export default function CreateVariation() {
                 formData.append('name', name)
                 formData.append('ingredients', JSON.stringify(ingredients))
                 formData.append('instructions', JSON.stringify(instructions))
-                formData.append('image_url', imageFile)
+                formData.append('image_url', imageSrc)
                 formData.append('image-file', imageFile)
                 formData.append('variation_of', ulamId)
 
-                const { ulam, error: errorResponse } = await fetchCreateUlam({formData, token: user.token})
+                const { ulam, error } = await fetchCreateUlam({formData, token: user.token})
 
-                if (errorResponse) {
-                        setError(errorResponse)
-                        console.log(errorResponse)
+                if (error) {
+                        setError(error)
+                        console.log(error)
                         setIsLoading(false)
                         return
                 }

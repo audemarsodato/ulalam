@@ -363,6 +363,26 @@ async function getBookmarkedUlams(userId) {
         return bookmarks
 }
 
+async function updateUlamsImage({ userId, ulamId, imageBuffer }) {
+        const ulamImageUrl = await imagesService.uploadImage(imageBuffer)
+
+        const filters = {
+                _id: ulamId,
+                user_id: userId
+        }
+
+        const options = {
+                returnDocument: 'after',
+                runValidators: true
+        }
+
+        const updatedUlam = await Ulam.findOneAndUpdate(filters, {image_url: ulamImageUrl}, options)
+
+        if (!updatedUlam) throw new AppError('Failed to update ulams image', 404)
+
+        return ulamImageUrl
+}
+
 module.exports = {
         createUlam,
         updateUlam,
@@ -379,5 +399,6 @@ module.exports = {
         getUlamsByIngredients,
         getPublishedUlams,
         getVariations,
-        getBookmarkedUlams
+        getBookmarkedUlams,
+        updateUlamsImage
 }
