@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect, useEffectEvent } from "react"
 
 import LoadingSpinner from "./loading-spinner/LoadingSpinner"
 import Ingredient from "../components/Ingredient"
@@ -9,7 +9,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
         const [ ingredients, setIngredients ]  = useState([])
         const [ instructionsText, setInstructions ]  = useState()
 
-        const [ imageSRC, setImageSRC ] = useState(null)
+        const [ imageSrc, setImageSrc ] = useState(null)
         const [ showSubmit, setShowSubmit ] = useState(true)
         
         const [ ingredient, setIngredient ] = useState('')
@@ -19,6 +19,20 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                 setIngredients(current => [...current, ingredient])
                 setIngredient('')
         }
+
+        useEffect(() => {
+                if (!mode) return
+                console.log(mode)
+
+                console.log(ulamData)
+                if (!ulamData) return
+
+                setName(ulamData.name)
+                setImageSrc(ulamData.image_url)
+                setImageFile(ulamData.image_url)
+                setIngredients(ulamData.ingredients)
+                setInstructions(ulamData.instructions)
+        }, [])
 
         const textAreaRef = useRef(null)
         const autoResizeTextarea = () => {
@@ -32,14 +46,14 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                 const file = event.target.files[0]
                 setImageFile(file)
 
-                const imageSRC = URL.createObjectURL(file) // Creates an image in memory that can be access using url
+                const imageSrc = URL.createObjectURL(file) // Creates an image in memory that can be access using url
 
-                setImageSRC(imageSRC)
+                setImageSrc(imageSrc)
         }
 
         const removePreview = () => {
                 setImageFile(null)
-                setImageSRC(null)
+                setImageSrc(null)
         }
 
         const removeIngredient = (target) => {
@@ -55,7 +69,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
         )
 
         return (
-                <form className="ulam-form" onSubmit={event => handleSubmit(event, {name, imageFile, ingredients, instructionsText})}>
+                <form className="ulam-form" onSubmit={event => handleSubmit(event, {name, imageFile, ingredients, instructionsText, imageSrc})}>
                         <div className="ulam-name section">
                                 <p className="label">Ulam Name</p>
                                 <input 
@@ -71,7 +85,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                         <div className="photo section">
                                 <p className="label">Photo</p>
 
-                                {!imageSRC ?
+                                {!imageSrc ?
                                         <label className="add-photo-placeholder" htmlFor="ulam-photo">
                                                 <span className="material-symbols-rounded icon">
                                                         restaurant
@@ -80,7 +94,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                                         </label>
                                 :
                                         <div className="preview-image">
-                                                <img src={imageSRC}/>
+                                                <img src={imageSrc}/>
                                                 <button type="button" onClick={removePreview}>
                                                         <span class="material-symbols-rounded">
                                                                 close

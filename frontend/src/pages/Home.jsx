@@ -79,7 +79,7 @@ export default function Home() {
         )
 
         const displayUlamsFromFollowings = ulamsFromFollowings?.map(ulam=> 
-                <UlamCard ulamName={ulam.ulamName} owner={ulam.owner} id={ulam._id} />
+                <UlamCard ulamName={ulam.name} owner={ulam.user_id.username} id={ulam._id} imageURL={ulam.image_url} />
         )
 
         return (

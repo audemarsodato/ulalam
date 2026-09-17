@@ -37,6 +37,9 @@ export default function UserProfile() {
         const [ error, setError ] = useState(null)
 
         useEffect(() => {
+                setUser(null)
+                setActiveModal(null)
+
                 if (isOwnProfile) {
 
                         setUser(currentUser)
@@ -59,7 +62,7 @@ export default function UserProfile() {
                         }
                 }
                 getUser()
-        }, [])
+        }, [profileOwnerUsername])
 
         // Debugging
         useEffect(() => {

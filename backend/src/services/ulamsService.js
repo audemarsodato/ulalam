@@ -17,17 +17,18 @@ const User = require('../models/userModel')
 *               name, inageurl, ingredients, instructions, userId
 * output: document created in the ulams collection
 */
-async function createUlam({ name, ingredients, instructions, userId, imageBuffer }) {
+async function createUlam({ name, ingredients, instructions, userId, imageBuffer, variation_of }) {
         const lowercasedIngredients = ingredients.map(ingredient => ingredient.trim().toLowerCase())
         try {
-                const imageUrl = await imagesService.uploadImage(imageBuffer)
+                const imageUrl = typeof imageBuffer === 'string' ? imageBuffer : await imagesService.uploadImage(imageBuffer)
 
                 const ulam = await Ulam.create({
                         name,
                         image_url: imageUrl,
                         ingredients: lowercasedIngredients,
                         instructions,
-                        user_id: new mongoose.Types.ObjectId(userId)
+                        user_id: new mongoose.Types.ObjectId(userId),
+                        variation_of
                 })
 
                 if (!ulam) throw new Error('Failed to create ulam')
@@ -270,7 +271,7 @@ async function getUlamsFromFollowings(userId) {
 
         // if (!user) throw new AppError('Failed to find user', 400) // TODO redundant since user once logged in is already created and every request is authenticated already by the middleware
 
-        const ulams = await Ulam.find({user_id: {$in: user.followings}})
+        const ulams = await Ulam.find({user_id: {$in: user.followings}}).populate('user_id')
 
         return ulams
 }

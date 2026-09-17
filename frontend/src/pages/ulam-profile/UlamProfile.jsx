@@ -35,6 +35,8 @@ export default function UlamProfile() {
         const [ variations, setVariations ] = useState([])
 
         useEffect(() => {
+                setUlam(null)
+
                 const getUlam = async () => {
                         const { ulam, error } = await fetchUlam({ulamId, token: user.token})
                         
@@ -62,7 +64,7 @@ export default function UlamProfile() {
                 }
                 // Does not need await because it does not return any value needed
                 getUlam()
-        }, [])
+        }, [ulamId])
 
         if (!ulam) return
 
@@ -191,7 +193,7 @@ export default function UlamProfile() {
         ))
 
         const displayVariations = variations.map(ulam => 
-                <UlamCard ulamName={ulam.name} owner={ulam.user_id.username} />
+                <UlamCard ulamName={ulam.name} owner={ulam.user_id.username} imageURL={ulam.image_url} id={ulam._id} />
         )
 
         return (
@@ -267,7 +269,7 @@ export default function UlamProfile() {
                         <section className="variations section">
                                 {!ulam.variation_of ? (<>
                                         <h2>Variations</h2>
-                                        <div className="variations-container">
+                                        <div className="variations-container ulam-container">
                                                 {variations.length > 0 ? (
                                                                 displayVariations
                                                         ) :
@@ -278,7 +280,7 @@ export default function UlamProfile() {
                                 </>) : (<>
                                         <h2>Variation of</h2>
                                         <div className="variations-container">
-                                                <UlamCard ulamName={ulam.variation_of.name} owner={ulam.variation_of.user_id.username} imageURL={ulam.variation_of.image_url} />
+                                                <UlamCard id={ulam.variation_of._id} ulamName={ulam.variation_of.name} owner={ulam.variation_of.user_id.username} imageURL={ulam.variation_of.image_url} />
                                         </div>
                                 </>)}
                         </section>

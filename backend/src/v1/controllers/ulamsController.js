@@ -7,7 +7,8 @@ async function createUlam(req, res) {
         // syntactic validation e.g. Missing fields
         const userId = req.user_id
         const { name, ingredients: ingredientsString, instructions: instructionsString } = req.body
-        const imageBuffer = req.file?.buffer // optional chaining returns undefined when req.file does not exists
+        const imageBuffer = req.file?.buffer ?? req.body.image_url // optional chaining returns undefined when req.file does not exists
+        const { variation_of } = req.body
         
         const missingFields = checkMissingFields({name, instructionsString, ingredientsString, image: imageBuffer})
         
@@ -36,6 +37,8 @@ async function createUlam(req, res) {
                 imageBuffer,
                 userId
         }
+
+        if (variation_of) ulamData['variation_of'] = variation_of
 
         try {
                 const ulam = await ulamsService.createUlam(ulamData)
