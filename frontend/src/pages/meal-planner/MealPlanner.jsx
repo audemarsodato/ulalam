@@ -15,6 +15,7 @@ import useUserContext from '../../hooks/useUserContext'
 
 import { fetchBookmarks } from '../../services/ulamsService'
 import { fetchAddMealplan, fetchMealplans, fetchRemoveMealplan } from '../../services/mealplansService'
+import DeletedUlamCard from '../../components/ulam-cards/DeletedUlamCard'
 
 export default function MealPlanner() {
         const { user } = useUserContext()
@@ -56,7 +57,6 @@ export default function MealPlanner() {
                                 console.log(error)
                                 return
                         }
-                        console.log(mealplans)
                         setMealplan(mealplans)
                 }
                 getMealplans()
@@ -128,7 +128,7 @@ export default function MealPlanner() {
                 />
         )
 
-        const displayUlamPlans = mealplan.filter(plan => new Date(plan.date).toDateString() === selectedDate.toDateString()).map(plan => (
+        const displayUlamPlans = mealplan.filter(plan => new Date(plan.date).toDateString() === selectedDate.toDateString()).map(plan => ( plan.ulam_id ?
                 <UlamCardPlanner 
                         id={plan.ulam_id._id}
                         ulamName={plan.ulam_id.name} 
@@ -136,6 +136,8 @@ export default function MealPlanner() {
                         imageUrl={plan.ulam_id.image_url}
                         onDelete={() => removeUlamFromPlan(plan)} 
                 />
+                :
+                <DeletedUlamCard />
         ))
 
         return (
