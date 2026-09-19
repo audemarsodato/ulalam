@@ -243,14 +243,15 @@ export default function UserProfile() {
                                 </div>
                         </section>
 
-                        {isOwnProfile &&
+                        {isOwnProfile && <>
+                                <hr />
                                 <section className="more-actions section">
                                         <button onClick={() => setActiveModal('bookmarks')} className='more-actions__bookmark'>Bookmarks</button> {/* opens modal */}
                                         <button onClick={() => navigate('/cook/history')}>Cooking History</button>
                                         {/* <button className='danger-button'>Delete account</button> */}
                                         <button className='logout-button danger-button' onClick={logout}>Log out</button>
                                 </section>
-                        }
+                        </>}
 
                         {activeModal === 'bookmarks' &&
                                 <Modal modalTitle={'Bookmarks'} onClose={() => setActiveModal(null)}>

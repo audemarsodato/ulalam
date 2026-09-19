@@ -73,7 +73,7 @@ export default function Search() {
                 />
         )
 
-        const displayMatchedUlams = matchedUlams && matchedUlams.map(ulam => 
+        const displayMatchedUlams = matchedUlams && matchedUlams.sort((a, b) => b.matchCount - a.matchCount).map(ulam => 
                 <UlamCardSearch ulamName={ulam.name} matchCount={ulam.matchCount} id={ulam._id} imageUrl={ulam.image_url}/>
         )
 
