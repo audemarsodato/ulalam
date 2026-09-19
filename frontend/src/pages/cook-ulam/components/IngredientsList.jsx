@@ -1,11 +1,12 @@
 import '../CookUlam.css'
 
 import CheckBox from '../../../components/checkbox/Checkbox'
+import { capitalize } from '../../../utils/formatText'
 
 export default function IngredientsList({ ingredients }) {
 
         const displayIngredients = ingredients.map(ingredient => (
-                <CheckBox label={ingredient} className={'ingredient'}/>
+                <CheckBox label={capitalize(ingredient)} className={'ingredient'}/>
         ))
 
         return (

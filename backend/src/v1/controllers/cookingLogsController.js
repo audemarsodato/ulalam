@@ -12,7 +12,7 @@ async function recordSession(req, res) {
 
         try {
                 const cookingLog = await cookingLogsService.recordSession({ulamId, userId})
-                res.status(201).json(cookingLog)
+                res.status(201).json({cookingLog})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

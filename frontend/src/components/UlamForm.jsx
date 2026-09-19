@@ -29,7 +29,10 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                 setImageSrc(ulamData.image_url)
                 setImageFile(ulamData.image_url)
                 setIngredients(ulamData.ingredients)
-                setInstructions(ulamData.instructions)
+                setInstructions(ulamData.instructions.reduce((instructionsText, instruction) => {
+                        instructionsText += `${instruction} \n`
+                        return instructionsText
+                }, ''))
         }, [])
 
         const textAreaRef = useRef(null)

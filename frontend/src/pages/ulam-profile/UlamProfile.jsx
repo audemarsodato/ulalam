@@ -78,7 +78,7 @@ export default function UlamProfile() {
                 }
 
                 userDispatch({type: 'UPDATE', payload: {published_ulams: user.published_ulams.filter(published_ulam => published_ulam._id !== ulam._id)}})
-                navigate('/')
+                navigate(-1)
         }
 
         const handleBookmark = async () => {

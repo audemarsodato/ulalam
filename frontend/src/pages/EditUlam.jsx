@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
-import Header from "../components/Header"
-import UlamForm from "../components/UlamForm"
-import AuthError from "../components/auth-error/AuthError"
+import Header from '../components/Header'
+import UlamForm from '../components/UlamForm'
+import AuthError from '../components/auth-error/AuthError'
 
-import useUserContext from "../hooks/useUserContext"
+import useUserContext from '../hooks/useUserContext'
 
-import { fetchUpdateUlam, fetchUpdateUlamImage, fetchUlam } from "../services/ulamsService"
+import { fetchUpdateUlam, fetchUpdateUlamImage, fetchUlam } from '../services/ulamsService'
 
 import { toArray } from '../utils/formatText'
-import LoadingSpinner from "../components/loading-spinner/LoadingSpinner"
+import LoadingSpinner from '../components/loading-spinner/LoadingSpinner'
 
 export default function EditUlam() {
         const navigate = useNavigate()
@@ -114,7 +114,7 @@ export default function EditUlam() {
         if (isLoading) return <LoadingSpinner />
 
         return (
-                <section className="create-variation">
+                <section className='create-variation'>
                         <Header pageTitle={'Edit Ulam'}/>
 
                         {error &&
