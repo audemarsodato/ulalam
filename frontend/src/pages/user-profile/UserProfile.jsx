@@ -22,6 +22,7 @@ import {
         fetchFollowUser,
         fetchUnfollowUser
 } from '../../services/userService'
+import { fetchBookmarks } from '../../services/ulamsService'
 
 export default function UserProfile() {
         const navigate = useNavigate()
@@ -29,8 +30,9 @@ export default function UserProfile() {
         const [ user, setUser ] = useState(null)
         const { user: currentUser, dispatch: userDispatch } = useUserContext()
         const { username: profileOwnerUsername } = useParams()
-        const isOwnProfile = currentUser.username === profileOwnerUsername
+        const [ bookmarks, setBookmarks ] = useState(null)
 
+        const isOwnProfile = currentUser.username === profileOwnerUsername
         const [ isFollowing, setIsFollowing ] = useState(false)
         const [ isFollowLoading, setIsFollowLoading ] = useState(false)
         const [ activeModal, setActiveModal ] = useState(null)
@@ -40,9 +42,20 @@ export default function UserProfile() {
                 setUser(null)
                 setActiveModal(null)
 
-                if (isOwnProfile) {
+                const getBookmarks = async () => {
+                        const { bookmarks, error } = await fetchBookmarks(currentUser.token)
+                        
+                        if (error) {
+                                // setError(error)
+                                console.log(error)
+                                return
+                        }
+                        setBookmarks(bookmarks)
+                }
 
+                if (isOwnProfile) {
                         setUser(currentUser)
+                        getBookmarks()
                         return
                 }
 
@@ -63,12 +76,6 @@ export default function UserProfile() {
                 }
                 getUser()
         }, [profileOwnerUsername])
-
-        // Debugging
-        useEffect(() => {
-                console.log({user})
-        }, [user])
-
         
         if (!user) return
 
@@ -132,6 +139,7 @@ export default function UserProfile() {
                         imageURL={ulam.image_url} 
                         stats={{bookmarks: ulam.bookmarked_by.length, timesCooked: ulam.cooked_count}}
                         id={ulam._id}
+                        key={ulam._id}
                 />
         )
 
@@ -142,15 +150,26 @@ export default function UserProfile() {
                         owner={ulam.username} i
                         imageURL={ulam.image_url}
                         id={ulam._id}
+                        key={ulam._id}
                 />
         )
 
         const displayFollowers = user.followers.map(user => 
-                <UserCard user={user}/>
+                <UserCard key={user} user={user}/>
         )
 
         const displayFollowings = user.followings.map(user => 
-                <UserCard user={user}/>
+                <UserCard key={user} user={user}/>
+        )
+
+        const displayBookmarks = bookmarks && bookmarks.map(ulam => 
+                <UlamCard 
+                        ulamName={ulam.name} 
+                        owner={ulam.user_id.username} 
+                        imageURL={ulam.image_url}
+                        onClick={() => addToPlan(ulam)}
+                        id={ulam._id}
+                />
         )
 
         return (
@@ -165,7 +184,7 @@ export default function UserProfile() {
                                         {isOwnProfile &&
                                                 <div className="change-profile">
                                                         <label htmlFor='profile-picture__input'>
-                                                                <span class="material-symbols-rounded">edit</span>
+                                                                <span className="material-symbols-rounded">edit</span>
                                                         </label>
                                                         <input 
                                                                 type="file" 
@@ -256,7 +275,7 @@ export default function UserProfile() {
                         {activeModal === 'bookmarks' &&
                                 <Modal modalTitle={'Bookmarks'} onClose={() => setActiveModal(null)}>
                                         <div className="ulam-container">
-                                                {bookmarks.map(ulam => <UlamCard ulamName={ulam.ulamName} owner={ulam.owner}/>)}
+                                                {displayBookmarks}
                                         </div>
                                 </Modal>
                         }

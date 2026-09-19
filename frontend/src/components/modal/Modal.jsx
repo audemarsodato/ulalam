@@ -45,7 +45,7 @@ export default function Modal({ modalTitle, onClose, children, className }) {
 
                                         <div className="modal__close">
                                                 <button onClick={onClose}>
-                                                        <span class='material-symbols-rounded'>close</span>
+                                                        <span className='material-symbols-rounded'>close</span>
                                                 </button>
                                         </div>
                                 </header>
