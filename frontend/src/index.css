@@ -416,6 +416,8 @@ body {
 .specialty-card {
         display: flex;
         flex-direction: column;
+
+        max-width: calc(32px + 150px);
         gap: 12px;
         padding: 16px;
         flex-shrink: 0;
