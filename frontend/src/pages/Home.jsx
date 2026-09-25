@@ -60,6 +60,7 @@ export default function Home() {
 
         const displayHistoryIncludeNull = cookedUlams.slice(0, 3).map(record => record.ulam_id ?
                 <UlamCardHistory 
+                        key={record.ulam_id}
                         ulam={record.ulam_id}
                         date={formatCreatedAt(record.createdAt)} 
                         mealtime={capitalize(record.mealtime)} 
@@ -70,6 +71,7 @@ export default function Home() {
 
         const displaySpecialties = user.earned_specialties.sort((a, b) => b.times_cooked - a.times_cooked).map(ulam => 
                 <SpecialtyCard 
+                        key={ulam._id}
                         ulamName={ulam.name} 
                         owner={ulam.username} 
                         timesCooked={ulam.times_cooked} 
@@ -79,7 +81,7 @@ export default function Home() {
         )
 
         const displayUlamsFromFollowings = ulamsFromFollowings?.map(ulam=> 
-                <UlamCard ulamName={ulam.name} owner={ulam.user_id.username} id={ulam._id} imageURL={ulam.image_url} />
+                <UlamCard key={ulam._id} ulamName={ulam.name} owner={ulam.user_id.username} id={ulam._id} imageURL={ulam.image_url} />
         )
 
         return (

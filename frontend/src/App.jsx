@@ -19,6 +19,7 @@ import CompleteProfilePage from './pages/complete-profile-page/CompleteProfilePa
 import EmailSentPage from './pages/email-sent/EmailSentPage'
 import VerifyEmailPage from './pages/verify-email/VerifyEmailPage'
 import useUserContext from './hooks/useUserContext'
+import PageNotFound from './pages/page-not-found/PageNotFound'
 
 export default function App() {
         const { user } = useUserContext()
@@ -58,8 +59,7 @@ export default function App() {
                                                 <Route path='/users/:username' element={<UserProfile />}/>
                                         </Route>
 
-
-                                        {/* TODO: add 404 page not found  */}
+                                        <Route path='*' element={<PageNotFound />} />
                                 </Routes>              
                         </BrowserRouter>
                 </div>

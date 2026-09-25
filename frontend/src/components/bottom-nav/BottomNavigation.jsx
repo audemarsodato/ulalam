@@ -10,28 +10,28 @@ export default function BottomNavigation() {
                 <section className="bottom-nav">
                         <div className="bottom-nav-container">
                                 <Link to={'/meal-planner'} className="meal-planner-button action">
-                                        <span class='material-symbols-rounded'>calendar_month</span>
+                                        <span className='material-symbols-rounded'>calendar_month</span>
                                         <p>Meal Plan</p>
                                 </Link>
 
                                 <Link to={'/search'} className="search-button action">
-                                        <span class='material-symbols-rounded'>search</span>
+                                        <span className='material-symbols-rounded'>search</span>
                                         <p>Search</p>
                                 </Link>
 
                                 <div className="create-ulam-button action">
                                         <Link to={'/ulams/create'}>
-                                                <span class='material-symbols-rounded'>add</span>
+                                                <span className='material-symbols-rounded'>add</span>
                                         </Link>
                                 </div>
 
                                 <Link to={'/cook/history'} className="cooking-history-button action">
-                                        <span class='material-symbols-rounded'>history</span>
+                                        <span className='material-symbols-rounded'>history</span>
                                         <p>History</p>
                                 </Link>
 
                                 <Link to={`/users/${user.username}`} className="profile-button action">
-                                        <span class='material-symbols-rounded'>person</span>
+                                        <span className='material-symbols-rounded'>person</span>
                                         <p>Profile</p>
                                 </Link>
                         </div>
