@@ -1,6 +1,6 @@
 import '../CookUlam.css'
 
-import CheckBox from '../../../components/checkbox/Checkbox'
+import CheckBox from '../../../components/checkbox/CheckBox'
 import { capitalize } from '../../../utils/formatText'
 
 export default function IngredientsList({ ingredients }) {
