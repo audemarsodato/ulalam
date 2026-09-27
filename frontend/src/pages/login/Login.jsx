@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import './Login.css'
-import googleIcon from '../../assets/icons/google-icon.svg'
 import AuthError from '../../components/auth-error/AuthError'
+import ContinueWithGoogle from '../../components/continue-with-google/ContinueWithGoogle'
 import useUserContext from '../../hooks/useUserContext'
 
 export default function Login() {
@@ -68,7 +68,7 @@ export default function Login() {
 
                         <form className="login__form" onSubmit={handleLogin}>
                                 <div className="login__form__email-input">
-                                        <label for='email' className="login__email label">Email</label>
+                                        <label htmlFor='email' className="login__email label">Email</label>
                                         <input 
                                                 type="email" 
                                                 name="email" 
@@ -80,7 +80,7 @@ export default function Login() {
                                         />
                                 </div>
                                 <div className="login__form__password-input">
-                                        <label for='password' className="login__password label">Password</label>
+                                        <label htmlFor='password' className="login__password label">Password</label>
                                         <div className="password-input-wrapper">
                                                 <input 
                                                         type={showPassword ? 'text' : 'password'} 
@@ -93,7 +93,7 @@ export default function Login() {
                                                 />
                                                 <div className="toggle-password">
                                                         <button type='button' onClick={() => setShowPassword(!showPassword)}>
-                                                                <span class='material-symbols-rounded'>
+                                                                <span className='material-symbols-rounded'>
                                                                         {showPassword ? "visibility_off" : "visibility"}
                                                                 </span>
                                                         </button>
@@ -105,16 +105,16 @@ export default function Login() {
                         </form>
 
                         <section className="login__actions">
-                                {/* <div className="login__actions-divider">
+                                <div className="login__actions-divider">
                                         <hr />
                                         <p className="login__other-options-label">or login with</p>
                                         <hr />
                                 </div>
 
                                 <div className="login__other-options">
-                                        <button className="login__other-option"><img src={googleIcon} alt="google icon"/></button>
-                                        <button className="login__other-option"><p>Guest</p></button>
-                                </div> */}
+                                        <ContinueWithGoogle setError={setError} setIsLoading={setIsLoading} />
+                                        {/* <button className="login__other-option"><p>Guest</p></button> */}
+                                </div>
 
                                 <div className="signup__login-prompt">
                                         <p className="signup__login-label">Don't have an account?</p>

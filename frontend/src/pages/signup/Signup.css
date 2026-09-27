@@ -106,27 +106,3 @@
         align-items: center;
         gap: 12px;
 }
-
-.signup__other-option {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 96px;
-        height: 64px;
-
-        border-radius: 16px;
-        background-color: #fff;
-        border: 2px solid #0003;
-}
-
-.signup__other-option img {
-        width: 32px;
-        height: 32px;
-}
-
-.signup__other-option p {
-        font-size: 18px;
-        font-weight: 600;
-        opacity: 60%;
-}

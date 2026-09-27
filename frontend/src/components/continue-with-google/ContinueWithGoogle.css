@@ -1,0 +1,26 @@
+
+.continue-with-google {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        flex: 1;
+        gap: 8px;
+        padding: 12px;
+
+        border-radius: 16px;
+        background-color: #fff;
+        border: 2px solid #0003;
+}
+
+.continue-with-google img {
+        width: 32px;
+        height: 32px;
+}
+
+.continue-with-google p {
+        font-size: 16px;
+
+        font-weight: 600;
+        opacity: 60%;
+}

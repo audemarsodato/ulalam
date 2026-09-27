@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import './Signup.css'
-import googleIcon from '../../assets/icons/google-icon.svg'
 import AuthError from '../../components/auth-error/AuthError'
+import ContinueWithGoogle from '../../components/continue-with-google/ContinueWithGoogle'
 import useUserContext from '../../hooks/useUserContext'
 
 export default function Signup() {
@@ -108,7 +108,7 @@ export default function Signup() {
                                 </div>
 
                                 <div className="signup__form__confirm-password-input">
-                                        <label for='confirm-password' className="signup__confirm-password label">Confirm Password</label>
+                                        <label htmlFor='confirm-password' className="signup__confirm-password label">Confirm Password</label>
                                         <div className="password-input-wrapper">
                                                 <input 
                                                         type={showConfirmPassword ? 'text' : 'password'} 
@@ -134,16 +134,16 @@ export default function Signup() {
                         </form>
 
                         <section className="signup__actions">
-                                {/* <div className="signup__actions-divider">
+                                <div className="signup__actions-divider">
                                         <hr />
                                         <p className="signup__other-options-label">or signup with</p>
                                         <hr />
                                 </div>
 
                                 <div className="signup__other-options">
-                                        <button className="signup__other-option"><img src={googleIcon} alt="google icon"/></button>
-                                        <button className="signup__other-option"><p>Guest</p></button>
-                                </div> */}
+                                        <ContinueWithGoogle />
+                                        {/* <button className="signup__other-option"><p>Guest</p></button> */}
+                                </div>
 
                                 <div className="signup__login-prompt">
                                         <p className="signup__login-label">Already have an account?</p>

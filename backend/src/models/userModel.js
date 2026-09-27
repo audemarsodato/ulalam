@@ -24,7 +24,12 @@ const userSchema = new Schema({
         },
         password_hash: {
                 type: String,
-                required: true
+                default: null
+        },
+        google_id: {
+                type: String,
+                default: null,
+                unique: true
         },
         profile_image_url: {
                 type: String,

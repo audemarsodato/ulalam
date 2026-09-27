@@ -48,7 +48,7 @@ async function login(req, res) {
 
         try {
                 const { token, user } = await authService.login({email, password})
-                const userDetails = await userService.getUser(user._id)
+                const userDetails = await userService.getUser(user._id) // This gets the nested details like ulams and followers
                 res.status(200).json({...userDetails, token})
         }
         catch (error) {
@@ -72,9 +72,27 @@ async function sendEmailVerification(req, res) {
         }
 }
 
+// TODO create standard to what controllers and services return these objects for consistent outputs and its structure
+async function continueWithGoogle(req, res) {
+        const { credential } = req.body ?? {}
+
+        if (!credential) return res.status(401).json({error: {message: 'Credential required for continuing with google'}})
+
+        try {
+                const { user, token } = await authService.continueWithGoogle(credential)
+                const userDetails = await userService.getUser(user._id)
+                res.status(200).json({...userDetails, token})
+        }
+        catch (error) {
+                const statusCode = error.statusCode ?? 500
+                res.status(statusCode).json({error: {message: error.message}})
+        }
+}
+
 module.exports = {
         signup, 
         login,
         verifyEmail,
-        sendEmailVerification
+        sendEmailVerification,
+        continueWithGoogle
 }

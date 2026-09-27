@@ -1,13 +1,18 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const crypto= require('crypto')
+const { OAuth2Client } = require('google-auth-library')
+
+const googleClient = new OAuth2Client()
 
 const User = require('../models/userModel')
-const imagesService = require('./imagesService')
-const AppError = require('../utils/AppError')
 const EmailVerification = require('../models/emailVerificationModel')
+
+const imagesService = require('./imagesService')
+const emailService = require('./emailService')
+
+const AppError = require('../utils/AppError')
 const { expirationMinutes } = require('../config/config')
-const emailService = require('../services/emailService')
 
 function createToken(_id, email_verified) {
         return jwt.sign({_id, email_verified}, process.env.JWT_SECRET)
@@ -31,6 +36,72 @@ async function sendVerificationEmail(user) {
         })
 
         await emailService.sendVerificationEmail({user, token: verificationToken, frontendUrl: process.env.FRONTEND_URL}) // TODO add prompt if email is not sent, email address of the user may be spelled wrong check you email address
+}
+
+async function continueWithGoogle(credential) {
+        /*
+        *  get google account payload
+        *  check if email/user already exists
+        *  if exists, 
+        *       set email_verified to true
+        *       if profile_image_url is null set it to the google accounts picture
+        *       set googlee_id
+        * if does not exists,
+        *       create the account
+        *       set email_verified to true
+        *       profile_image_url to the google accounts picture
+        * create jwt token
+        * sanitize user details removing the password_hash
+        * return safeUser and token
+        */
+
+        const ticket = await googleClient.verifyIdToken({
+                idToken: credential,
+                audience: process.env.GOOGLE_CLIENT_ID
+        })
+
+        const {
+                sub: google_id,
+                email,
+                name,
+                email_verified,
+                picture,
+        } = ticket.getPayload()
+
+        let user = null
+
+        const options = {
+                returnDocument: 'after',
+                runValidators: true
+        }
+
+        const userExists = await User.findOne({email})
+        if (userExists) {
+                user = await User.findOneAndUpdate({_id: userExists._id}, {
+                        email_verified,
+                        google_id
+                }, options)
+
+                if (!userExists.profile_image_url) user = await User.findOneAndUpdate({_id: userExists._id}, {
+                        profile_image_url: picture
+                }, options)
+        }
+
+        if (!userExists) {
+                const username = name.replace(' ', '').trim().toLowerCase()
+
+                user = await User.create({
+                        username,
+                        email_verified,
+                        email,
+                        profile_image_url: picture
+                })
+        }
+
+        const token = createToken(user._id, user.email_verified)
+        const { password_hash, google_id: googleId, ...safeUser } = user.toObject()
+
+        return {user: safeUser, token}
 }
 
 async function signup({ username, email, password }) {
@@ -125,5 +196,6 @@ module.exports = {
         login,
         authenticate,
         verifyEmail,
-        sendVerificationEmail
+        sendVerificationEmail,
+        continueWithGoogle
 }
