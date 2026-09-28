@@ -29,7 +29,13 @@ const userSchema = new Schema({
         google_id: {
                 type: String,
                 default: null,
-                unique: true
+                index: {
+                        unique: true,
+                        partialFilterExpression: {
+                                google_id: {$type: 'string'}
+                        }
+                }
+                // unique: true
         },
         profile_image_url: {
                 type: String,
