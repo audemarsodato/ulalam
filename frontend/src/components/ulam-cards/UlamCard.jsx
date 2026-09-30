@@ -24,7 +24,7 @@ export default function UlamCard({ ulamName, owner, stats, imageURL, onClick, id
                                         <p>By {owner}</p>
                                 }
                                 { stats &&
-                                        <p>
+                                        <p className="stats">
                                                 <span className='material-symbols-rounded'>bookmark</span>
                                                  {stats.bookmarks}
                                         </p>
