@@ -35,18 +35,14 @@
 .bottom-nav .action p {
         font-size: 12px;
 
-        opacity: 60%;
+        opacity: 80%;
         font-weight: 600;
 }
 
 .bottom-nav .action span {
-        font-size: 32px;
+        font-size: 24px;
 
-        opacity: 80%;
-}
-
-.bottom-nav .create-ulam-button {
-        flex: 1;
+        opacity: 60%;
 }
 
 .bottom-nav .create-ulam-button a {
