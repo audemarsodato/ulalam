@@ -9,7 +9,7 @@
 
         --text-size: 16px;
         --text-small: 14px;
-        --medium-header: 20px;
+        --medium-header: 16px;
         --large-header: 24px;
         --extra-large-header: 40px;
 
@@ -119,6 +119,10 @@ body {
         color: var(--primary);
         font-weight: 600;
         opacity: 60%;
+}
+
+.you-cooked-section__to-history-page {
+        font-size: var(--text-small);
 }
 
 .specialties.section .ulam-container,

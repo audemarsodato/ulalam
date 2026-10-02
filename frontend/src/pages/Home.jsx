@@ -107,7 +107,7 @@ export default function Home() {
                         <section className='you-cooked-section section'>
                                 <header>
                                         <h2 className='section-title'>You Cooked</h2>
-                                        <Link to={'/cook/history'}>Full History {'->'}</Link>
+                                        <Link to={'/cook/history'} className='you-cooked-section__to-history-page'>Full History {'->'}</Link>
                                 </header>
 
                                 <div className='ulam-container'>
