@@ -132,12 +132,12 @@ body {
   
         /* Allow visible cards when scrolling horizontally */
         /* Bypass padding of the app container */
-        margin-left: -32px;
-        margin-right: -32px;
+        margin-left: calc(-1 * var(--page-padding));
+        margin-right: calc(-1 * var(--page-padding));
         
         /* Moving the default placement to its original padding postion */
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: var(--page-padding);
+        padding-right: var(--page-padding);
 }
 
 /* REMOVE SCROLLBAR VIEW */
