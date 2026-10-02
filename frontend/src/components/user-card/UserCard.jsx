@@ -12,7 +12,7 @@ export default function UserCard({ user }){
 
                         <div className="details">
                                 <h1>{user.username}</h1>
-                                <p>{user.followers.length} Followers - {user.followings.length} Followings</p>
+                                <p>{user.followers.length} Followers {user.followings.length} Followings</p>
                         </div>
 
                         <div className='arrow-forward'>

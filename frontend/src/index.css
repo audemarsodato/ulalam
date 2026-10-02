@@ -9,11 +9,11 @@
 
         --text-size: 16px;
         --text-small: 14px;
-        --medium-header: 20px;
+        --medium-header: 16px;
         --large-header: 24px;
         --extra-large-header: 40px;
 
-        --page-padding: 24px;
+        --page-padding: 16px;
 }
 
 * {
@@ -121,6 +121,10 @@ body {
         opacity: 60%;
 }
 
+.you-cooked-section__to-history-page {
+        font-size: var(--text-small);
+}
+
 .specialties.section .ulam-container,
 .specialties-section .ulam-container {
         flex-direction: row;
@@ -132,12 +136,12 @@ body {
   
         /* Allow visible cards when scrolling horizontally */
         /* Bypass padding of the app container */
-        margin-left: -32px;
-        margin-right: -32px;
+        margin-left: calc(-1 * var(--page-padding));
+        margin-right: calc(-1 * var(--page-padding));
         
         /* Moving the default placement to its original padding postion */
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: var(--page-padding);
+        padding-right: var(--page-padding);
 }
 
 /* REMOVE SCROLLBAR VIEW */
@@ -658,8 +662,10 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         gap: 12px;
         padding: 12px;
+        min-width: 300px;
 
         border-radius: 16px;
         background-color: #fff;
@@ -671,6 +677,7 @@ body {
 
 .user-card .image-container {
         width: 64px;
+        min-width: 64px;
         height: 64px;
         overflow: hidden;
         border-radius: 50%;
@@ -684,6 +691,7 @@ body {
 
 .user-card .details {
         flex: 1;
+        min-width: 0;
 }
 
 .user-card .details h1 {
@@ -697,6 +705,7 @@ body {
 
 .user-card .details p {
         width: 100%;
+        font-size: 12px;
 
         opacity: 40%;
         font-weight: 500;
