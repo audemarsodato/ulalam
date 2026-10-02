@@ -147,7 +147,7 @@ export default function UserProfile() {
                 <SpecialtyCard 
                         ulamName={ulam.name} 
                         timesCooked={ulam.times_cooked} 
-                        owner={ulam.username} i
+                        owner={user.username}
                         imageURL={ulam.image_url}
                         id={ulam._id}
                         key={ulam._id}
