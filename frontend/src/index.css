@@ -662,8 +662,10 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         gap: 12px;
         padding: 12px;
+        min-width: 300px;
 
         border-radius: 16px;
         background-color: #fff;
@@ -675,6 +677,7 @@ body {
 
 .user-card .image-container {
         width: 64px;
+        min-width: 64px;
         height: 64px;
         overflow: hidden;
         border-radius: 50%;
@@ -688,6 +691,7 @@ body {
 
 .user-card .details {
         flex: 1;
+        min-width: 0;
 }
 
 .user-card .details h1 {
@@ -701,6 +705,7 @@ body {
 
 .user-card .details p {
         width: 100%;
+        font-size: 12px;
 
         opacity: 40%;
         font-weight: 500;
