@@ -123,6 +123,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                                                 onChange={(event) => setIngredient(event.target.value)}
                                                 onBlur={() => setShowSubmit(true)}
                                                 onFocus={() => setShowSubmit(false)}
+                                                placeholder="Sibuyas"
                                         />
                                         <button type="button" onClick={addIngredient}>Add</button>
                                 </div>
@@ -144,6 +145,7 @@ export default function UlalmForm({ mode, ulamData, handleSubmit, isLoading }) {
                                                 setInstructions(event.target.value)
                                                 autoResizeTextarea()
                                         }}
+                                        placeholder={"Clean and slice bangus into desired size\nSlice sibuyas luya and kamatis"}
                                         required
                                 ></textarea>
                         </div>
