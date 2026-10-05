@@ -19,6 +19,11 @@ async function signup(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -35,6 +40,11 @@ async function verifyEmail(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -53,6 +63,11 @@ async function login(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: error.message, code: error.code, payload: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message, code: error.code, payload: error.payload}})
         }
 }
@@ -68,6 +83,11 @@ async function sendEmailVerification(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -85,6 +105,11 @@ async function continueWithGoogle(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }

@@ -7,8 +7,14 @@ async function getCurrentUser(req, res) {
         try {
                 const user = await userService.getUser(userId)
                 res.status(200).json({user})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -22,8 +28,14 @@ async function updateCurrentUser(req, res) {
         try {
                 const updatedUser = await userService.updateCurrentUser({userId, updates})
                 res.status(200).json({updatedUser})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -34,8 +46,14 @@ async function getUser(req, res) {
         try {
                 const user = await userService.getUserByUsername(username)
                 res.status(200).json({user})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -47,8 +65,14 @@ async function followUser(req, res) {
         try {
                 const { currentUser, targetUser } = await userService.followUser({currentUserId, targetUserId})
                 res.status(201).json({currentUser, targetUser})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -60,8 +84,14 @@ async function unfollowUser(req, res) {
         try {
                 const { currentUser, targetUser } = await userService.unfollowUser({currentUserId, targetUserId})
                 res.status(200).json({currentUser, targetUser})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -72,8 +102,14 @@ async function getPublishedUlams(req, res) {
         try {
                 const publishedUlams = await ulamsService.getPublishedUlams(userId)
                 res.status(200).json({published_ulams: publishedUlams})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -87,6 +123,11 @@ async function getUlamsFromFollowings(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -101,6 +142,11 @@ async function getEarnedSpecialties(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -117,6 +163,11 @@ async function updateProfileImageCurrentUser(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -130,6 +181,11 @@ async function getBookmarkedUlams(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -142,8 +198,14 @@ async function queryUsers(req, res) {
         try {
                 const users = await userService.queryUsersByUsername({username, limit})
                 res.status(200).json({users})
-        } catch (error) {
+        } 
+        catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
