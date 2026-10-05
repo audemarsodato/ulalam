@@ -149,7 +149,7 @@ async function verifyEmail(verificationToken) {
                 {email_verified: true}, 
                 {returnDocument: 'after', runValidators: true}
         ).select('-password_hash')
-        if (!updatedUser) throw new AppError('Failed to find user') // TODO app error must return a status code error
+        if (!updatedUser) throw new AppError('Failed to find user', 404) // TODO app error must return a status code error
 
         await EmailVerification.findByIdAndDelete(emailVerification._id)
 

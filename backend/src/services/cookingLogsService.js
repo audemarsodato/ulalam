@@ -43,7 +43,7 @@ async function recordSession({ ulamId, userId }) {
         
         // pauses the async functions execution until the await / Promise settles
         const cookingLog = await CookingLog.create({ulam_id: ulamId, user_id: userId, mealtime})
-        if (!cookingLog) throw new AppError('Failed to record session to logs')
+        if (!cookingLog) throw new AppError('Failed to record session to logs', 500)
         const timesCooked = await CookingLog.countDocuments({ulam_id: ulamId, user_id: userId})
         
         const options = {
@@ -58,7 +58,7 @@ async function recordSession({ ulamId, userId }) {
                         {$addToSet: {earned_specialties: ulamId}}, 
                         options
                 ).select('earned_specialties')
-                if (!user) throw new AppError('Failed to add ulam to specialties')
+                if (!user) throw new AppError('Failed to add ulam to specialties', 404) // 404 because its not found and mongoose throws an error when it failed to update the document
 
                 isAddedToSpecialties = user.earned_specialties.includes(ulamId)
         }
@@ -68,7 +68,7 @@ async function recordSession({ ulamId, userId }) {
         // const cookedCount = await CookingLog.countDocuments({ulam_id: ulamId}) 
         const ulam = await Ulam.findByIdAndUpdate(ulamId, {$inc: {cooked_count: 1}}, options) // is this good now though? 
 
-        if (!ulam) throw new AppError('Failed to update ulam cooked count')
+        if (!ulam) throw new AppError('Failed to update ulam cooked count', 404) // 404 status code because document wasnt found rather than 500 which mongoose wil automatically throw when it failed to update
 
         return {...cookingLog.toObject(), times_cooked: timesCooked, isNewlyAdded}
 }
@@ -89,7 +89,7 @@ async function getRecords({ userId, limit: limitString , page: pageString }) {
                 .limit(limit)
                 .populate('ulam_id')
 
-        if (!records) throw new AppError('Failed to fetch records')
+        if (!records) throw new AppError('Failed to fetch records', 500) // internal error since mongoose itself failed
 
         return records
 }
