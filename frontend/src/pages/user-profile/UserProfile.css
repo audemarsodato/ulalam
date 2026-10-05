@@ -67,7 +67,7 @@
 }
 
 .user-profile-page .profile.section .username h1 {
-        font-size: var(--large-header);
+        font-size: 20px;
 }
 
 .user-profile-page .stats {
