@@ -56,7 +56,7 @@ async function updateUlam({ ulamId, userId, updates }) {
                 
                 const updatedUlam = await Ulam.findOneAndUpdate(filters, updates, options)
 
-                if (!updatedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!updatedUlam) throw new AppError('Ulam not found', 404)
 
                 return updatedUlam
         }
@@ -71,7 +71,7 @@ async function deleteUlam({ ulamId, userId }) {
                 
                 const deletedUlam = await Ulam.findOneAndDelete({_id: ulamId, user_id: userId})
 
-                if (!deletedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!deletedUlam) throw new AppError('Ulam not found', 404)
                         
                 await User.updateMany({earned_specialties: ulamId}, {$pull: {earned_specialties: ulamId}})
                 
@@ -97,7 +97,7 @@ async function likeUlam({ ulamId, userId }) {
                 
                 const likedUlam = await Ulam.findOneAndUpdate(filters, {$addToSet: {liked_by: new mongoose.Types.ObjectId(userId)}}, options)
 
-                if (!likedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!likedUlam) throw new AppError('Ulam not found', 404)
 
                 return likedUlam
         }
@@ -121,7 +121,7 @@ async function unlikeUlam({ ulamId, userId }) {
                 
                 const unlikedUlam = await Ulam.findOneAndUpdate(filters, {$pull: {liked_by: new mongoose.Types.ObjectId(userId)}}, options)
 
-                if (!unlikedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!unlikedUlam) throw new AppError('Ulam not found', 404)
 
                 return unlikedUlam
         }
@@ -145,7 +145,7 @@ async function bookmarkUlam({ ulamId, userId }) {
                 
                 const bookmarkedUlam = await Ulam.findOneAndUpdate(filters, {$addToSet: {bookmarked_by: new mongoose.Types.ObjectId(userId)}}, options)
 
-                if (!bookmarkedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!bookmarkedUlam) throw new AppError('Ulam not found', 404)
 
                 return bookmarkedUlam
         }
@@ -169,7 +169,7 @@ async function unbookmarkUlam({ ulamId, userId }) {
                 
                 const unbookmarkedUlam = await Ulam.findOneAndUpdate(filters, {$pull: {bookmarked_by: new mongoose.Types.ObjectId(userId)}}, options)
 
-                if (!unbookmarkedUlam) throw new AppError('Ulam does not exist or the user does not own the ulam', 404)
+                if (!unbookmarkedUlam) throw new AppError('Ulam not found', 404)
 
                 return unbookmarkedUlam
         }

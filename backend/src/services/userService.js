@@ -84,7 +84,7 @@ async function followUser({ currentUserId, targetUserId }) {
         }, options).select('followers')
 
         const followSuccess = currentUser.followings.includes(targetUserId) && targetUser.followers.includes(currentUserId)
-        if (!followSuccess) throw new AppError('Failed to follow user')
+        if (!followSuccess) throw new AppError('Failed to follow user', 404)
 
         return {currentUser, targetUser}
 }
@@ -106,7 +106,7 @@ async function unfollowUser({ currentUserId, targetUserId }) {
         }, options).select('followers')
 
         const unfollowSuccess = !currentUser.followings.includes(targetUserId) && !targetUser.followers.includes(currentUserId)
-        if (!unfollowSuccess) throw new AppError('Failed to follow user')
+        if (!unfollowSuccess) throw new AppError('Failed to unfollow user', 500) // 500 because something went wrong when removing the user in the follow list
 
         return {currentUser, targetUser}
 }
@@ -126,7 +126,7 @@ async function updateProfileImage({ userId, profileImageBuffer }) {
                 profile_image_url: profileImageUrl
         }, options)
 
-        if (!updatedUser) throw new AppError('Failed to update current users profile image')
+        if (!updatedUser) throw new AppError('Failed to update current users profile image', 404)
         
         const { password_hash, ...safeUser } = updatedUser.toObject()
 

@@ -84,6 +84,11 @@ async function updateUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -99,6 +104,11 @@ async function deleteUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -114,6 +124,11 @@ async function likeUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -129,6 +144,11 @@ async function unlikeUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -144,6 +164,11 @@ async function bookmarkUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -159,6 +184,11 @@ async function unbookmarkUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -177,6 +207,11 @@ async function createComment(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -191,6 +226,11 @@ async function getUlamComments(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -211,6 +251,11 @@ async function getUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -224,6 +269,11 @@ async function getVariationsOfUlam(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -243,6 +293,11 @@ async function updateUlamsImage(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }

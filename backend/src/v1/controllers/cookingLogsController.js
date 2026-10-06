@@ -16,6 +16,12 @@ async function recordSession(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
+
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }
@@ -31,6 +37,12 @@ async function getRecords(req, res) {
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500
+
+                if (statusCode === 500) {
+                        console.log(error)
+                        return res.status(statusCode).json({error: {message: 'Something went wrong'}})
+                }
+
                 res.status(statusCode).json({error: {message: error.message}})
         }
 }

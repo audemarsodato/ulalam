@@ -19,14 +19,15 @@ async function addMealplan({ ulamId, userId, mealtime, dateString }) {
         })
         await mealplan.populate('user_id ulam_id')
 
-        if (!mealplan) throw new AppError('Failed to create mealplan')
+        // if (!mealplan) throw new AppError('Failed to create mealplan', 500) // not necessary since 
+        // if mongoose fails to create, it throws an error. That error is catched in the controller
 
         return mealplan
 }
 
 async function getMealplans(userId) {
         const mealplans = await Mealplan.find({user_id: userId}).populate('ulam_id user_id')
-        if (!mealplans) throw new AppError('Failed to fetch mealplans')
+        if (!mealplans) throw new AppError('Failed to fetch mealplans', 500)
 
         return mealplans
 }
@@ -50,7 +51,7 @@ async function updateMealplan({ mealplanId, updates, userId }) {
 
         const updatedMealplan = await Mealplan.findOneAndUpdate(filters, updates, options)
 
-        if (!updatedMealplan) throw new AppError('Failed to update mealplan')
+        if (!updatedMealplan) throw new AppError('Failed to update mealplan', 404)
         
         return updatedMealplan
 }
@@ -71,7 +72,7 @@ async function removeMealplan({ mealplanId, userId }) {
 
         const removedMealplan = await Mealplan.findOneAndDelete(filters, options)
         
-        if (!removedMealplan) throw new AppError('Failed to remove mealplan')
+        if (!removedMealplan) throw new AppError('Mealplan not found', 404)
 
         return removedMealplan
 }
