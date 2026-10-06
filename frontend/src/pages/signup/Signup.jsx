@@ -55,7 +55,7 @@ export default function Signup() {
                         return
                 }
                 
-                userDispatch({type: 'LOGIN', payload: json.user})
+                // userDispatch({type: 'LOGIN', payload: json.user})
                 navigate(`/email-sent?email=${json.user.email}`)
                 setIsLoading(false)
         }
