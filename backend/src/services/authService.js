@@ -108,32 +108,34 @@ async function continueWithGoogle(credential) {
 async function signup({ username, email, password }) {
         await User.validateSignup({username, email, password})
 
-        // Checks if username contains space
         if (username && /\s/.test(username)) throw new AppError('Username must not contain space', 400)
 
         const userExists = await User.findOne({email})
         if (userExists) {
                 if (userExists.email_verified) throw new AppError('Email already taken', 400)
 
-                const {password_hash, ...safeUser} = userExists.toObject()
+                // const {password_hash, ...safeUser} = userExists.toObject()
 
-                await sendVerificationEmail(userExists)
+                // await sendVerificationEmail(userExists)
 
-                return {user: safeUser}
+                // return {user: safeUser}
         }
         
         const usernameTaken = await User.findOne({username})
         if (usernameTaken) throw new AppError('Username already taken', 400)
 
-        const user = await User.signup({username, email, password })
+        const user = await User.signup({username, email, password})
         const {password_hash, ...safeUser} = user.toObject()
 
-        await sendVerificationEmail(user)
+        // await sendVerificationEmail(user)
 
         /*
         *  if user is not yet verified, frontend redirects to the verify email page
         */
-        return {user: safeUser} 
+
+        const token = createToken(user._id, user.email_verified)
+
+        return {token, user: safeUser} 
 }
 
 async function verifyEmail(verificationToken) {

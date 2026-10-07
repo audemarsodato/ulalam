@@ -39,13 +39,13 @@ export default function Login() {
                         setError(json.error)
                         console.log(json)
                         
-                        if (json.error.code === 'EMAIL_NOT_VERIFIED') {
-                                setTimeout(() => {
-                                        console.log('set time out')
-                                        console.log(json)
-                                        navigate(`/email-sent?email=${json.error.payload.email}`)
-                                }, 3000)
-                        }
+                        // if (json.error.code === 'EMAIL_NOT_VERIFIED') {
+                        //         setTimeout(() => {
+                        //                 console.log('set time out')
+                        //                 console.log(json)
+                        //                 navigate(`/email-sent?email=${json.error.payload.email}`)
+                        //         }, 3000)
+                        // }
                         return
                 }
                 

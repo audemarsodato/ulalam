@@ -14,8 +14,9 @@ async function signup(req, res) {
         if (missingFields.length > 0) return res.status(400).json({error: {message: 'Missing fields', missingFields}})
 
         try {
-                const { user } = await authService.signup({username, email, password })
-                res.status(201).json({user})
+                const { user, token } = await authService.signup({username, email, password })
+                const userDetails = await userService.getUser(user._id) // This gets the nested details like ulams and followers
+                res.status(201).json({...userDetails, token})
         }
         catch (error) {
                 const statusCode = error.statusCode ?? 500

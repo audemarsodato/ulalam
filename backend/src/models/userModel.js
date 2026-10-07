@@ -20,7 +20,7 @@ const userSchema = new Schema({
         },
         email_verified: {
                 type: Boolean,
-                default: false,
+                default: true, // change to false when adding email verification back
         },
         password_hash: {
                 type: String,

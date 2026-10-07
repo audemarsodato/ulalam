@@ -33,7 +33,7 @@ export default function App() {
                                 <ScrollToTop />
 
                                 <Routes>
-                                        <Route path='/signup' element={!user ? <Signup /> : <Navigate to={'/'} />}/>
+                                        <Route path='/signup' element={<Signup />}/>
                                         <Route path='/login' element={!user ? <Login /> : <Navigate to={'/'} />}/>
 
                                         <Route path='/email-sent' element={<EmailSentPage />}/>

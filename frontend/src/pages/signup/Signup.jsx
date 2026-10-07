@@ -10,9 +10,9 @@ export default function Signup() {
         const { dispatch: userDispatch } = useUserContext()
         const navigate = useNavigate()
 
-        const [ email, setEmail ] = useState()
-        const [ password, setPassword ] = useState()
-        const [ confirmPassword, setConfirmPassword ] = useState()
+        const [ email, setEmail ] = useState('')
+        const [ password, setPassword ] = useState('')
+        const [ confirmPassword, setConfirmPassword ] = useState('')
         const [ error, setError ] = useState(null)
         const [ isLoading, setIsLoading ] = useState(false)
         const [ missingFields, setMissingFields ] = useState([])
@@ -55,9 +55,11 @@ export default function Signup() {
                         return
                 }
                 
-                // userDispatch({type: 'LOGIN', payload: json.user})
-                navigate(`/email-sent?email=${json.user.email}`)
                 setIsLoading(false)
+                userDispatch({type: 'LOGIN', payload: json})
+                localStorage.setItem('user', JSON.stringify(json))
+                navigate('/profile-setup')
+                // navigate(`/email-sent?email=${json.user.email}`)
         }
 
         return (
