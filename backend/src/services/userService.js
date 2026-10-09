@@ -41,7 +41,8 @@ async function queryUsersByUsername({ username, limit: limitString }) {
         if (username.includes(' ')) throw new AppError('Usernames does not include spaces', 400)
 
         const users = await User.find({
-                username: { $regex: `^${username}`, $options: 'i' }
+                username: { $regex: `^${username}`, $options: 'i' },
+                email_verified: true
         })
                 .select('username profile_image_url followers followings')
                 .limit(limit)
