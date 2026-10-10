@@ -1,0 +1,41 @@
+
+.toast__container {
+        position: fixed;
+        bottom: 10vh;
+        left: 50dvw;
+        transform: translate(-50%, -50%);
+
+        width: 100%;
+
+        animation: fadeInAndOut 3.6s ease;
+}
+
+.toast__body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.toast__message {
+        padding: 1rem;
+        max-width: 80%;
+
+        background-color: #373636;
+        border-radius: 1rem;
+        color: #fff;
+}
+
+@keyframes fadeInAndOut {
+        0% {
+                opacity: 0;
+        }
+        5% {
+                opacity: 1;
+        }
+        95% {
+                opacity: 1;
+        }
+        100% {
+                opacity: 0;
+        }
+}

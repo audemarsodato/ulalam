@@ -14,9 +14,11 @@ import { fetchRecordSession, getCookingTimeDuration } from "../../services/coook
 import useUserContext from '../../hooks/useUserContext'
 
 import { minimumCookingTimeMinutes } from "../../config/config"
+import useToastContext from "../../hooks/useToastContext"
 
 export default function CookUlam() {
         const navigate = useNavigate()
+        const { setToastMessage } = useToastContext()
 
         /*
         *  Record and keep note of start time
@@ -92,6 +94,7 @@ export default function CookUlam() {
 
                 if (cookingTimeDurationMinutes < minimumCookingTimeMinutes) {
                         setError({message: 'Invalid cooking session. Cooking time duration is too short to be valid.'})
+                        setToastMessage('Minimum of 5 minutes cooking time.')
                         console.log('INVALID COOKING SESSION')
                         // navigate('/')
                         return

@@ -88,7 +88,7 @@ async function continueWithGoogle(credential) {
         }
 
         if (!userExists) {
-                const username = name.replace(' ', '').trim().toLowerCase()
+                const username = name.replaceAll(' ', '').toLowerCase()
 
                 user = await User.create({
                         google_id,

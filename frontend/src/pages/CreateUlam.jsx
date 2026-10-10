@@ -23,22 +23,22 @@ export default function CreateUlam() {
                 const instructions = toArray(instructionsText)
 
                 if (!name) {
-                        setError({message: 'Ulam name is required'})
+                        setError({message: "You can't create ulam without name"})
                         setIsLoading(false)
                         return
                 }
                 if (!imageFile) {
-                        setError({message: 'Ulam image is required'})
+                        setError({message: 'Oops. I need a photo of your ulam'})
                         setIsLoading(false)
                         return
                 }
                 if (!ingredients.length === 0) {
-                        setError({message: 'Ingredients is required'})
+                        setError({message: 'There is no ulam without ingredients'})
                         setIsLoading(false)
                         return
                 }
                 if (!instructions.length === 0) {
-                        setError({message: 'Instructions is required'})
+                        setError({message: 'No instructions?'})
                         setIsLoading(false)
                         return
                 }

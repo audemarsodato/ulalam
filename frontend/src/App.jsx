@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import ScrollToTop from './components/utils/ScrollToTop'
-
 import ProtectedRoutes from './components/auth/ProtectedRoutes'
+import Toast from './components/toast/Toast'
+
+import useToastContext from './hooks/useToastContext'
+
 import Home from './pages/Home'
 import CreateUlam from './pages/CreateUlam'
 import EditUlam from './pages/EditUlam'
@@ -23,9 +26,7 @@ import PageNotFound from './pages/page-not-found/PageNotFound'
 
 export default function App() {
         const { user } = useUserContext()
-
-        // everytime we go to a page we push the url
-        // we everytime we go back we pop and go to the popped url
+        const { toastMessage } = useToastContext()
 
         return (
                 <div className='app'>
@@ -62,6 +63,10 @@ export default function App() {
                                         <Route path='*' element={<PageNotFound />} />
                                 </Routes>              
                         </BrowserRouter>
+
+                        {toastMessage &&
+                                <Toast />
+                        }
                 </div>
         )
 }

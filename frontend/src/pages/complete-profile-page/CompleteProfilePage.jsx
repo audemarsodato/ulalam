@@ -4,16 +4,20 @@ import { useNavigate } from 'react-router-dom'
 import './CompleteProfilePage.css'
 import defaultProfileImage from '../../assets/icons/default-profile-picture.svg'
 import useUserContext from '../../hooks/useUserContext'
+import useToastContext from '../../hooks/useToastContext'
 import AuthError from '../../components/auth-error/AuthError'
+import LoadingSpinner from '../../components/loading-spinner/LoadingSpinner'
 
 export default function CompleteProfilePage() {
         const navigate = useNavigate()
+        const { setToastMessage } = useToastContext()
 
         const { user, dispatch: userDispatch } = useUserContext()
         const [ profileImage, setProfileImage ] = useState(null)
         const [ profileImageSrc, setprofileImageSrc ] = useState(null)
         const [ username, setUsername ] = useState('')
         const [ error, setError ] = useState(null)
+        const [ isLoading, setIsLoading] = useState(false)
 
         const setPreview = (event) => {
                 const file = event.target.files[0]
@@ -38,7 +42,9 @@ export default function CompleteProfilePage() {
         const handleProfileSetup = async (event) => {
                 event.preventDefault()
 
-                if (!username) return // TODO set globbal error
+                if (!username) return
+
+                setIsLoading(true)
 
                 if (profileImage) {
                         const formData = new FormData()
@@ -55,6 +61,7 @@ export default function CompleteProfilePage() {
                         
                         if (!profileImageResponse.ok) {
                                 setError(profileImageJson.error)
+                                setIsLoading(false)
                                 return
                         }
                         userDispatch({type: 'UPDATE', payload: {
@@ -76,10 +83,12 @@ export default function CompleteProfilePage() {
                 // TODO response not ok handler
                 if (!usernameResponse.ok) {
                         setError(usernameJson.error)
+                        setIsLoading(false)
                         return
                 }
 
                 userDispatch({type: 'UPDATE', payload: {username: usernameJson.updatedUser.username}})
+                setIsLoading(false)
                 navigate('/')
         }
 
@@ -126,7 +135,11 @@ export default function CompleteProfilePage() {
                                         />
 
                                         <section className="complete-profile__continue">
-                                                <button type='submit' className="complete-profile__continue-button">Complete</button>
+                                                <button type='submit' className="complete-profile__continue-button" disabled={isLoading}>
+                                                        {!isLoading ? 'Complete' :
+                                                                <LoadingSpinner />
+                                                        }
+                                                </button>
                                         </section>
                                 </form>
                                 
