@@ -90,12 +90,12 @@ export default function Home() {
                                 <Link to={`/users/${user.username}`} className='profile-image'>
                                         <img src={user.profile_image_url ? user.profile_image_url : defaultProfileImage}/>
                                 </Link>
-                                <p>Ulalam</p>
+                                {/* <p>Ulalam</p> */}
+                                <div className='greetings'>
+                                        <h2>Good {timeOfDay}, {user.username}</h2>
+                                </div>
                         </header>
 
-                        <div className='greetings'>
-                                <h2>Good {timeOfDay}, {user.username}</h2>
-                        </div>
 
                         <div className='search'>
                                 <Link to='/search'>
@@ -136,7 +136,7 @@ export default function Home() {
                         {ulamsFromFollowings.length > 0 &&
                                 <section className='latest-from-following-section section'>
                                         <header>
-                                                <h2 className='section-title'>Latest from people you follow</h2>
+                                                <h2 className='section-title'>Ulam from people you follow</h2>
                                         </header>
 
                                         <div className='ulam-container'>

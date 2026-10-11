@@ -53,7 +53,10 @@ body {
 .home-page header  {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
+
+        gap: 1rem;
+        margin-bottom: 24px;
 
 }
 
@@ -81,15 +84,6 @@ body {
         font-weight: 900;
 }
 
-.home-page header p {
-        margin-right: 40%;
-        font-size: var(--text-size);
-}
-
-.home-page .greetings {
-        margin: 24px 0;
-}
-
 .home-page .greetings h2 {
         font-size: var(--medium-header);
         font-weight: 600;
@@ -113,12 +107,20 @@ body {
         border-radius: 50px;
         background-color: #fff;
         text-decoration: none;
+        /* #d7d7d7 */
+        box-shadow: 0px 4px 16px #9f9f9f, 0px -4px 12px #f8f8f8;
 }
 
 .home-page .you-cooked-section header a{
         color: var(--primary);
         font-weight: 600;
         opacity: 60%;
+}
+
+.you-cooked-section header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 }
 
 .you-cooked-section__to-history-page {
@@ -908,7 +910,9 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+
         gap: 4px;
+        font-size: var(--text-small);
 }
 
 .ulam-profile-page .divider {

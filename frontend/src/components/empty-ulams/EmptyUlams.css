@@ -18,6 +18,8 @@
 .empty-ulams__message {
         text-align: center;
 
+        font-size: var(--text-small);
+
         /* font-weight: 400; */
         opacity: 80%;
         /* color: var(--error); */
