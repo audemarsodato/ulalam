@@ -21,7 +21,7 @@ export default function UlamCard({ ulamName, owner, stats, imageURL, onClick, id
                         <div className="details">
                                 <h1>{ulamName}</h1>
                                 { owner &&
-                                        <p>By {owner}</p>
+                                        <p>{owner}</p>
                                 }
                                 { stats &&
                                         <p className="stats">

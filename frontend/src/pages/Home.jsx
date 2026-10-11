@@ -114,7 +114,7 @@ export default function Home() {
                                         {cookedUlams.length > 0 ?
                                                 displayHistoryIncludeNull
                                                 :
-                                                <EmptyUlams message={'No cooking history yet. Start cooking to see your history here.'} />
+                                                <EmptyUlams message={"You haven't cooked any ulams yet!"} />
                                         }
                                 </div>
                         </section>
@@ -128,7 +128,7 @@ export default function Home() {
                                         {user.earned_specialties.length > 0 ?
                                                 displaySpecialties
                                                 : 
-                                                <EmptyUlams message={"No specialties yet. Keep cooking your favorite ulams to earn specialties!"} />
+                                                <EmptyUlams message={"You have no specialties yet!"} />
                                         }
                                 </div>
                         </section>

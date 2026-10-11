@@ -13,7 +13,7 @@ export default function SpecialtyCard({ ulamName, owner, timesCooked, imageURL, 
 
                         <div className="details">
                                 <h1>{ulamName}</h1>
-                                <p>By {owner}</p>
+                                <p>{owner}</p>
                         </div>
 
                         <div className="action" onClick={event => event.stopPropagation()}>

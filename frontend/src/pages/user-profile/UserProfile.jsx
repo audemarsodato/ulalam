@@ -154,12 +154,12 @@ export default function UserProfile() {
                 />
         )
 
-        const displayFollowers = user.followers.map(user => 
-                <UserCard key={user} user={user}/>
+        const displayFollowers = user.followers.map(follower => 
+                <UserCard key={follower} user={follower}/>
         )
 
-        const displayFollowings = user.followings.map(user => 
-                <UserCard key={user} user={user}/>
+        const displayFollowings = user.followings.map(following => 
+                <UserCard key={following} user={following}/>
         )
 
         const displayBookmarks = bookmarks && bookmarks.map(ulam => 
@@ -239,9 +239,9 @@ export default function UserProfile() {
                                         {user.earned_specialties.length > 0 ?
                                                 displaySpecialties
                                                 : (isOwnProfile ?
-                                                        <EmptyUlams message={"No specialties yet. Keep cooking your favorite ulams to earn specialties!"} />
+                                                        <EmptyUlams message={"You have no specialties yet!"} />
                                                         :
-                                                        <EmptyUlams message={`${user.username} does not have specialties yet.`} />
+                                                        <EmptyUlams message={`${user.username} has no specialties yet.`} />
                                                 )
                                         }  
                                 </div>
@@ -291,7 +291,7 @@ export default function UserProfile() {
                         {activeModal === 'followings' &&
                                 <Modal modalTitle={'Followings'} onClose={() => setActiveModal(null)} >
                                         <div className="user-container">
-                                                {displayFollowers}
+                                                {displayFollowings}
                                         </div>
                                 </Modal>
                         }
