@@ -610,11 +610,19 @@ body {
         transform: translateY(-50%);
 }
 
-.search-page .search-form span {
+.search-page .search-form .add-ingredient-icon {
         font-size: 32px;
 
         opacity: 40%;
         font-weight: 600;
+}
+
+.search-page .search-form .search-user-icon {
+        font-size: 32px;
+
+        /* opacity: 40%; */
+        font-weight: 600;
+        transition: opacity 300ms ease;
 }
 
 .search-page .mode-selection {
@@ -1107,4 +1115,13 @@ body {
 
 .border-red {
         border: 2px solid var(--error);
+}
+
+.color-primary {
+        color: var(--primary);
+        opacity: 100%;
+}
+
+.opacity-40 {
+        opacity: 40%;
 }

@@ -206,15 +206,15 @@ export default function UserProfile() {
                         <section className="stats section">
                                 <div className="published stat">
                                         <p className="value">{user.published_ulams.length}</p>
-                                        <p>Published</p>
+                                        <p className='title'>Published</p>
                                 </div>
                                 <div className="followers stat" onClick={() => setActiveModal('followers')}>
                                         <p className="value">{user.followers.length}</p>
-                                        <p>Followers</p>
+                                        <p className='title'>Followers</p>
                                 </div>
                                 <div className="following stat" onClick={() => setActiveModal('followings')}>
                                         <p className="value">{user.followings.length}</p>
-                                        <p>Following</p>
+                                        <p className='title'>Following</p>
                                 </div>
                         </section>
 

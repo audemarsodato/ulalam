@@ -7,6 +7,7 @@ import Ingredient from '../../components/Ingredient'
 import UlamCardSearch from '../../components/ulam-cards/UlamCardSearch'
 import UserCard from '../../components/user-card/UserCard'
 import Error from './components/Error'
+import LoadingSpinner from '../../components/loading-spinner/LoadingSpinner'
 
 import { queryLimit } from '../../config/config'
 
@@ -21,6 +22,7 @@ export default function Search() {
         const [ matchedUsers, setMatchedUsers ] = useState(null)
         const [ ulamError, setUlamError ] = useState(null)
         const [ userError, setUserError ] = useState(null)
+        const [ isLoading, setIsLoading ] = useState(false)
 
         const [ mode, setMode ] = useState('ulam')
 
@@ -78,27 +80,46 @@ export default function Search() {
         )
 
         const searchPeople = async () => {
+                setIsLoading(true)
                 setMatchedUsers(null)
                 setUserError(null)
                 
-                if (!input) return
+                if (!input) {
+                        setIsLoading(false)
+                        return
+                }
 
                 const { users: matchedUsers, error } = await fetchQueryUsers({username: input, limit:  queryLimit, token: user.token})
                         
                 if (error) {
                         setUserError(error)
                         console.log(error)
+                        setIsLoading(false)
                         return
                 }
 
                 if (matchedUsers.length === 0) {
                         setUserError({message: 'No user found'})
+                        setIsLoading(false)
                         return
                 }
 
                 setMatchedUsers(matchedUsers)
                 setUserError(null)
+                setIsLoading(false)
         }
+
+        useEffect(() => {
+                if (mode === 'ulam') return
+
+                // if (!input) return
+
+                const timeoutId = setTimeout(() => {
+                        searchPeople()
+                }, 1000)
+
+                return () => clearTimeout(timeoutId)
+        }, [input])
 
         // const displayMatchedUsers = matchedUsers && <UserCard userName={matchedUsers.username} followerCount={matchedUsers.followers.length} followingCount={matchedUsers.followings.length} profileURL={matchedUsers.profile_image_url}/>
         const displayMatchedUsers = matchedUsers && matchedUsers.map(user => 
@@ -118,16 +139,22 @@ export default function Search() {
                                 />
                                 {mode === 'ulam' &&
                                         <button type='button' onClick={addIngredient}>
-                                                <span className="material-symbols-rounded">
-                                                        {mode === 'ulam' ? 'add_circle_outline' : 'search'}
+                                                <span className="material-symbols-rounded add-ingredient-icon">
+                                                        {/* {mode === 'ulam' ? 'add_circle_outline' : 'search'} */}
+                                                        add_circle_outline
                                                 </span>
                                         </button>
                                 }
                                 {mode === 'people' &&
-                                        <button type='button' onClick={searchPeople}>
-                                                <span className="material-symbols-rounded">
-                                                        {mode === 'ulam' ? 'add_circle_outline' : 'search'}
-                                                </span>
+                                        <button type='button' onClick={searchPeople} disabled={isLoading}>
+                                                {isLoading ? 
+                                                        <LoadingSpinner />
+                                                        :
+                                                        <span className={`material-symbols-rounded search-user-icon ${input ? 'color-primary' : 'opacity-40'}`}>
+                                                                {/* {mode === 'ulam' ? 'add_circle_outline' : 'search'} */}
+                                                                search
+                                                        </span>
+                                                }
                                         </button>
                                 }
                         </form>
